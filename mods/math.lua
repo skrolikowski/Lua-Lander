@@ -118,7 +118,11 @@ function _:maxBy(tabl, iteratee)
 
     table.foreach(tabl, function(k, v)
         if _:isNumber(v) then
-            max = __max(max or 0, iteratee(v))
+            if not max then
+                max = iteratee(v)
+            else
+                max = __max(max, iteratee(v))
+            end
         end
     end)
 
@@ -183,7 +187,11 @@ function _:minBy(tabl, iteratee)
 
     table.foreach(tabl, function(k, v)
         if _:isNumber(v) then
-            min = __min(min or __huge, iteratee(v))
+            if not min then
+                min = iteratee(v)
+            else
+                min = __min(min, iteratee(v))
+            end
         end
     end)
 
