@@ -13,7 +13,7 @@ local __sub     = string.sub      -- returns substring in specified range
 local __upper   = string.upper    -- returns string with all chars uppercase
 
 -- _:camelCase(str)
--- converts `str` to camel case
+-- Converts `str` to [Camel Case](https://en.wikipedia.org/wiki/Camel_case).
 --
 -- @param  string(str)
 -- @return string
@@ -31,8 +31,8 @@ function _:camelCase(str)
 end
 
 -- _:capitalize(str)
--- convert first letter of each word of `str`
---  to upper case and remaining to lowercase
+-- Capitalizes first character of `str`
+--  and lower cases the rest.
 --
 -- @param  string(str)
 -- @return string
@@ -45,24 +45,24 @@ function _:capitalize(str)
     return str
 end
 
--- _:endsWith(str, target, [position=str:len()])
--- check if `str` ends with `target` up until
---  end `position
+-- _:endsWith(str, target, [position=_:size(str)])
+-- Determines if `str` ends with `target` up until
+--  the end `position`.
 --
 -- @param  string(str)
 -- @return boolean
 function _:endsWith(str, target, position)
     str      = _:assertArgument('str', str, 'string')
     target   = _:assertArgument('target', target, 'string')
-    position = _:assertArgument('position', position, 'number', str:len())
+    position = _:assertArgument('position', position, 'number', _:size(str))
     --
     local substr = __sub(str, 0, position)
 
-    return __find(substr, target) == substr:len()
+    return __find(substr, target) == _:size(substr)
 end
 
 -- _:kebabCase(str)
--- converts `str` to kebab case
+-- Converts `str` to [Kebab Case](https://en.wikipedia.org/wiki/Letter_case#Special_case_styles).
 --
 -- @param  string(str)
 -- @return string
@@ -76,7 +76,7 @@ function _:kebabCase(str)
 end
 
 -- _:lowerCase(str)
--- converts `str` to lower-case, space-separated words
+-- Converts `str` to lower-case, space-separated words.
 --
 -- @param  string(str)
 -- @return string
@@ -90,7 +90,7 @@ function _:lowerCase(str)
 end
 
 -- _:lowerFirst(str)
--- converts first character in `str` to lowercase
+-- Lower-cases first character in `str`.
 --
 -- @param  string(str)
 -- @return string
@@ -101,8 +101,8 @@ function _:lowerFirst(str)
 end
 
 -- _:pad(str, [length=0], [chars=" "])
--- pads `str` on both sides, if shorter than
---  `length`, with `chars`
+-- Pads both sides of `str` with `chars`,
+--  only if `str` is smaller than `length`.
 --
 -- @param  string(str)
 -- @param  number(length)
@@ -113,12 +113,24 @@ function _:pad(str, length, chars)
     length = _:assertArgument('length', length, 'number', 0)
     chars  = _:assertArgument('chars', chars, 'string', ' ')
     --
-    -- TODO:
+    local padSize  = length - __len(str)
+    local halfSize = padSize / 2
+    local left     = ""
+    local right    = ""
+
+    -- if we need to pad, split pad size 1/2
+    if padSize > 0 then
+        chars = __rep(chars, padSize)
+        left  = __sub(chars, 1, math.floor(halfSize))
+        right = __sub(chars, 1, math.ceil(halfSize))
+    end
+
+    return left .. str .. right
 end
 
 -- _:padEnd(str, [length=0], [chars=" "])
--- pads end of `str`, if shorter than `length`,
---  with `chars`
+-- Pads end of `str` with `chars`, only if
+--  `str` is smaller than `length`.
 --
 -- @param  string(str)
 -- @param  number(length)
@@ -129,12 +141,15 @@ function _:padEnd(str, length, chars)
     length = _:assertArgument('length', length, 'number', 0)
     chars  = _:assertArgument('chars', chars, 'string', ' ')
     --
-    -- TODO:
+    chars = __rep(chars, length)
+    chars = __sub(chars, 1, length - __len(str))
+
+    return str .. chars
 end
 
 -- _:padStart(str, [length=0], [chars=" "])
--- pads beginning of `str`, if shorter than `length`,
---  with `chars`
+-- Pads beginning of `str` with `chars`, only
+--  if `str` is smaller than `length`.
 --
 -- @param  string(str)
 -- @param  number(length)
@@ -145,12 +160,14 @@ function _:padStart(str, length, chars)
     length = _:assertArgument('length', length, 'number', 0)
     chars  = _:assertArgument('chars', chars, 'string', ' ')
     --
-    -- TODO:
+    chars = __rep(chars, length)
+    chars = __sub(chars, 1, length - __len(str))
+
+    return chars .. str
 end
 
 -- _:rep(str, [n=1])
--- returns new string by repeating given
---  `str` `n` times
+-- Repeats given `str` `n` number of times.
 --
 -- @param  string(str)
 -- @return string
@@ -162,8 +179,8 @@ function _:rep(str, n)
 end
 
 -- _:replace(str, pattern, [repl=""], [n])
--- returns new string by repeating given
---  `str` `n` times
+-- Replaces matches from `pattern` in `str`
+--  with `repl` string.
 --
 -- @param  string(str)
 -- @param  string(pattern)
@@ -179,7 +196,7 @@ function _:replace(str, pattern, repl, n)
 end
 
 -- _:snakeCase(str)
--- converts `str` to snake case
+-- Converts `str` to [Snake Case](https://en.wikipedia.org/wiki/Snake_case).
 --
 -- @param  string(str)
 -- @return string
@@ -194,8 +211,8 @@ function _:snakeCase(str)
     return __lower(str)                    -- lower-case string
 end
 
--- _:split(str, separator, [limit=str:len()])
--- splits `str` by `separator`, truncated by `limit` elements
+-- _:split(str, separator, [limit=_:size(str)])
+-- Splits `str` by `separator`, truncated by `limit`.
 --
 -- @param  string(str)
 -- @return string
@@ -212,7 +229,7 @@ function _:split(str, separator, limit)
 end
 
 -- _:startCase(str)
--- converts `str` to start case
+-- Converts `str` to [Start Case](https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage).
 --
 -- @param  string(str)
 -- @return string
@@ -236,8 +253,8 @@ function _:startCase(str, target, position)
 end
 
 -- _:startsWith(str, target, [position=1])
--- check if `str` begins with `target` starting
---  at `position`
+-- Determine if `str` starts with `target`,
+--  starting at `position`.
 --
 -- @param  string(str)
 -- @param  string(target)
@@ -251,8 +268,8 @@ function _:startsWith(str, target, position)
     return __find(__sub(str, position), target) == 1
 end
 
--- _:toLower(str, [pattern="%s+"])
--- converts entire `str` to lower case
+-- _:toLower(str)
+-- Converts entire `str` to lower case.
 --
 -- @param  string(str)
 -- @return string
@@ -263,7 +280,7 @@ function _:toLower(str)
 end
 
 -- _:toUpper(str)
--- converts entire `str` to upper case
+-- Converts entire `str` to upper case.
 --
 -- @param  string(str)
 -- @return string
@@ -273,8 +290,8 @@ function _:toUpper(str)
     return __upper(str)
 end
 
--- _:trim(str, [pattern=""])
--- removes leading and trailing `pattern` of `str`
+-- _:trim(str, [pattern='%s+'])
+-- Removes leading and trailing `pattern` of `str`.
 --
 -- @param  string(str)
 -- @param  string(pattern)
@@ -286,8 +303,8 @@ function _:trim(str, pattern)
     return str
 end
 
--- _:trimEnd(str, [pattern="%s+"])
--- removes trailing `pattern` of `str`
+-- _:trimEnd(str, [pattern='%s+'])
+-- Removes trailing `pattern` of `str`.
 --
 -- @param  string(str)
 -- @param  string(pattern)
@@ -303,8 +320,8 @@ function _:trimEnd(str, pattern)
     end
 end
 
--- _:trimStart(str, [pattern="%s+"])
--- removes leading `pattern` or `str`
+-- _:trimStart(str, [pattern='%s+'])
+-- Removes leading `pattern` or `str`.
 --
 -- @param  string(str)
 -- @param  string(pattern)
@@ -321,7 +338,7 @@ function _:trimStart(str, pattern)
 end
 
 -- _:truncate(str, [options={}])
--- truncates `str` with `options`
+-- Truncates `str` with `options`.
 --
 -- options:
 -- - number(length=30)       -- truncate length
@@ -332,23 +349,25 @@ end
 -- @return string
 function _:truncate(str, options)
     str = _:assertArgument('str', str, 'string')
+    --
     options = {
-        length    = _:assertArgument('length', length, 'number', 30),
-        separator = _:assertArgument('separator', separator, 'string', ''),
-        omission  = _:assertArgument('omission', omission, 'string', '...')
+        length    = _:assertArgument('length', (options and options['length'] or nil), 'number', 30),
+        separator = _:assertArgument('separator', (options and options['separator'] or nil), 'string', ''),
+        omission  = _:assertArgument('omission', (options and options['omission'] or nil), 'string', '...')
     }
     --
     local separator = options.separator
     local omission  = options.omission
     local length    = options.length - __len(omission)
 
-    if separator ~= '' then
+    if not _:isEmpty(separator) then
         local len
-        len = __find(str, separator)  -- find first occurrence of `separator`
-        len = len - 1              -- offset index
+
+        len    = __find(str, separator)  -- find first occurrence of `separator`
+        len    = len - 1                 -- offset length to exclude match
+        str    = __sub(str, 1, len)      -- drop end of string after and including pattern
         length = math.min(length, len)
     end
-
 
     str = __sub(str, 1, length)
     str = str .. omission
@@ -356,8 +375,24 @@ function _:truncate(str, options)
     return str
 end
 
+-- _:upperCase(str)
+-- Converts `str` to space-separated, upper case string.
+--
+-- @param  string(str)
+-- @return string
+function _:upperCase(str)
+    str = _:assertArgument('str', str, 'string')
+    --
+    str = __gsub(str, '%f[%u]', ' ')  -- separate uppercase transitions
+
+    local words = _:words(str)
+
+    return _:join(_:map(words, __upper), ' ')
+end
+
 -- _:upperFirst(str)
--- converts first character in `str` to lowercase
+-- Converts first character in  `str` to  upper
+--  case, leaving the rest untouched.
 --
 -- @param  string(str)
 -- @return string
@@ -367,9 +402,9 @@ function _:upperFirst(str)
     return __gsub(str, '^%a', __upper)
 end
 
--- _:words(str, [pattern])
--- converts `str` into table of words,
---  using `pattern` as matcher
+-- _:words(str, [pattern='%a+'])
+-- Converts `str` into table of words, using
+--  `pattern` as separator.
 --
 -- @param  string(str)
 -- @param  string(pattern)

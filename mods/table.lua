@@ -259,7 +259,7 @@ function _:flatten(tabl)
     return out
 end
 
--- _:fill(tabl, value, [start=1], [finish=#tabl])
+-- _:fill(tabl, value, [start=1], [stop=_:size(tabl)])
 -- creates new `tabl` with `value` from
 --  `start` position to `stop` position
 --
@@ -271,7 +271,7 @@ end
 function _:fill(tabl, value, start, stop)
     tabl  = _:assertArgument('tabl', tabl, 'table')
     start = _:assertArgument('start', start, 'number', 1)
-    stop  = _:assertArgument('stop', stop, 'number', #tabl)
+    stop  = _:assertArgument('stop', stop, 'number', _:size(tabl))
     --
     local out = {}
 

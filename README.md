@@ -1,10 +1,9 @@
-# LuaT
+# Lua Lander
 
-A modern Lua utility library.
+A modern utility library for Lua, offering tons of supplemental goodness your projects.
 
 * [Installation](#Installation)
 * [Getting Started](#Getting-Started)
-* [API](#API)
 * [Acknowledgements](#Acknowledgements)
 * [License](#License)
 
@@ -17,17 +16,27 @@ A modern Lua utility library.
 
 **LuaRocks**
 
-```
-luarocks install luat
+```bash
+$ luarocks install lua-lander
 ```
 
 ## Getting Started
 
-Include the following in any file:
+Step 1: Add the following _once_  in your project:
 
+```lua
+require 'lua-lander'
 ```
-local _ = require 'luat'
+
+Step 2: Start using!
+
+```bash
+> _:camelCase('Hello World!')          # => 'helloWorld'
+> _:fill({'a', 'b', 'c'}, 'd', 2, 3)   # => {'a', 'd', 'd'}
+> _:color('gray-100')                  # => 0.97, 0.98, 0.99
 ```
+
+> Find more in the ([Documentation](https://github.com/skrolikowski/Lua-Lander/master/docs)).
 
 ## Acknowledgements
 
@@ -36,4 +45,4 @@ local _ = require 'luat'
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details

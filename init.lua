@@ -14,5 +14,3 @@ require 'mods.number'
 require 'mods.string'
 require 'mods.table'
 require 'mods.util'
-
-print(_:truncate('hi-diddly-ho there, neighborino', {length = 24, separator = ' '}))

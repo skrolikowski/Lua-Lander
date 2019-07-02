@@ -55,6 +55,18 @@ function _:assertNotNil(name, var)
     assert(var ~= nil, 'Argument `' .. name .. '` must have a non-nil value.')
 end
 
+-- _:assertIsNotZero(name, var)
+-- assert `var` is not 0
+--
+-- @param string(name) - identifier
+-- @param mixed(var)   - variable to assert
+-- @return void
+function _:assertNotZero(name, var)
+    assert(type(name) == 'string', 'assertArgument :: `name` should be a `string`!')
+    ---
+    assert(var ~= 0, 'Argument `' .. name .. '` should not be 0.')
+end
+
 -- _:assertIsRegexPattern(name, var)
 -- assert `var` is a regex pattern
 --
@@ -131,6 +143,45 @@ function _:assertMaxSize(name, var, expect)
     assert(type(expect) == 'number', 'assertArgument :: `expect` should be a `number`!')
     ---
     assert(_:size(var) <= expect, 'Argument `' .. name .. '` must be less than or equal to ' .. expect .. ' in size.')
+end
+
+-- _:assertIsString(name, var)
+-- Asserts `var` is of boolean data type.
+--
+-- @param string(name) - identifier
+-- @param mixed(...)   - values to assert
+-- @return void
+function _:assertIsString(name, var)
+    assert(type(name) == 'string', 'assertArgument :: `name` should be a `string`!')
+    assert(var ~= nil, 'assertArgument :: `var` must have a non-nil value!')
+    ---
+    assert(_:isString(var), 'Argument `' .. name .. '` is a `' .. type(var) .. '` but should be a `string`.')
+end
+
+-- _:assertIsNumber(name, var)
+-- Asserts `var` is of number data type.
+--
+-- @param string(name) - identifier
+-- @param mixed(...)   - values to assert
+-- @return void
+function _:assertIsNumber(name, var)
+    assert(type(name) == 'string', 'assertArgument :: `name` should be a `string`!')
+    assert(var ~= nil, 'assertArgument :: `var` must have a non-nil value!')
+    ---
+    assert(_:isNumber(var), 'Argument `' .. name .. '` is a `' .. type(var) .. '` but should be a `number`.')
+end
+
+-- _:assertIsBoolean(name, var)
+-- Asserts `var` is of boolean data type.
+--
+-- @param string(name) - identifier
+-- @param mixed(...)   - values to assert
+-- @return void
+function _:assertIsBoolean(name, var)
+    assert(type(name) == 'string', 'assertArgument :: `name` should be a `string`!')
+    assert(var ~= nil, 'assertArgument :: `var` must have a non-nil value!')
+    ---
+    assert(_:isBoolean(var), 'Argument `' .. name .. '` is a `' .. type(var) .. '` but should be a `boolean`.')
 end
 
 -- _:assertArgument(name, var, expect, [default])

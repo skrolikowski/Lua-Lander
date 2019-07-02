@@ -81,16 +81,18 @@ end
 
 -- _:isBoolean(var)
 -- performs check on whether `var` is
---  an empty native Lua `table`
+--  an empty value
 --
 -- @param  mixed(var)
 -- @return boolean
 function _:isEmpty(var)
-    if not _:isIterable(var) then
-        return false
+    if _:isIterable(var) then
+        return next(var) == nil
+    elseif _:isString(var) then
+        return var == ''
     end
-
-    return next(var) == nil
+    -- TODO: what about other types?
+    return false
 end
 
 -- _:isNumber(var)
