@@ -11,14 +11,12 @@ A modern utility library for Lua, offering tons of supplemental goodness your pr
 
 **Direct Download**
 
-1. Download the latest release from the [release page](https://github.com/skrolikowski/LuaT/releases).
+1. Download the latest release from the [release page](https://github.com/skrolikowski/Lua-Lander/releases).
 2. Unpack and upload to a folder that is recognized by `LUA_PATH`.
 
 **LuaRocks**
 
-```bash
-$ luarocks install lua-lander
-```
+...soon!
 
 ## Getting Started
 
@@ -36,7 +34,7 @@ Step 2: Start using!
 > _:color('gray-100')                  # => 0.97, 0.98, 0.99
 ```
 
-> Find more in the ([Documentation](https://github.com/skrolikowski/Lua-Lander/master/docs)).
+> Find more in the ([Documentation](https://github.com/skrolikowski/Lua-Lander/blob/master/docs/index.md)).
 
 ## Acknowledgements
 
