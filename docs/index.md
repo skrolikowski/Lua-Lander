@@ -8,12 +8,12 @@ Hello. This project is heavily inspired by [LoDash](https://lodash.com/). It is 
 
 | Module                                                       | Description                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [Assert](https://github.com/skrolikowski/Lua-Lander/docs/assert.md) | Assertion helpers.                                           |
-| [Color](https://github.com/skrolikowski/Lua-Lander/docs/color.md) | Color utility helpers.                                       |
-| [Lang](https://github.com/skrolikowski/Lua-Lander/docs/lang.md) | Equality, comparison, and (pseudo-) type checks.             |
-| [Math](https://github.com/skrolikowski/Lua-Lander/docs/math.md) | An extension on the `math` library.                          |
-| [Number](https://github.com/skrolikowski/Lua-Lander/docs/number.md) | Functions revolving around the native `number` data type.    |
-| [String](https://github.com/skrolikowski/Lua-Lander/docs/string.md) | Functions revolving around the native `string` data type.    |
+| [Assert](https://github.com/skrolikowski/Lua-Lander/blob/master/docs/assert.md) | Assertion helpers.                                           |
+| [Color](https://github.com/skrolikowski/Lua-Lander/blob/master/docs/color.md) | Color utility helpers.                                       |
+| [Lang](https://github.com/skrolikowski/Lua-Lander/blob/master/docs/lang.md) | Equality, comparison, and (pseudo-) type checks.             |
+| [Math](https://github.com/skrolikowski/Lua-Lander/blob/master/docs/math.md) | An extension on the `math` library.                          |
+| [Number](https://github.com/skrolikowski/Lua-Lander/blob/master/docs/number.md) | Functions revolving around the native `number` data type.    |
+| [String](https://github.com/skrolikowski/Lua-Lander/blob/master/docs/string.md) | Functions revolving around the native `string` data type.    |
 | **Table**                                                    | Functions revolving around the native `table` data type.     |
 | **Util**                                                     | General multi-purpose utility functions that work with one or more native data types. |
 
