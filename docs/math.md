@@ -4,7 +4,7 @@
 > _:abs(num)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/math.lua#L26-L30)</small>
 
 Returns absolute value of `num`.
 
@@ -33,7 +33,7 @@ Returns absolute value of `num`.
 > _:add(...)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/math.lua#L37-L39)</small>
 
 Adds all numbers and returns sum.
 
@@ -60,7 +60,7 @@ Adds all numbers and returns sum.
 _:ceil(num, [precision=0])
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/math.lua#L47-L54)</small>
 
 Rounds up `num` to desired `precision`.
 
@@ -89,7 +89,7 @@ Rounds up `num` to desired `precision`.
 > _:divide(...)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/math.lua#L61-L76)</small>
 
 Divides series of numbers and returns result.
 
@@ -116,7 +116,7 @@ Divides series of numbers and returns result.
 > _:floor(num, [precision=0])
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/math.lua#L84-L91)</small>
 
 Rounds down `num` to desired `precision`.
 
@@ -145,7 +145,7 @@ Rounds down `num` to desired `precision`.
 > _:max(...)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/math.lua#L98-L100)</small>
 
 Finds max in sequence of numbers.
 
@@ -171,7 +171,7 @@ Finds max in sequence of numbers.
 > _:maxBy(tabl, [iteratee])
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/math.lua#L113-L130)</small>
 
 Finds max in `tabl` of numbers, with every element invoked by `iteratree`.
 
@@ -200,7 +200,7 @@ Finds max in `tabl` of numbers, with every element invoked by `iteratree`.
 > _:mean(...)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/math.lua#L137-L139)</small>
 
 Computes mean of sequence of numbers.
 
@@ -226,7 +226,7 @@ Computes mean of sequence of numbers.
 > _:meanBy(tabl, [iteratee])
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/math.lua#L151-L160)</small>
 
 Computes mean of `tabl` of numbers, with every element invoked by `iteratree`.
 
@@ -255,7 +255,7 @@ Computes mean of `tabl` of numbers, with every element invoked by `iteratree`.
 > _:min(...)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/math.lua#L167-L169)</small>
 
 Computes minimum of sequence of numbers.
 
@@ -282,7 +282,7 @@ Computes minimum of sequence of numbers.
 > _:minBy(tabl, iteratee)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/math.lua#L182-L199)</small>
 
 Computes minimum of sequence of numbers, with every element invoked by `iteratree`.
 
@@ -311,7 +311,7 @@ Computes minimum of sequence of numbers, with every element invoked by `iteratre
 > _:multiply(...)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/math.lua#L206-L208)</small>
 
 Multiplies sequence of numbers.
 
@@ -338,7 +338,7 @@ Multiplies sequence of numbers.
 > _:multiplyBy(tabl, [iteratee])
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/math.lua#L219-L236)</small>
 
 Multiplies series of numbers and returns result, with every element invoked by `iteratree`.
 
@@ -367,7 +367,7 @@ Multiplies series of numbers and returns result, with every element invoked by `
 > _:round(num, [precision=0])
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/math.lua#L244-L251)</small>
 
 Computes `num` rounded to `precision`.
 
@@ -396,7 +396,7 @@ Computes `num` rounded to `precision`.
 > _:subtract(...)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/math.lua#L258-L260)</small>
 
 Subtracts series of numbers and returns result.
 
@@ -423,7 +423,7 @@ Subtracts series of numbers and returns result.
 > _:subtractBy(tabl, [iteratee])
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/math.lua#L273-L290)</small>
 
 Subtracts `tabl` of  numbers, with every element invoked by `iteratree`.
 
@@ -452,7 +452,7 @@ Subtracts `tabl` of  numbers, with every element invoked by `iteratree`.
 > _:sum(...)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/math.lua#L297-L299)</small>
 
 Sums sequence of numbers.
 
@@ -478,7 +478,7 @@ Sums sequence of numbers.
 > _:sum(tabl, [iteratee])
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/math.lua#L311-L324)</small>
 
 Sums sequence of numbers, with every element invoked by `iteratree`.
 
@@ -507,7 +507,7 @@ Sums sequence of numbers, with every element invoked by `iteratree`.
 > _:toDeg(rad)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/math.lua#L331-L333)</small>
 
 Converts `rad` to degrees.
 
@@ -536,7 +536,7 @@ Converts `rad` to degrees.
 > _:toRad(deg)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/math.lua#L340-L342)</small>
 
 Converts `deg` to radians.
 

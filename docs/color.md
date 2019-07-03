@@ -4,7 +4,7 @@
 > _:color(...)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/color.lua#L72-L87)</small>
 
 Returns r, g, b color component values between [0, 1].
 

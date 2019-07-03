@@ -4,7 +4,7 @@
 > _:assertArgument(name, var, expect, [default])
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/assert.lua#L13-L29)</small>
 
 Assert if `var` is not the `expect`ed data type, and assign `default` value if `var` is nil.
 
@@ -42,7 +42,7 @@ Assert if `var` is not the `expect`ed data type, and assign `default` value if `
 > _:assertEqual(name, ...)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/assert.lua#L37-L45)</small>
 
 Assert all `...` values are equal.
 
@@ -60,7 +60,7 @@ Assert all `...` values are equal.
 #### Example
 
 ```bash
-> 
+>
 ```
 
 
@@ -71,7 +71,7 @@ Assert all `...` values are equal.
 > _:assertEqualSize(name, [...])
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/assert.lua#L53-L65)</small>
 
 Assert if not all `...` values are the same length.
 
@@ -101,7 +101,7 @@ Assert if not all `...` values are the same length.
 > _:assertIsBoolean(name, var)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/assert.lua#L73-L78)</small>
 
 Assert if `var` is not a `boolean` data type.
 
@@ -129,7 +129,7 @@ Assert if `var` is not a `boolean` data type.
 > _:assertIsNumber(name, var)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/assert.lua#L86-L91)</small>
 
 Assert if `var` is not a `number` data type.
 
@@ -157,7 +157,7 @@ Assert if `var` is not a `number` data type.
 > _:assertIsRegexPattern(name, var)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/assert.lua#L99-L103)</small>
 
 Assert if `var` is not a regular expression pattern.
 
@@ -188,7 +188,7 @@ Assert if `var` is not a regular expression pattern.
 > _:assertIsString(name, var)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/assert.lua#L111-L116)</small>
 
 Assert if `var` is not a `string` data type.
 
@@ -216,7 +216,7 @@ Assert if `var` is not a `string` data type.
 > _:assertIsTable(name, var)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/assert.lua#L124-L129)</small>
 
 Assert if `var` is not a `table` data type.
 
@@ -244,7 +244,7 @@ Assert if `var` is not a `table` data type.
 _:assertMinSize(name, var, expect)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/assert.lua#L137-L143)</small>
 
 Assert if `var` is **<** `expect` size.
 
@@ -274,7 +274,7 @@ Assert if `var` is **<** `expect` size.
 > _:assertMaxSize(name, var, expect)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/assert.lua#L151-L157)</small>
 
 Assert if `var` is **>** `expect` size.
 
@@ -304,7 +304,7 @@ Assert if `var` is **>** `expect` size.
 > _:assertIsNotNil(name, var)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/assert.lua#L165-L169)</small>
 
 Assert if `var` is nil.
 
@@ -332,7 +332,7 @@ Assert if `var` is nil.
 > _:assertIsNotZero(name, var)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/assert.lua#L177-L181)</small>
 
 Assert if `var` is 0.
 

@@ -1,34 +1,10 @@
 --
-
--- shallow copy (quick & dirty)
-function _:tableCopy(tabl)
-    return { unpack(tabl) }
-end
-
-
--- _:tableCombine(tabl, [size=1])
--- creates new `tabl` with `keys` as the
---  keys and `values` as the values.
---
--- requirement:
---   both tables must be equal in size
---
--- @param  table(keys)    - keys table
--- @param  table(values)  - values table
--- @return table
-function _:combine(keys, values)
-    keys   = _:assertArgument('keys', keys, 'table')
-    values = _:assertArgument('values', values, 'table')
-    _:assertEqualSize(keys, values)
-
-    -- TODO:
-end
-
+-- Table Functions
 --
 
 
 -- _:chunk(tabl, [size=1])
--- creates new `tabl` of elements split into groups of `size`
+-- Splits elements of `tabl` into groups of `size`.
 --
 -- @param  table(tabl)       - table to process
 -- @param  number([size=1])  - length of each chunk
@@ -36,7 +12,7 @@ end
 function _:chunk(tabl, size)
     tabl = _:assertArgument('tabl', tabl, 'table')
     size = _:assertArgument('size', size, 'number', 1)
-
+    --
     local out = {}
     local sub = {}
     local cnt = 0
@@ -55,22 +31,75 @@ function _:chunk(tabl, size)
 end
 
 -- _:compact(tabl)
--- creates new table without lua-falsy values (i.e. false and nil)
+-- Filters out falsey values of `tabl`.
 --
--- @param  table(tabl)  - table to process
+-- @param  table(tabl)
 -- @return table
 function _:compact(tabl)
     tabl = _:assertArgument('tabl', tabl, 'table')
-
+    --
     local out = {}
 
-    table.foreach(tabl, function(key, value)
-        if value then
-            table.insert(out, value)
+    table.foreach(tabl, function(k, v)
+        if _:isTruthy(v) then
+            out[k] = v
         end
     end)
 
     return out
+end
+
+-- _:tableCombine(tabl, [size=1])
+-- creates new `tabl` with `keys` as the
+--  keys and `values` as the values.
+--
+-- requirement:
+--   both tables must be equal in size
+--
+-- @param  table(keys)    - keys table
+-- @param  table(values)  - values table
+-- @return table
+function _:combine(keys, values)
+    keys   = _:assertArgument('keys', keys, 'table')
+    values = _:assertArgument('values', values, 'table')
+    _:assertEqualSize('tabl', keys, values)
+    --
+    local out    = {}
+    local idx    = 1
+    local k1, v1 = next(keys)
+    local k2, v2 = next(values)
+
+    while k1 ~= nil and k2 ~= nil do
+        out[v1] = v2
+        k1, v1  = next(keys, idx)
+        k2, v2  = next(values, idx)
+        idx     = idx + 1
+    end
+
+    return out
+end
+
+-- _:conformsTo(value, source)
+-- Determines if `value` conforms to `source`,
+--  by invoking the predicate properties of source
+--  with corresponding propery values of `value`.
+--
+-- @param  table(value)
+-- @param  table(source)
+-- @return boolean
+function _:conformsTo(tabl, source)
+    tabl   = _:assertArgument('tabl', tabl, 'table')
+    source = _:assertArgument('source', source, 'table')
+    --
+    table.foreach(tabl, function(k, v)
+        if __type(source[k]) == 'function' then
+            if not source[k](v) then
+                return false
+            end
+        end
+    end)
+
+    return true
 end
 
 -- _:concat(tabl, [size=1])
@@ -82,16 +111,35 @@ end
 -- @return table
 function _:concat(tabl, ...)
     tabl = _:assertArgument('tabl', tabl, 'table')
-
+    --
     local out = _:clone(tabl)
 
     table.foreach({...}, function(k1, v1)
         if type(v1) == 'table' then
-            table.foreach({ unpack(v1) }, function(k1, v2)
+            table.foreach({ unpack(v1) }, function(k2, v2)
                 table.insert(out, v2)
             end)
         else
             table.insert(out, v1)
+        end
+    end)
+
+    return out
+end
+
+-- _:compact(tabl)
+-- creates new table without lua-falsy values (i.e. false and nil)
+--
+-- @param  table(tabl)  - table to process
+-- @return table
+function _:compact(tabl)
+    tabl = _:assertArgument('tabl', tabl, 'table')
+    --
+    local out = {}
+
+    table.foreach(tabl, function(key, value)
+        if value then
+            table.insert(out, value)
         end
     end)
 
@@ -196,7 +244,7 @@ function _:dropRight(tabl, num)
         return _:drop(tabl, _:abs(num))
     end
 
-    local out = _:tableCopy(tabl)
+    local out = _:copy(tabl)
     local idx = 0
 
     while num > 0 do

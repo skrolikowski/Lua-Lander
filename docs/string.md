@@ -4,7 +4,7 @@
 > _:camelCase(str)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/string.lua#L20-L31)</small>
 
 Converts `str` to [Camel Case](https://en.wikipedia.org/wiki/Camel_case).
 
@@ -32,7 +32,7 @@ Converts `str` to [Camel Case](https://en.wikipedia.org/wiki/Camel_case).
 > _:capitalize(str)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/string.lua#L39-L46)</small>
 
 Capitalizes first character of `str` and lower cases the rest.
 
@@ -59,7 +59,7 @@ Capitalizes first character of `str` and lower cases the rest.
 > _:endsWith(str, target, [position=_:size(str)])
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/string.lua#L54-L62)</small>
 
 Determines if `str` ends with `target` up until the end `position`.
 
@@ -67,7 +67,7 @@ Determines if `str` ends with `target` up until the end `position`.
 
 `string(str)` - The string to inspect.
 `string(target)` - The string to search for.
-`number(position=_:size(str))` - 
+`number(position=_:size(str))` -
 
 > See: [_:size(str)]()
 
@@ -91,7 +91,7 @@ Determines if `str` ends with `target` up until the end `position`.
 _:kebabCase(str)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/string.lua#L69-L76)</small>
 
 Converts `str` to [Kebab Case](https://en.wikipedia.org/wiki/Letter_case#Special_case_styles).
 
@@ -119,7 +119,7 @@ Converts `str` to [Kebab Case](https://en.wikipedia.org/wiki/Letter_case#Special
 > _:lowerCase(str)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/string.lua#L83-L90)</small>
 
 Converts `str` to lower-case, space-separated words.
 
@@ -147,7 +147,7 @@ Converts `str` to lower-case, space-separated words.
 > _:lowerFirst(str)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/string.lua#L97-L101)</small>
 
 Converts first character of `str` to lowercase.
 
@@ -174,7 +174,7 @@ Converts first character of `str` to lowercase.
 > _:pad(str, [length=0], [chars=' '])
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/string.lua#L111-L129)</small>
 
 Pads both sides of `str` with `chars`, only if `str` is smaller than `length`.
 
@@ -204,7 +204,7 @@ Pads both sides of `str` with `chars`, only if `str` is smaller than `length`.
 > _:padEnd(str, [length=0], [chars=' '])
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/string.lua#L139-L148)</small>
 
 Pads end of `str` with `chars`, only if `str` is smaller than `length`.
 
@@ -234,7 +234,7 @@ Pads end of `str` with `chars`, only if `str` is smaller than `length`.
 > _:padStart(str, [length=0], [chars=' '])
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/string.lua#L158-L167)</small>
 
 Pads beginning of `str` with `chars`, only if `str` is smaller than `length`.
 
@@ -264,7 +264,7 @@ Pads beginning of `str` with `chars`, only if `str` is smaller than `length`.
 > _:rep(str, [n=1])
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/string.lua#L174-L179)</small>
 
 Repeats given `str` `n` number of times.
 
@@ -293,7 +293,7 @@ Repeats given `str` `n` number of times.
 _:replace(str, pattern, repl)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/string.lua#L190-L196)</small>
 
 Replaces matches from `pattern` in `str` with `repl` string.
 
@@ -327,7 +327,7 @@ Replaces matches from `pattern` in `str` with `repl` string.
 > _:snakeCase(str)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/string.lua#L203-L212)</small>
 
 Converts `str` to [Snake Case](https://en.wikipedia.org/wiki/Snake_case).
 
@@ -355,7 +355,7 @@ Converts `str` to [Snake Case](https://en.wikipedia.org/wiki/Snake_case).
 > :split(str, separator, [limit=_:size(str)])
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/string.lua#L219-L229)</small>
 
 Splits `str` by `separator`, truncated by `limit`.
 
@@ -386,7 +386,7 @@ Splits `str` by `separator`, truncated by `limit`.
 > _:startCase(str)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/string.lua#L236-L253)</small>
 
 Converts `str` to [Start Case](https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage).
 
@@ -414,7 +414,7 @@ Converts `str` to [Start Case](https://en.wikipedia.org/wiki/Letter_case#Stylist
 > _:startsWith(str, target, [position=1])
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/string.lua#L263-L269)</small>
 
 Determine if `str` starts with `target`, starting at `position`.
 
@@ -444,7 +444,7 @@ Determine if `str` starts with `target`, starting at `position`.
 > _:toLower(str)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/string.lua#L276-L280)</small>
 
 Converts entire `str` to lower case.
 
@@ -474,7 +474,7 @@ Converts entire `str` to lower case.
 > _:toUpper(str)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/string.lua#L287-L291)</small>
 
 Converts entire `str` to upper case.
 
@@ -504,7 +504,7 @@ Converts entire `str` to upper case.
 > _:trim(str, [pattern='%s+'])
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/string.lua#L299-L304)</small>
 
 Removes leading and trailing `pattern` of `str`.
 
@@ -533,7 +533,7 @@ Removes leading and trailing `pattern` of `str`.
 > _:trimEnd(str, [pattern='%s+'])
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/string.lua#L312-L321)</small>
 
 Removes trailing `pattern` of `str`.
 
@@ -562,7 +562,7 @@ Removes trailing `pattern` of `str`.
 _:trimStart(str, [pattern='%s+'])
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/string.lua#L329-L338)</small>
 
 Removes leading `pattern` of `str`.
 
@@ -591,7 +591,7 @@ Removes leading `pattern` of `str`.
 > _:truncate(str, [options={}])
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/string.lua#L350-L376)</small>
 
 Truncates `str` with `options`.
 
@@ -611,13 +611,13 @@ Truncates `str` with `options`.
 ```bash
 > _:truncate('hi-diddly-ho there, neighborino')
   # => 'hi-diddly-ho there, neighbo...'
-  
+
 > _:truncate('hi-diddly-ho there, neighborino', {length = 24, separator = ' '})
   # => 'hi-diddly-ho...'
-  
+
 > _:truncate('hi-diddly-ho there, neighborino', {length = 24, separator = '[,?]%s+'})
   # => 'hi-diddly-ho there...'
-  
+
 > _:truncate('hi-diddly-ho there, neighborino', {omission= ' [...]'})
   # => 'hi-diddly-ho there, neig [...]'
 ```
@@ -630,7 +630,7 @@ Truncates `str` with `options`.
 > _:upperCase(str)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/string.lua#L383-L391)</small>
 
 Converts `str` to space-separated, upper case string.
 
@@ -658,7 +658,7 @@ Converts `str` to space-separated, upper case string.
 > _:upperFirst(str)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/string.lua#L399-L403)</small>
 
 Converts first character in  `str` to  upper case, leaving the rest untouched.
 
@@ -685,7 +685,7 @@ Converts first character in  `str` to  upper case, leaving the rest untouched.
 > _:words(str, [pattern])
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/string.lua#L412-L424)</small>
 
 Converts `str` into table of words, using `pattern` as separator.
 
@@ -694,7 +694,7 @@ Converts `str` into table of words, using `pattern` as separator.
 #### Arguments
 
 `string(str)` - The string to convert.
-`string([pattern='%a+'])` - 
+`string([pattern='%a+'])` -
 
 #### Returns
 
@@ -705,7 +705,7 @@ Converts `str` into table of words, using `pattern` as separator.
 ```bash
 > _:words('lister, cat, & kryton')
   # => {'lister', 'cat', 'kryton'}
-  
+
 > _:words('lister, cat, & kryton', "[^,%s]+")
   # => {'lister', 'cat', '&', 'kryton'}
 ```

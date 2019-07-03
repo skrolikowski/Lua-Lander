@@ -6,31 +6,23 @@ local __type   = type
 local __unpack = unpack
 
 
--- _:clone(value)
--- Create shallow copy of `value`.
+-- _:attempt(func)
+-- Attempts to invoke `func`, with `...` args.
 --
--- @param  mixed(value)
--- @return mixed
-function _:clone(value)
-    if not _:isTable(value) then
-        return value
-    end
-
-    local out = {}
-
-    table.foreach(value, function(k, v)
-        rawset(out, k, v)
-    end)
-
-    return out
+-- @param  function(func)
+-- @return string, mixed
+function _:attempt(func, ...)
+    func = _:assertArgument('func', func, 'function')
+    ---
+    return pcall(func, ...)
 end
 
--- _:cloneDeep(value)
+-- _:clone(value)
 -- Create deep copy of `value`.
 --
 -- @param  mixed(value)
 -- @return mixed
-function _:cloneDeep(value)
+function _:clone(value)
     if not _:isTable(value) then
         return value
     end
@@ -48,20 +40,14 @@ function _:cloneDeep(value)
     return out
 end
 
--- _:cloneDeepWith(value, [customizer])
--- recursive clone of iterable
--- with `customizer`
-function _:cloneDeepWith(value, customizer)
-    --TODO: ...
+-- _:constant(value)
+-- Create a function that returns `value`.
+--
+-- @param  mixed(value)
+-- @return mixed
+function _:constant(value)
+    return (function() return value end)
 end
-
--- _:cloneWith(value, [customizer])
--- shallow clone of iterable
--- with `customizer`
-function _:cloneWith(value, customizer)
-    --TODO: ...
-end
-
 
 -- _:defaultTo(value, default)
 -- Sets `value` to `default`, only if `value` not set
@@ -76,6 +62,30 @@ function _:defaultTo(value, default)
 
     return value
 end
+
+-- _:flow(...)
+-- Create a function to invoke `...` functions,
+--  one after the other, piping data each subsequent
+--  invocation.
+--
+-- @param  function(...)
+-- @return mixed
+function _:flow(...)
+    -- TODO:
+end
+
+-- _:flowRight(...)
+-- Similar to _:flow(...), except invocations
+--  happen right to left.
+--
+-- @param  function(...)
+-- @return mixed
+function _:flowRight(...)
+    -- TODO:
+end
+
+
+
 
 -- _:size(value)
 -- Calculates size of `value`.
@@ -96,11 +106,7 @@ function _:size(value)
     return nil
 end
 
-
-
-
-
---
+---
 
 -- Defaults table
 _.D = {}

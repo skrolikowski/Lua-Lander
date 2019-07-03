@@ -4,7 +4,7 @@
 > _:clamp(num, min, max)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/number.lua#L11-L20)</small>
 
 Performs clamp on `num` so it fits between `min` and `max` values.
 
@@ -34,7 +34,7 @@ Performs clamp on `num` so it fits between `min` and `max` values.
 > _:lerp(value, min, max)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/number.lua#L30-L39)</small>
 
 Performs linear interpolation on a `number` between `min` and `max` values.
 
@@ -63,7 +63,7 @@ Performs linear interpolation on a `number` between `min` and `max` values.
 > _:mapTo(num, minSource, maxSource, minDest, maxDest)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/number.lua#L51-L65)</small>
 
 Maps `num` from source range (`minSource/maxSource`) to destination range (`minDest/maxDest`).
 
@@ -94,7 +94,7 @@ Maps `num` from source range (`minSource/maxSource`) to destination range (`minD
 > _:norm(num, [min=0], [max=1])
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/number.lua#L74-L80)</small>
 
 Computes normalized `num` between `min/max` range.
 

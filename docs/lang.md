@@ -4,7 +4,7 @@
 > _:isAssociative(var)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L23-L29)</small>
 
 Determines if `var` is an associative table, with every element having a key/value pair.
 
@@ -34,7 +34,7 @@ Determines if `var` is an associative table, with every element having a key/val
 > _:isBoolean(var)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L74-L76)</small>
 
 Determines if `var` is a boolean value.
 
@@ -61,7 +61,7 @@ Determines if `var` is a boolean value.
 > _:isEmpty(var)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L83-L95)</small>
 
 Determines if `var` is an empty value.
 
@@ -110,10 +110,38 @@ Determines if `var` is an empty value.
 ---
 
 ```bash
+> _:isFalsey(var)
+```
+
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L102-L108)</small>
+
+Determines if `var` is a falsey value (e.g. `nil`, `false`).
+
+#### Arguments
+
+`mixed(var)` - Variable to check.
+
+#### Returns
+
+`boolean` - Returns `true` if value is falsey, else `false`.
+
+#### Example
+
+```bash
+> _:isFalsey(nil)     # => true
+> _:isFalsey(false)   # => true
+> _:isFalsey('abc')   # => false
+```
+
+
+
+---
+
+```bash
 > _:isFunction(var)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L115-L117)</small>
 
 Determines if `var` is a `function`.
 
@@ -140,6 +168,8 @@ Determines if `var` is a `function`.
 > _:isIndexed(var)
 ```
 
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L132-L138)</small>
+
 Determines if `var` is an indexed `table`, with every element having an index keys.
 
 > Note:** see [_:isAssociative(var)](#isAssociative) where every element has values with index keys.
@@ -150,7 +180,7 @@ Determines if `var` is an indexed `table`, with every element having an index ke
 > _:isNaN(var)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L145-L147)</small>
 
 Determines if `var` is not a `number`.
 
@@ -177,7 +207,7 @@ Determines if `var` is not a `number`.
 > _:isNil(var)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L154-L156)</small>
 
 Determines if `var` is nil.
 
@@ -204,7 +234,7 @@ Determines if `var` is nil.
 > _:isNumber(var)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L163-L165)</small>
 
 Determines if `var` is a `number` value.
 
@@ -228,10 +258,40 @@ Determines if `var` is a `number` value.
 ---
 
 ```bash
+> _:isRegexPattern(var)
+```
+
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L172-L174)</small>
+
+Determines if `var` is a regex pattern.
+
+> Read more about regex patterns [here](https://www.lua.org/manual/5.3/manual.html#6.4.1).
+
+#### Arguments
+
+`mixed(var)` - Variable to check.
+
+#### Returns
+
+`boolean` - Returns `true` if value is a regex pattern, else `false`.
+
+#### Example
+
+```bash
+> _:isRegexPattern('abc')     # => false
+> _:isRegexPattern('^abc')    # => false
+> _:isRegexPattern('[abc]')   # => true
+> _:isRegexPattern('%a+')     # => true
+```
+
+
+---
+
+```bash
 > _:isSequence(var)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L182-L198)</small>
 
 Determines if `var` is a sequence (e.g. an ordered, indexed table).
 
@@ -259,7 +319,7 @@ Determines if `var` is a sequence (e.g. an ordered, indexed table).
 > _:isSet(var)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L207-L212)</small>
 
 Determines if `var` is a set (e.g. an indexed table, with a unique set of elements in any order).
 
@@ -287,7 +347,7 @@ Determines if `var` is a set (e.g. an indexed table, with a unique set of elemen
 > _:isString(var)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L219-L221)</small>
 
 Determines if `var` is a `string` value.
 
@@ -314,7 +374,7 @@ Determines if `var` is a `string` value.
 > _:isTable(var)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L228-L230)</small>
 
 Determines if `var` is a `table` value.
 
@@ -338,41 +398,10 @@ Determines if `var` is a `table` value.
 ---
 
 ```bash
-> _:isRegexPattern(var)
-```
-
-<small>[source]() | v0.1-1</small>
-
-Determines if `var` is a regex pattern.
-
-> Read more about regex patterns [here](https://www.lua.org/manual/5.3/manual.html#6.4.1).
-
-#### Arguments
-
-`mixed(var)` - Variable to check.
-
-#### Returns
-
-`boolean` - Returns `true` if value is a regex pattern, else `false`.
-
-#### Example
-
-```bash
-> _:isRegexPattern('abc')     # => false
-> _:isRegexPattern('^abc')    # => false
-> _:isRegexPattern('[abc]')   # => true
-> _:isRegexPattern('%a+')     # => true
-```
-
-
-
----
-
-```bash
 > _:isThread(var)
 ```
 
-<small>[source]() | v0.1-1</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L237-L239)</small>
 
 Determines if `var` is a `thread` value.
 
@@ -391,3 +420,31 @@ Determines if `var` is a `thread` value.
 > _:isThread(coroutine.create(function() end))   # => true
 ```
 
+
+
+
+---
+
+```bash
+> _:isTruthy(var)
+```
+
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L246-L252)</small>
+
+Determines if `var` is a truthy value (e.g. NOT `nil`, `false`).
+
+#### Arguments
+
+`mixed(var)` - Variable to check.
+
+#### Returns
+
+`boolean` - Returns `true` if value is truthy, else `false`.
+
+#### Example
+
+```bash
+> _:isTruthy(nil)     # => false
+> _:isTruthy(false)   # => false
+> _:isTruthy('abc')   # => true
+```

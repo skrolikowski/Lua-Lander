@@ -94,6 +94,19 @@ function _:isEmpty(var)
     return var == nil
 end
 
+-- _:isFalsey(var)
+-- Determines if `var` is a falsey value (e.g. `nil`, `false`).
+--
+-- @param  mixed(var)
+-- @return boolean
+function _:isFalsey(var)
+    if var then
+        return false
+    end
+
+    return true
+end
+
 -- _:isFunction(var)
 -- Determines if `var` is a `function`.
 --
@@ -149,6 +162,15 @@ end
 -- @return boolean
 function _:isNumber(var)
     return __type(var) == 'number'
+end
+
+-- _:isRegexPattern(var)
+-- performs check on if `var` is a regex pattern
+--
+-- @param  mixed(var)
+-- @return boolean
+function _:isRegexPattern(var)
+    return pcall(function() __re.compile(var) end)
 end
 
 -- _:isSequence(var)
@@ -207,15 +229,6 @@ function _:isTable(var)
     return __type(var) == 'table'
 end
 
--- _:isRegexPattern(var)
--- performs check on if `var` is a regex pattern
---
--- @param  mixed(var)
--- @return boolean
-function _:isRegexPattern(var)
-    return pcall(function() __re.compile(var) end)
-end
-
 -- _:isThread(var)
 -- Determines if `var` is a `thread` value.
 --
@@ -223,4 +236,17 @@ end
 -- @return boolean
 function _:isThread(var)
     return __type(var) == 'thread'
+end
+
+-- _:isTruthy(var)
+-- Determines if `var` is a truthy value (e.g. NOT `nil`, `false`).
+--
+-- @param  mixed(var)
+-- @return boolean
+function _:isTruthy(var)
+    if var then
+        return true
+    end
+
+    return false
 end

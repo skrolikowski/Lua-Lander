@@ -1,6 +1,6 @@
 # Lua Lander
 
-A modern utility library for Lua, offering tons of supplemental goodness your projects.
+A modern utility library for Lua, offering tons of supplemental goodness for your projects.
 
 * [Installation](#Installation)
 * [Getting Started](#Getting-Started)
@@ -44,3 +44,4 @@ Step 2: Start using!
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
