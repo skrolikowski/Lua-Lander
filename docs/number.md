@@ -111,7 +111,8 @@ Computes normalized `num` between `min/max` range.
 #### Example
 
 ```bash
-> _:norm(5, 0, 100)   # => 0.05
-> _:norm(95, 4, 8)    # => 22.75
+> _:norm(5, 0, 10)    # => 0.5
+> _:norm(5, 4, 8)     # => 1.25
+> _:norm(9, 4, 8)     # => 0.25
 ```
 

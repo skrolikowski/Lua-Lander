@@ -1,17 +1,51 @@
 --
 -- Util Functions
 --
+local __len    = string.len
+local __type   = type
+local __unpack = unpack
+
 
 -- _:clone(value)
--- shallow clone of iterable
+-- Create shallow copy of `value`.
+--
+-- @param  mixed(value)
+-- @return mixed
 function _:clone(value)
-    return { unpack(value) }
+    if not _:isTable(value) then
+        return value
+    end
+
+    local out = {}
+
+    table.foreach(value, function(k, v)
+        rawset(out, k, v)
+    end)
+
+    return out
 end
 
 -- _:cloneDeep(value)
--- recursive clone of iterable
+-- Create deep copy of `value`.
+--
+-- @param  mixed(value)
+-- @return mixed
 function _:cloneDeep(value)
-    --TODO: ...
+    if not _:isTable(value) then
+        return value
+    end
+
+    local out = {}
+
+    table.foreach(value, function(k, v)
+        if v == 'table' then
+            rawset(out, k, _:clone(v))
+        else
+            rawset(out, k, v)
+        end
+    end)
+
+    return out
 end
 
 -- _:cloneDeepWith(value, [customizer])
@@ -29,28 +63,37 @@ function _:cloneWith(value, customizer)
 end
 
 
--- _:default(value, [default])
--- sets `value` to `default`, only if `value` not set
+-- _:defaultTo(value, default)
+-- Sets `value` to `default`, only if `value` not set
 --
 -- @param  mixed(value)
--- @param  mixed([default])  - default value
+-- @param  mixed(default)
 -- @return mixed
--- function _:defaults(value, default)
---
--- end
+function _:defaultTo(value, default)
+    if _:isNil(value) then
+        return default
+    end
+
+    return value
+end
 
 -- _:size(value)
--- returns size of `value`
+-- Calculates size of `value`.
 --
--- @param  mixed(value)  -- value to size
+-- @param  mixed(value)
 -- @return number
 function _:size(value)
-    local dt = type(value)
+    local dt = __type(value)
 
-    if dt == 'string' then return value:len()           end
-    if dt == 'number' then return tostring(value):len() end
-    if dt == 'table'  then return #value                end
-    if dt == 'function' then return string:dump(value):len() end
+    if dt == 'string' then return __len(value) end
+    if dt == 'number' then return value        end
+    if dt == 'table'  then
+        local size = 0
+        table.foreach(value, function(k, v) size = size + 1 end)
+        return size
+    end
+    --TODO: what about the others??
+    return nil
 end
 
 

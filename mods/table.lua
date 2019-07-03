@@ -397,3 +397,32 @@ function _:join(tabl, separator)
     --
     return table.concat(tabl, separator)
 end
+
+-- _:uniq(tabl)
+-- Creates unique set of elements, dropping duplicate indices.
+--
+-- @param  table(tabl)
+-- @return table
+function _:uniq(tabl)
+    tabl = _:assertArgument('tabl', tabl, 'table')
+    --
+    local out    = {}
+    local values = {}
+
+    if _:isIndexed(tabl) then
+        for _, v in ipairs(tabl) do
+            -- record first unique values
+            if not values[v] then table.insert(out, v) end
+            values[v] = true
+        end
+    else
+        for k, v in pairs(tabl) do
+            print(k, v)
+            -- record first unique values
+            if not values[v] then rawset(out, k, v) end
+            values[v] = true
+        end
+    end
+
+    return out
+end

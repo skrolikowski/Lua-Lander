@@ -6,13 +6,14 @@ Hello. This project is heavily inspired by [LoDash](https://lodash.com/). It is 
 
 ## Modules
 
-| Module     | Description                                                  |
-| ---------- | ------------------------------------------------------------ |
-| [Assert]() | Assertion helpers.                                           |
-| [Color]()  | Color utility helpers.                                       |
-| [Lang]()   | Equality, comparison, and (pseudo-) type checks.             |
-| [Math]()   | An extension on the `math` library.                          |
-| [Number]() | Functions revolving around the native `number` data type.    |
-| [String]() | Functions revolving around the native `string` data type.    |
-| [Table]()  | Functions revolving around the native `table` data type.     |
-| [Util]()   | General multi-purpose utility functions that work with one or more native data types. |
+| Module                                                       | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [Assert](https://github.com/skrolikowski/Lua-Lander/docs/assert.md) | Assertion helpers.                                           |
+| [Color](https://github.com/skrolikowski/Lua-Lander/docs/color.md) | Color utility helpers.                                       |
+| [Lang](https://github.com/skrolikowski/Lua-Lander/docs/lang.md) | Equality, comparison, and (pseudo-) type checks.             |
+| [Math](https://github.com/skrolikowski/Lua-Lander/docs/math.md) | An extension on the `math` library.                          |
+| [Number](https://github.com/skrolikowski/Lua-Lander/docs/number.md) | Functions revolving around the native `number` data type.    |
+| [String](https://github.com/skrolikowski/Lua-Lander/docs/string.md) | Functions revolving around the native `string` data type.    |
+| **Table**                                                    | Functions revolving around the native `table` data type.     |
+| **Util**                                                     | General multi-purpose utility functions that work with one or more native data types. |
+
