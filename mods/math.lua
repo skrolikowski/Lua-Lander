@@ -1,21 +1,21 @@
---
+----------------------
+--------------------
 -- Math Functions
+----------------
+--------------
+------------
+----------
+--------
+------
+----
 --
 
--- Constants
-_.PRECISION = 6
 
--- Native lua API pre-loaded for speed..
-local __abs    = math.abs
-local __ceil   = math.ceil
-local __deg    = math.deg
-local __floor  = math.floor
-local __huge   = math.huge
-local __max    = math.max
-local __min    = math.min
-local __rad    = math.rad
-local __random = math.random
-
+------------------
+-- Public Functions
+--------
+------
+----
 --
 
 -- _:abs(num)
@@ -26,7 +26,7 @@ local __random = math.random
 function _:abs(num)
     num = _:assertArgument('num', num, 'number')
     --
-    return __abs(num)
+    return _.__abs(num)
 end
 
 -- _:add(...)
@@ -50,7 +50,7 @@ function _:ceil(num, precision)
     --
     local factor = 10 ^ precision
 
-    return __ceil(num * factor) / factor
+    return _.__ceil(num * factor) / factor
 end
 
 -- _:divide(...)
@@ -87,7 +87,7 @@ function _:floor(num, precision)
     --
     local factor = 10 ^ precision
 
-    return __floor(num * factor) / factor
+    return _.__floor(num * factor) / factor
 end
 
 -- _:max(...)
@@ -121,7 +121,7 @@ function _:maxBy(tabl, iteratee)
             if not max then
                 max = iteratee(v)
             else
-                max = __max(max, iteratee(v))
+                max = _.__max(max, iteratee(v))
             end
         end
     end)
@@ -152,8 +152,10 @@ function _:meanBy(tabl, iteratee)
     tabl     = _:assertArgument('tabl', tabl, 'table')
     iteratee = _:assertArgument('iteratee', iteratee, 'function', _.D['iteratee'])
     --
-    if _:size(tabl) > 0 then
-        return (_:sumBy(tabl, iteratee) / _:size(tabl))
+    local size = _:size(tabl)
+
+    if size > 0 then
+        return (_:sumBy(tabl, iteratee) / size)
     end
 
     return 0
@@ -190,7 +192,7 @@ function _:minBy(tabl, iteratee)
             if not min then
                 min = iteratee(v)
             else
-                min = __min(min, iteratee(v))
+                min = _.__min(min, iteratee(v))
             end
         end
     end)
@@ -247,7 +249,7 @@ function _:round(num, precision)
     --
     local factor = 10 ^ precision
 
-    return __floor(num * factor + 0.5) / factor
+    return _.__floor(num * factor + 0.5) / factor
 end
 
 -- _:subtract(...)
@@ -329,7 +331,7 @@ end
 -- @param  number(rad) - radians
 -- @return number
 function _:toDeg(rad)
-    return _:round(__deg(rad), _.PRECISION)
+    return _:round(_.__deg(rad), _.PRECISION)
 end
 
 -- _:toRad(deg)
@@ -338,5 +340,5 @@ end
 -- @param  number(deg) - degrees
 -- @return number
 function _:toRad(deg)
-    return _:round(__rad(deg), _.PRECISION)
+    return _:round(_.__rad(deg), _.PRECISION)
 end

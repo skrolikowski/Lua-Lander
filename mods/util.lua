@@ -17,12 +17,15 @@ function _:attempt(func, ...)
     return pcall(func, ...)
 end
 
--- _:clone(value)
+-- _:copy(value)
 -- Create deep copy of `value`.
 --
 -- @param  mixed(value)
 -- @return mixed
-function _:clone(value)
+function _:copy(value)
+    -- TODO:
+    --   http://lua-users.org/wiki/CopyTable
+    --   https://gist.github.com/tylerneylon/81333721109155b2d244
     if not _:isTable(value) then
         return value
     end
@@ -31,22 +34,13 @@ function _:clone(value)
 
     table.foreach(value, function(k, v)
         if v == 'table' then
-            rawset(out, k, _:clone(v))
+            rawset(out, k, _:copy(v))
         else
             rawset(out, k, v)
         end
     end)
 
     return out
-end
-
--- _:constant(value)
--- Create a function that returns `value`.
---
--- @param  mixed(value)
--- @return mixed
-function _:constant(value)
-    return (function() return value end)
 end
 
 -- _:defaultTo(value, default)
@@ -105,26 +99,3 @@ function _:size(value)
     --TODO: what about the others??
     return nil
 end
-
----
-
--- Defaults table
-_.D = {}
-_.D['boolean']  = false
-_.D['string']   = ''
-_.D['number']   = 0
-_.D['function'] = (function(v) return v end)
-_.D['iteratee'] = (function(v) return v end)
-
--- Truthy table
-_.T = {}
-_.T['boolean']  = true
-_.T['number']   = 1
-_.T['function'] = (function() return true end)
-
--- Falsey table
-_.F = {}
-_.F['boolean']  = _.D['boolean']
-_.F['string']   = _.D['string']
-_.F['number']   = _.D['number']
-_.F['function'] = (function() return false end)

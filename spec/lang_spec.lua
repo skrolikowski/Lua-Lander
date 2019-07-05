@@ -5,11 +5,13 @@ require 'init'
 --
 
 describe('Lang Functions', function()
-    describe('_:isAssociative(var)', function()
-        it('should return true if `var` is not an associative table, otherwise false', function()
-            assert.are.equals(_:isAssociative({}), false)
-            assert.are.equals(_:isAssociative({a = 1, 2, 'c'}), false)
-            assert.are.equals(_:isAssociative({a = 1, b = 2}), true)
+    describe('_:isArray(var)', function()
+        it('should return true if `var` is an array, otherwise false', function()
+            assert.are.equals(_:isArray({}), false)
+            assert.are.equals(_:isArray({a = 1, 2, 'c'}), false)
+            assert.are.equals(_:isArray({a = 1, b = 2}), false)
+            assert.are.equals(_:isArray({false, true}), true)
+            assert.are.equals(_:isArray({1, 'b', 'c', 4}), true)
         end)
     end)
 
@@ -21,7 +23,7 @@ describe('Lang Functions', function()
     end)
 
     describe('_:isEmpty(var)', function()
-        it('should return true if `var` is an empty value', function()
+        it('should return true if `var` is an empty value, otherwise false', function()
             assert.are.equals(_:isEmpty(''), true)
             assert.are.equals(_:isEmpty('abc'), false)
             assert.are.equals(_:isEmpty(false), true)
@@ -31,6 +33,49 @@ describe('Lang Functions', function()
             assert.are.equals(_:isEmpty({}), true)
             assert.are.equals(_:isEmpty({1, 2, 3}), false)
             assert.are.equals(_:isEmpty(nil), true)
+        end)
+    end)
+
+    describe('_:isEqual(var1, var2)', function()
+        it('should return true if `var1` == `var2`, otherwise false', function()
+            -- boolean
+            assert.is_true(_:isEqual(true, true))
+            assert.is_false(_:isEqual(true, false))
+            -- number
+            assert.is_true(_:isEqual(1, 1))
+            assert.is_false(_:isEqual(1, 2))
+            -- string
+            assert.is_true(_:isEqual('foo', 'foo'))
+            assert.is_false(_:isEqual('foo', 'bar'))
+            -- table, simple
+            assert.is_true(_:isEqual({'a', 'b', 'c'}, {'a', 'b', 'c'}))
+            assert.is_false(_:isEqual({'a', 'b', 'c'}, {'a', 'c', 'b'}))
+            -- table, simple, unordered named keys
+            assert.is_true(_:isEqual({a = 1, b = 5, c = 3}, {c = 3, b = 5, a = 1}))
+            assert.is_false(_:isEqual({a = 1, b = 5, c = 3}, {c = 6, b = 10, a = 2}))
+            -- table, complex
+            local co = coroutine.create(function(v) return v end)
+            local func = (function(v) return v * 2 end)
+            local t1 = {
+                a = {1, 2, 3},
+                b = false,
+                c = {
+                    a = { co, func },
+                    'hello world!'
+                }
+            }
+            local t2 = {
+                a = {3, 2, 1},
+                c = true,
+                b = {
+                    a = { co, func },
+                    'goodbye world!'
+                }
+            }
+            assert.is_true(_:isEqual(t1, t1))
+            assert.is_true(_:isEqual(t1['c']['a'], t2['b']['a']))
+            assert.is_false(_:isEqual(t1, t2))
+            assert.is_false(_:isEqual(t1['c'], t2['b']))
         end)
     end)
 
@@ -58,6 +103,14 @@ describe('Lang Functions', function()
         end)
     end)
 
+    describe('_:isNegative(var)', function()
+        it('should return true if `var` is a negative number, otherwise false', function()
+            assert.are.equals(_:isNegative('abc'), false)
+            assert.are.equals(_:isNegative(-2), true)
+            assert.are.equals(_:isNegative(3), false)
+        end)
+    end)
+
     describe('_:isNil(var)', function()
         it('should return true if `var` is nil, otherwise false', function()
             assert.are.equals(_:isNil('abc'), false)
@@ -65,10 +118,34 @@ describe('Lang Functions', function()
         end)
     end)
 
+    describe('_:isNotNil(var)', function()
+        it('should return true if `var` is not nil, otherwise false', function()
+            assert.are.equals(_:isNotNil('abc'), true)
+            assert.are.equals(_:isNotNil(nil), false)
+        end)
+    end)
+
     describe('_:isNumber(var)', function()
         it('should return true if `var` is a number, otherwise false', function()
             assert.are.equals(_:isNumber('abc'), false)
             assert.are.equals(_:isNumber(42), true)
+        end)
+    end)
+
+    describe('_:isPositive(var)', function()
+        it('should return true if `var` is a positive number, otherwise false', function()
+            assert.are.equals(_:isPositive('abc'), false)
+            assert.are.equals(_:isPositive(-2), false)
+            assert.are.equals(_:isPositive(3), true)
+        end)
+    end)
+
+    describe('_:isRegexPattern(var)', function()
+        it('should return true if `var` is a regex pattern, otherwise false', function()
+            assert.are.equals(_:isRegexPattern('abc'), false)
+            assert.are.equals(_:isRegexPattern('^abc'), false)
+            assert.are.equals(_:isRegexPattern('[abc]'), true)
+            assert.are.equals(_:isRegexPattern('%a+'), true)
         end)
     end)
 
@@ -83,7 +160,7 @@ describe('Lang Functions', function()
     describe('_:isSet(var)', function()
         it('should return true if `var` is a set, otherwise false', function()
             assert.are.equals(_:isSet({3, 3, 5, 6, 6}), false)
-            assert.are.equals(_:isSet({a = 1, b = 3, 4, 8}), false)
+            assert.are.equals(_:isSet({a = 1, b = 3, c = 4, 5, 8}), false)
             assert.are.equals(_:isSet({1, 4, 2, 10, 6}), true)
         end)
     end)
@@ -109,15 +186,6 @@ describe('Lang Functions', function()
             assert.are.equals(_:isTruthy('abc'), true)
             assert.are.equals(_:isTruthy(42), true)
             assert.are.equals(_:isTruthy(function() end), true)
-        end)
-    end)
-
-    describe('_:isRegexPattern(var)', function()
-        it('should return true if `var` is a regex pattern, otherwise false', function()
-            assert.are.equals(_:isRegexPattern('abc'), false)
-            assert.are.equals(_:isRegexPattern('^abc'), false)
-            assert.are.equals(_:isRegexPattern('[abc]'), true)
-            assert.are.equals(_:isRegexPattern('%a+'), true)
         end)
     end)
 

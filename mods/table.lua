@@ -1,7 +1,112 @@
---
+----------------------
+--------------------
 -- Table Functions
+----------------
+--------------
+------------
+----------
+--------
+------
+----
 --
 
+
+------------------
+-- Private Functions
+--------
+------
+----
+--
+
+local __insert = function(t, k, v)
+    if _:isNumber(k) then
+        table.insert(t, v)
+    else
+        t[k] = v
+    end
+
+    return t
+end
+
+local __remove = function(t, k, v)
+    if _:isNumber(k) then
+        table.remove(t, k, v)
+    else
+        t[k] = nil
+    end
+
+    return t
+end
+
+-- Returns table of keys from `t` in
+--  natural order
+--
+-- Credit: [lua-users](http://lua-users.org/wiki/SortedIteration)
+__orderedKeys = function(t)
+    local keys = {}
+    _:i('len', 0)
+
+    for k, v in pairs(t) do
+        keys[_:up('len')] = k
+    end
+
+    -- sort, multi-type
+    table.sort(keys, function(a, b)
+        local at = _.__type(a)
+        local bt = _.__type(b)
+        if      at ~= bt       then return at < bt
+        elseif _:isString(at) or
+               _:isNumber(at)  then return a < b
+        elseif _:isBoolean(at) then return at == true
+        else                        return tostring(a) < tostring(b)
+        end
+    end)
+
+    return keys
+end
+
+-- Imitates next(t, state).
+-- Returns next key/value pair in
+--  natural order.
+--
+-- Credit: [lua-users](http://lua-users.org/wiki/SortedIteration)
+local __next = function(t, state)
+    local key = nil
+
+    if state == nil then
+        t.__orderedIndex = __orderedKeys(t)
+        key = t.__orderedIndex[1]
+    else
+        for i = 1, #t.__orderedIndex do
+            if t.__orderedIndex[i] == state then
+                key = t.__orderedIndex[i + 1]
+            end
+        end
+    end
+
+    -- return next key/value pair..
+    if key then
+        return key, t[key]
+    end
+
+    -- done.
+    t.__orderedIndex = nil
+    return
+end
+
+-- Imitates pairs(t).
+-- Iterates over `t` in natural order.
+__iterator = function(t)
+    return __next, t, nil
+end
+
+
+------------------
+-- Public Functions
+--------
+------
+----
+--
 
 -- _:chunk(tabl, [size=1])
 -- Splits elements of `tabl` into groups of `size`.
@@ -13,38 +118,19 @@ function _:chunk(tabl, size)
     tabl = _:assertArgument('tabl', tabl, 'table')
     size = _:assertArgument('size', size, 'number', 1)
     --
-    local out = {}
-    local sub = {}
+    local out, sub = {}, {}
+    local max = _:size(tabl)
     local cnt = 0
 
-    table.foreach(tabl, function(key, value)
-        table.insert(sub, value)
-
+    for k, v in __iterator(tabl) do
+        sub = __insert(sub, k, v)
         cnt = cnt + 1
-        if cnt % size == 0 or cnt == #tabl then
+
+        if cnt % size == 0 or cnt == max then
             table.insert(out, sub)
-            sub = {}
+            sub = {}  -- reset
         end
-    end)
-
-    return out
-end
-
--- _:compact(tabl)
--- Filters out falsey values of `tabl`.
---
--- @param  table(tabl)
--- @return table
-function _:compact(tabl)
-    tabl = _:assertArgument('tabl', tabl, 'table')
-    --
-    local out = {}
-
-    table.foreach(tabl, function(k, v)
-        if _:isTruthy(v) then
-            out[k] = v
-        end
-    end)
+    end
 
     return out
 end
@@ -92,7 +178,7 @@ function _:conformsTo(tabl, source)
     source = _:assertArgument('source', source, 'table')
     --
     table.foreach(tabl, function(k, v)
-        if __type(source[k]) == 'function' then
+        if _.type(source[k]) == 'function' then
             if not source[k](v) then
                 return false
             end
@@ -102,46 +188,51 @@ function _:conformsTo(tabl, source)
     return true
 end
 
--- _:concat(tabl, [size=1])
--- creates new `tabl` concatenating with incoming tables
---  and/or values
---
--- @param  table(tabl)   - table to process
--- @param  mixed([...])  - values to append
--- @return table
-function _:concat(tabl, ...)
-    tabl = _:assertArgument('tabl', tabl, 'table')
-    --
-    local out = _:clone(tabl)
-
-    table.foreach({...}, function(k1, v1)
-        if type(v1) == 'table' then
-            table.foreach({ unpack(v1) }, function(k2, v2)
-                table.insert(out, v2)
-            end)
-        else
-            table.insert(out, v1)
-        end
-    end)
-
-    return out
-end
-
 -- _:compact(tabl)
--- creates new table without lua-falsy values (i.e. false and nil)
+-- Creates copy of `tabl` with Lua-falsy
+--  values filtered out.
 --
--- @param  table(tabl)  - table to process
+-- @param  table(tabl)
 -- @return table
 function _:compact(tabl)
     tabl = _:assertArgument('tabl', tabl, 'table')
     --
+    return _:filter(tabl, 'isTruthy')
+end
+
+-- _:filter(tabl, iteratee)
+-- Creates copy of `tabl` with values that fail
+--  `iteratee` filtered out.
+--
+-- Note:
+-- `iteratee` will receive arguments:
+--  * `value`
+--  * `key`
+
+-- Warning:
+-- Lua tables are volitile when it comes to
+--  manipulating keys manually.
+--
+-- @param  table(tabl)
+-- @param  function(iteratee)
+-- @return table
+function _:filter(tabl, iteratee)
+    tabl = _:assertArgument('tabl', tabl, 'table')
+    if _:isString(iteratee) and _[iteratee] then
+        _:assertArgument('iteratee', _[iteratee], 'function')
+    else
+        iteratee = _:assertArgument('iteratee', iteratee, 'function')
+    end
+    --
     local out = {}
 
-    table.foreach(tabl, function(key, value)
-        if value then
-            table.insert(out, value)
+    for k, v in pairs(tabl) do
+        if _:isString(iteratee) and _[iteratee](_, v, k) then
+            __insert(out, k, v)
+        elseif _:isFunction(iteratee) and iteratee(v, k) then
+            __insert(out, k, v)
         end
-    end)
+    end
 
     return out
 end
@@ -164,36 +255,6 @@ function _:difference(tabl, other)
     end)
 end
 
--- _:differenceBy(tabl, [values], [iteratee])
--- creates new `tabl` with incoming values not included
---
--- @param  table(tabl)         - table to process
--- @param  table(other)        - compare table
--- @param  function(iteratee)  - func to ivoke per element
--- @return table
-function _:differenceBy(tabl, other, iteratee)
-    tabl     = _:assertArgument('tabl', tabl, 'table')
-    other    = _:assertArgument('other', other, 'table', {})
-    iteratee = _:assertArgument('iteratee', iteratee, 'function', _.D['iteratee'])
-
-    -- TODO: ...
-end
-
--- _:differenceWith(tabl, [values], [iteratee])
--- creates new `tabl` with incoming values not included
---
--- @param  table(tabl)          - table to process
--- @param  table(other)         - compare table
--- @param  function(comparator) - comparator ivoked per element
--- @return table
-function _:differenceWith(tabl, other, comparator)
-    tabl       = _:assertArgument('tabl', tabl, 'table')
-    other      = _:assertArgument('other', other, 'table', {})
-    comparator = _:assertArgument('comparator', comparator, 'function', _.D['function'])
-
-    -- TODO: ...
-end
-
 -- _:drop(tabl, [n=1])
 -- creates new `tabl` dropping `num` of elements from beginning
 --
@@ -206,56 +267,24 @@ end
 function _:drop(tabl, num)
     tabl = _:assertArgument('tabl', tabl, 'table')
     num  = _:assertArgument('num', num, 'number', 1)
-
-    -- redirect when `num` is negative..
-    if num < 0 then
-        return _:dropRight(tabl, _.abs(num))
-    end
-
-    local out = {}
-    local idx = 0
-
-    table.foreach(tabl, function(k, v)
-        idx = idx + 1
-
-        if idx > num then
-            rawset(out, k, v)
-        end
-    end)
-
-    return out
-end
-
--- _:dropRight(tabl, [n=1])
--- creates new `tabl` dropping `num` of elements from end
---
---  notes:
---    - negative `num` redirects to `_:drop`
---
--- @param  table(tabl)  - table to process
--- @param  number(num)  - number of elements to drop
--- @return table
-function _:dropRight(tabl, num)
-    tabl = _:assertArgument('tabl', tabl, 'table')
-    num  = _:assertArgument('num', num, 'number', 1)
-
-    -- redirect when `num` is negative..
-    if num < 0 then
-        return _:drop(tabl, _:abs(num))
-    end
-
+    --
     local out = _:copy(tabl)
-    local idx = 0
+    local cnt = _:abs(num)
 
-    while num > 0 do
-        table.remove(out)
-        num = num - 1
+    while cnt > 0 do
+        if _:isNegative(num) then
+            table.remove(out, 1)
+        else
+            table.remove(out)
+        end
+
+        cnt = cnt - 1
     end
 
     return out
 end
 
--- _:dropWhile(tabl, [predicate=function])
+-- _:dropWhile(tabl, [predicate])
 -- creates new `tabl` excluding items from beginning
 -- elements will be dropped until `predicate` is falsey
 --
@@ -265,24 +294,10 @@ end
 function _:dropWhile(tabl, predicate)
     tabl      = _:assertArgument('tabl', tabl, 'table')
     predicate = _:assertArgument('predicate', predicate, 'function', _.D['function'])
+    --
 
     -- TODO: ...
 end
-
--- _:dropWhileRight(tabl, [predicate])
--- creates new `tabl` excluding items from end
--- elements will be dropped until `predicate` is falsey
---
--- @param  table(tabl)         - table to process
--- @param  function(predicate) - function ivoked per element
--- @return table
-function _:dropWhileRight(tabl, predicate)
-    tabl      = _:assertArgument('tabl', tabl, 'table')
-    predicate = _:assertArgument('predicate', predicate, 'function', _.F['function'])
-
-    -- TODO: ...
-end
-
 
 -- _:flatten(tabl)
 -- creates new `tabl` flattened one level deep
@@ -295,7 +310,7 @@ function _:flatten(tabl)
     local out = {}
 
     table.foreach(tabl, function(k1, v1)
-        if type(v1) == 'table' then
+        if _.type(v1) == 'table' then
             table.foreach({ unpack(v1) }, function(k2, v2)
                 table.insert(out, v2)
             end)
@@ -366,7 +381,7 @@ end
 -- @param  function(predicate) - function ivoked per element
 -- @param  number(fromIndex)   - index to search from
 -- @return number
-function _:findIndex(tabl, predicate, fromIndex)
+function _:findLastIndex(tabl, predicate, fromIndex)
     tabl      = _:assertArgument('tabl', tabl, 'table')
     predicate = _:assertArgument('predicate', predicate, 'function', _.T['function'])
     fromIndex = _:assertArgument('fromIndex', fromIndex, 'number', #tabl)
@@ -390,10 +405,10 @@ end
 -- @return table
 function _:flattenDeep(tabl)
     tabl = _:assertArgument('tabl', tabl, 'table')
-
+    --
     local function flatten(out, values)
         table.foreach(values, function(k, v)
-            if type(v) == 'table' then
+            if _.type(v) == 'table' then
                 flatten(out, v)
             else
                 table.insert(out, v)
@@ -404,6 +419,55 @@ function _:flattenDeep(tabl)
     end
 
     return flatten({}, tabl)
+end
+
+-- _:head(tabl)
+-- Returns first indexed value of `tabl`.
+--
+-- Note:
+--  Only affects indexed elements of `tabl`.
+--
+-- @param  table(tabl)
+-- @return mixed
+function _:head(tabl)
+    tabl = _:assertArgument('tabl', tabl, 'table')
+    --
+    return _:nth(1)
+end
+
+-- _:join(tabl, [separator=','])
+-- converts all elements in `table` into string
+--  separated by `separator`
+--
+-- @param  table(tabl)
+-- @param  string(separator)
+-- @return table
+function _:join(tabl, separator)
+    tabl      = _:assertArgument('tabl', tabl, 'table')
+    separator = _:assertArgument('separator', separator, 'string', ',')
+    --
+    return table.concat(tabl, separator)
+end
+
+-- _:indexOf(tabl, value)
+-- Returns index of first occurrence* of `value`
+--  in `tabl`.
+--
+-- Note:
+--  Only named index elements of `tabl`
+--  will be checked.
+--
+-- Warning:
+--  The order of named keys in tables
+--  is unreliable.
+--
+-- @param  table(tabl)
+-- @param  mixed(value)
+-- @return table
+function _:indexOf(tabl, value)
+    for k, v in pairs(tabl) do
+
+    end
 end
 
 -- _:map(tabl, [iteratee])
@@ -432,45 +496,88 @@ function _:map(tabl, iteratee)
     return out
 end
 
--- _:join(tabl, [separator=','])
--- converts all elements in `table` into string
---  separated by `separator`
+-- _:nth(tabl, [n=0])
+-- Returns `n`-th indexed value of `tabl`.
+-- Negative `n`-values will count from the right.
+--
+-- Note:
+--  Only affects indexed elements of `tabl`.
 --
 -- @param  table(tabl)
--- @param  string(separator)
--- @return table
-function _:join(tabl, separator)
-    tabl      = _:assertArgument('tabl', tabl, 'table')
-    separator = _:assertArgument('separator', separator, 'string', ',')
+-- @param  table(tabl)
+-- @return mixed
+function _:nth(tabl, n)
+    tabl = _:assertArgument('tabl', tabl, 'table')
+    n    = _:assertArgument('n', n, 'number', 1)
     --
-    return table.concat(tabl, separator)
+    local pos = _:abs(n)
+
+    if n < 0 then
+        pos = #tabl + 1 - pos
+    end
+
+    return tabl[pos]
 end
 
--- _:uniq(tabl)
+-- _:tail(tabl)
+-- Returns last indexed value of `tabl`.
+--
+-- Note:
+--  Only affects indexed elements of `tabl`.
+--
+-- @param  table(tabl)
+-- @return mixed
+function _:tail(tabl)
+    tabl = _:assertArgument('tabl', tabl, 'table')
+    --
+    return _:nth(tabl, _:size(tabl))
+end
+
+-- _:unique(tabl)
 -- Creates unique set of elements, dropping duplicate indices.
+--
+-- Warning:
+--  order of associative key/value pairs is unpredictable
 --
 -- @param  table(tabl)
 -- @return table
-function _:uniq(tabl)
+function _:unique(tabl)
     tabl = _:assertArgument('tabl', tabl, 'table')
     --
     local out    = {}
     local values = {}
 
-    if _:isIndexed(tabl) then
-        for _, v in ipairs(tabl) do
-            -- record first unique values
-            if not values[v] then table.insert(out, v) end
-            values[v] = true
-        end
-    else
-        for k, v in pairs(tabl) do
-            print(k, v)
-            -- record first unique values
-            if not values[v] then rawset(out, k, v) end
+    for k, v in pairs(tabl) do
+        if not values[v] then
+            out[k] = v
             values[v] = true
         end
     end
 
     return out
 end
+
+-- _:resize(tabl, size)
+-- Creates copy of `tabl`, resized to `size`.
+--
+-- @param  table(tabl)
+-- @param  number(size)
+-- @return table
+function _:resize(tabl, size)
+    tabl = _:assertArgument('tabl', tabl, 'table')
+    size = _:assertArgument('size', size, 'number')
+    --
+    local currsize = _:size(tabl)
+    local newSize  = currsize - _:abs(size)
+
+    if newSize < 0 then
+        error('Cannot resize a table to a larger size.')
+    end
+
+    if _:isNegative(size) then
+        newSize = newSize * -1
+    end
+
+    return _:drop(tabl, newSize)
+end
+

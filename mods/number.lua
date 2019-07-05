@@ -1,3 +1,21 @@
+----------------------
+--------------------
+-- Number Functions
+----------------
+--------------
+------------
+----------
+--------
+------
+----
+--
+
+
+------------------
+-- Public Functions
+--------
+------
+----
 --
 
 -- _:clamp(num, min, max)
@@ -17,6 +35,45 @@ function _:clamp(num, min, max)
     local trueMax = _:max(min, max)
 
     return _:max(trueMin, _:min(num, trueMax))
+end
+
+-- _:down(name, [n=1])
+-- A shortcut for decrementing a numeric value.
+--
+-- @param  string(name)
+-- @param  number(n)
+-- @return number
+function _:down(name, n)
+    name = _:assertArgument('name', name, 'string')
+    n    = _:assertArgument('n', n, 'number', 1)
+    --
+    if _:isNil(_.I[name]) then
+        error('Cannot find Incrementor with name `' .. name .. '`. Did you call `_:i(\'' .. name .. '\') ?`')
+    end
+
+    -- decrement
+    _.I[name] = _.I[name] - n
+
+    return _.I[name]
+end
+
+-- _:i(name, [value=0])
+-- Creates new incrementor variable.
+--
+-- note:
+--  can be used with _:down, _:up
+--
+-- @param  string(name)
+-- @param  number(value)
+-- @return number
+function _:i(name, value)
+    name = _:assertArgument('name', name, 'string')
+    --
+    if _:isNumber(value) then
+        _.I[name] = value
+    end
+
+    return _.I[name]
 end
 
 -- _:lerp(num, min, max)
@@ -77,4 +134,24 @@ function _:norm(num, min, max)
     max   = _:assertArgument('max', max, 'number', 1)
     --
     return (num - min) / (max - min)
+end
+
+-- _:up(name, [n=1])
+-- A shortcut for incrementing a numeric value.
+--
+-- @param  string(name)
+-- @param  number(n)
+-- @return number
+function _:up(name, n)
+    name = _:assertArgument('name', name, 'string')
+    n    = _:assertArgument('n', n, 'number', 1)
+    --
+    if _:isNil(_.I[name]) then
+        error('Cannot find Incrementor with name `' .. name .. '`. Did you call `_:i(\'' .. name .. '\') ?`')
+    end
+
+    -- increment
+    _.I[name] = _.I[name] + n
+
+    return _.I[name]
 end

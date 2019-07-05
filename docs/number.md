@@ -29,12 +29,41 @@ Performs clamp on `num` so it fits between `min` and `max` values.
 
 
 ---
+```bash
+> _:down(name, [n=1])
+```
+
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/number.lua#L32-L43)</small>
+
+A shortcut for decrementing a numeric value.
+
+#### Arguments
+
+`string(name)` - Decrementor name.
+`number(n)` - Start position|Decrement by value.
+
+#### Returns
+
+`number` - Returns current value of decrementor.
+
+#### Example
+
+```bash
+> _:down('a', 5)   # => 5  -- new variable created
+> _:down('a')      # => 4
+> _:down('a', 2)   # => 2
+> _:down('b')      # => 0  -- new variable created
+> _:down('b', 3)   # => -3
+```
+
+
+---
 
 ```bash
 > _:lerp(value, min, max)
 ```
 
-<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/number.lua#L30-L39)</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/number.lua#L53-L62)</small>
 
 Performs linear interpolation on a `number` between `min` and `max` values.
 
@@ -63,7 +92,7 @@ Performs linear interpolation on a `number` between `min` and `max` values.
 > _:mapTo(num, minSource, maxSource, minDest, maxDest)
 ```
 
-<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/number.lua#L51-L65)</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/number.lua#L74-L88)</small>
 
 Maps `num` from source range (`minSource/maxSource`) to destination range (`minDest/maxDest`).
 
@@ -94,7 +123,7 @@ Maps `num` from source range (`minSource/maxSource`) to destination range (`minD
 > _:norm(num, [min=0], [max=1])
 ```
 
-<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/number.lua#L74-L80)</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/number.lua#L97-L103)</small>
 
 Computes normalized `num` between `min/max` range.
 
@@ -116,3 +145,31 @@ Computes normalized `num` between `min/max` range.
 > _:norm(9, 4, 8)     # => 0.25
 ```
 
+
+---
+```bash
+> _:up(name, [n=1])
+```
+
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/number.lua#L111-L122)</small>
+
+A shortcut for incrementing a numeric value.
+
+#### Arguments
+
+`string(name)` - Decrementor name.
+`number(n)` - Start position|Decrement by value.
+
+#### Returns
+
+`number` - Returns current value of incrementor.
+
+#### Example
+
+```bash
+> _:up('a', 1)   # => 1  -- new variable created
+> _:up('a')      # => 2
+> _:up('a', 2)   # => 4
+> _:up('b')      # => 0  -- new variable created
+> _:up('b', 3)   # => 3
+```

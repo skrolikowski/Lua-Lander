@@ -202,12 +202,39 @@ Determines if `var` is not a `number`.
 
 
 ---
+```bash
+> _:isNegative(var)
+```
+
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L154-L160)</small>
+
+Determines if `var` is a negative number.
+
+#### Arguments
+
+`mixed(var)` - Variable to check.
+
+#### Returns
+
+`boolean` - Returns `true` if value is a negative number, else `false`.
+
+#### Example
+
+```bash
+> _:isNumber('abc')     # => false)
+> _:isNumber(-2)        # => true)
+> _:isNumber(3)         # => false)
+```
+
+
+
+---
 
 ```bash
 > _:isNil(var)
 ```
 
-<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L154-L156)</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L167-L169)</small>
 
 Determines if `var` is nil.
 
@@ -234,7 +261,7 @@ Determines if `var` is nil.
 > _:isNumber(var)
 ```
 
-<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L163-L165)</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L176-L178)</small>
 
 Determines if `var` is a `number` value.
 
@@ -256,12 +283,39 @@ Determines if `var` is a `number` value.
 
 
 ---
+```bash
+> _:isPositive(var)
+```
+
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L185-L191)</small>
+
+Determines if `var` is a positive number.
+
+#### Arguments
+
+`mixed(var)` - Variable to check.
+
+#### Returns
+
+`boolean` - Returns `true` if value is a positive number, else `false`.
+
+#### Example
+
+```bash
+> _:isNumber('abc')   # => false
+> _:isNumber(-2)      # => false
+> _:isNumber(3)       # => true
+```
+
+
+
+---
 
 ```bash
 > _:isRegexPattern(var)
 ```
 
-<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L172-L174)</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L198-L200)</small>
 
 Determines if `var` is a regex pattern.
 
@@ -291,7 +345,7 @@ Determines if `var` is a regex pattern.
 > _:isSequence(var)
 ```
 
-<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L182-L198)</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L208-L224)</small>
 
 Determines if `var` is a sequence (e.g. an ordered, indexed table).
 
@@ -319,7 +373,7 @@ Determines if `var` is a sequence (e.g. an ordered, indexed table).
 > _:isSet(var)
 ```
 
-<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L207-L212)</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L233-L238)</small>
 
 Determines if `var` is a set (e.g. an indexed table, with a unique set of elements in any order).
 
@@ -347,7 +401,7 @@ Determines if `var` is a set (e.g. an indexed table, with a unique set of elemen
 > _:isString(var)
 ```
 
-<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L219-L221)</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L245-L247)</small>
 
 Determines if `var` is a `string` value.
 
@@ -374,7 +428,7 @@ Determines if `var` is a `string` value.
 > _:isTable(var)
 ```
 
-<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L228-L230)</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L254-L256)</small>
 
 Determines if `var` is a `table` value.
 
@@ -401,7 +455,7 @@ Determines if `var` is a `table` value.
 > _:isThread(var)
 ```
 
-<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L237-L239)</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L263-L265)</small>
 
 Determines if `var` is a `thread` value.
 
@@ -429,7 +483,7 @@ Determines if `var` is a `thread` value.
 > _:isTruthy(var)
 ```
 
-<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L246-L252)</small>
+<small>[source](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua#L272-L278)</small>
 
 Determines if `var` is a truthy value (e.g. NOT `nil`, `false`).
 

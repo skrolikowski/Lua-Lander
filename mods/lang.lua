@@ -5,65 +5,53 @@ local __re   = require("re")
 local __type = type
 local __next = next
 
+-- local functions
+-- ref: https://web.archive.org/web/20131225070434/http://snippets.luacode.org/snippets/Deep_Comparison_of_Two_Values_3
+local function __deepcompare(t1, t2, ignore_mt)
+    -- native check
+    if not _:isTable(t1) or not _:isTable(t2) then
+        return t1 == t2
+    end
 
--- _:isAssociative(var)
--- Determines if `var` is an associative
---  table, with every element having a
---  key/value pair.
+    -- respect metatable `__eq` check, if found..
+    local mt = getmetatable(v1)
+    if not ignore_mt and mt and mt.__eq then
+        return t1 == t2
+    end
+
+    -- test t1 == t2
+    for k1, v1 in pairs(t1) do
+        if t2[k1] == nil or not __deepcompare(v1, t2[k1]) then
+            return false
+        end
+    end
+
+    -- test t2 == t1
+    for k2, v2 in pairs(t2) do
+        if t1[k2] == nil or not __deepcompare(t1[k2], v2) then
+            return false
+        end
+    end
+
+    return true
+end
+
+
+-- _:isArray(var)
+-- Determines if `var` is an `array`
+--  (e.g. contains no named-indexes).
 --
--- note:
---     indexed    - numeric indexes
---  => assocative - named indexes
---
--- important:
---  for assocative tables we use `pairs`
+-- Note:
+-- [Array](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/array.md) functions will always use `ipairs`
 --
 -- @param  mixed(var)
 -- @return boolean
-function _:isAssociative(var)
+function _:isArray(var)
     if not _:isTable(var) then return false end
     if     _:isEmpty(var) then return false end
-    -- cannot be determined if "empty"
-
-    return #var == 0 and _:size(var) > 0
+    -- note: cannot be determined if "empty"
+    return #var == _:size(var)
 end
-
--- _:eq(value, other)
--- SameValueZero comparison
---
--- @param  mixed(value)
--- @param  mixed(other)
--- @return boolean
--- function _:eq(value, other)
---     return value == other
--- end
-
--- _:isEqual(value, other)
--- performs deep equality comparison between
---  `value` and `other`
---
--- @param  mixed(value)
--- @param  mixed(other)
--- @return boolean
--- function _:isEqual(value, other)
---     local valueType = __type(value), _:size(valueType)
---     local otherType = __type(other), _:size(valueType)
---     local equal     = true
-
---     if valueType ~= otherType then
---         return false
---     end
-
---     if valueType == 'table' then
-
---         return _:isEqual()
---     end
-
---     local function equality()
---     end
-
---     return true
--- end
 
 -- _:isBoolean(var)
 -- performs check on if `var` is a native
@@ -81,17 +69,28 @@ end
 -- @param  mixed(var)
 -- @return boolean
 function _:isEmpty(var)
-    if _:isTable(var) then
-        return __next(var) == nil
-    elseif _:isBoolean(var) then
-        return var == false
-    elseif _:isString(var) then
-        return var == ''
-    elseif _:isNumber(var) then
-        return var == 0
+    if     _:isTable(var)   then return __next(var) == nil
+    elseif _:isBoolean(var) then return var == false
+    elseif _:isString(var)  then return var == ''
+    elseif _:isNumber(var)  then return var == 0
     end
     -- TODO: what about other types?
     return var == nil
+end
+
+-- _:isEqual(var1, var2)
+-- Determines if `var1 == var2`, with tables
+--  undergoing recursive equality.
+--
+-- Notes:
+-- * Lua's native equality operator tests data types.
+-- * `metatable __eq` functions are respected.
+--
+-- @param  mixed(value)
+-- @param  mixed(other)
+-- @return boolean
+function _:isEqual(var1, var2)
+    return __deepcompare(var1, var2)
 end
 
 -- _:isFalsey(var)
@@ -116,27 +115,6 @@ function _:isFunction(var)
     return __type(var) == 'function'
 end
 
--- _:isIndexed(var)
--- Determines if `var` is an indexed table,
---  with every element having an index keys.
---
--- note:
---  => indexed    - numeric indexes
---     assocative - named indexes
---
--- important:
---  for assocative tables we use `ipairs`
---
--- @param  mixed(var)
--- @return boolean
-function _:isIndexed(var)
-    if not _:isTable(var) then return false end
-    if     _:isEmpty(var) then return false end
-    -- cannot be determined if "empty"
-
-    return #var == _:size(var)
-end
-
 -- _:isNaN(var)
 -- Determines if `var` is not a `number`.
 --
@@ -144,6 +122,19 @@ end
 -- @return boolean
 function _:isNaN(var)
     return not _:isNumber(var)
+end
+
+-- _:isNegative(var)
+-- Determines if `var` is a negative number.
+--
+-- @param  mixed(var)
+-- @return boolean
+function _:isNegative(var)
+    if not _:isNumber(var) then
+        return false
+    end
+
+    return var < 0
 end
 
 -- _:isNil(var)
@@ -155,6 +146,15 @@ function _:isNil(var)
     return var == nil
 end
 
+-- _:isNotNil(var)
+-- Determines if `var` is not nil.
+--
+-- @param  mixed(var)
+-- @return boolean
+function _:isNotNil(var)
+    return var ~= nil
+end
+
 -- _:isNumber(var)
 -- Determines if `var` is a number.
 --
@@ -164,8 +164,30 @@ function _:isNumber(var)
     return __type(var) == 'number'
 end
 
+-- _:isPositive(var)
+-- Determines if `var` is a positive number (including 0).
+--
+-- @param  mixed(var)
+-- @return boolean
+function _:isPositive(var)
+    if not _:isNumber(var) then
+        return false
+    end
+
+    return var >= 0
+end
+
+-- _:isRegex(var)
+-- Alias for [_:isRegexPattern](#isRegexPattern).
+--
+-- @param  mixed(var)
+-- @return boolean
+function _:isRegex(var)
+    return _:isRegexPattern(var)
+end
+
 -- _:isRegexPattern(var)
--- performs check on if `var` is a regex pattern
+-- Determines if `var` is a regex pattern.
 --
 -- @param  mixed(var)
 -- @return boolean
@@ -180,8 +202,8 @@ end
 -- @param  mixed(var)
 -- @return boolean
 function _:isSequence(var)
-    if not _:isIndexed(var) then return false end
-    if     _:isEmpty(var)   then return false end
+    if not _:isArray(var) then return false end
+    if     _:isEmpty(var) then return false end
     -- cannot be determined if "empty"
     local prev
 
@@ -198,17 +220,20 @@ function _:isSequence(var)
 end
 
 -- _:isSet(var)
--- Determines if `var` is a set (e.g. an
---  indexed table, with a unique set of elements
---  in any order).
+-- Determines if `var` is a set (e.g. a table with
+--  named indexes for uniqueness; order is not important).
+--
+-- Note:
+-- For the definition of a "set" we are using
+--  [this reference](https://www.lua.org/pil/11.5.html).
 --
 -- @param  mixed(var)
 -- @return boolean
 function _:isSet(var)
-    if not _:isIndexed(var) then return false end
-    if     _:isEmpty(var)   then return false end
+    if not _:isArray(var) then return false end
+    if     _:isEmpty(var) then return false end
     -- cannot be determined if "empty"
-    return #var == #_:uniq(var)
+    return _:isEqual(var, _:unique(var))
 end
 
 -- _:isString(var)
@@ -249,4 +274,13 @@ function _:isTruthy(var)
     end
 
     return false
+end
+
+-- _:isZero(var)
+-- Determines if `var` equals zero.
+--
+-- @param  mixed(var)
+-- @return boolean
+function _:isZero(var)
+    return var == 0
 end
