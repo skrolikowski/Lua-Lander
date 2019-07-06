@@ -10,8 +10,10 @@ _.__index = index
 require 'mods.variables'
 
 --- modules
+require 'mods.array'
 require 'mods.assert'
 require 'mods.color'
+require 'mods.func'
 require 'mods.lang'
 require 'mods.math'
 require 'mods.number'

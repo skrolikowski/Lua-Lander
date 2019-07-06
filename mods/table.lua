@@ -18,6 +18,11 @@
 ----
 --
 
+-- Insert element property into `t`
+--  based on index type.
+--
+-- @private
+-- Note: assumes `t` is a table.
 local __insert = function(t, k, v)
     if _:isNumber(k) then
         table.insert(t, v)
@@ -42,7 +47,7 @@ end
 --  natural order
 --
 -- Credit: [lua-users](http://lua-users.org/wiki/SortedIteration)
-__orderedKeys = function(t)
+local __orderedKeys = function(t)
     local keys = {}
     _:i('len', 0)
 
@@ -96,7 +101,7 @@ end
 
 -- Imitates pairs(t).
 -- Iterates over `t` in natural order.
-__iterator = function(t)
+local __iterator = function(t)
     return __next, t, nil
 end
 
@@ -150,16 +155,13 @@ function _:combine(keys, values)
     values = _:assertArgument('values', values, 'table')
     _:assertEqualSize('tabl', keys, values)
     --
-    local out    = {}
-    local idx    = 1
-    local k1, v1 = next(keys)
-    local k2, v2 = next(values)
+    local out = {}
+    local k2, v2
 
-    while k1 ~= nil and k2 ~= nil do
-        out[v1] = v2
-        k1, v1  = next(keys, idx)
-        k2, v2  = next(values, idx)
-        idx     = idx + 1
+    for k1, v1 in __iterator(keys) do
+        k2, v2 = next(values, k2)
+
+        __insert(out, v1, v2)
     end
 
     return out
@@ -177,13 +179,15 @@ function _:conformsTo(tabl, source)
     tabl   = _:assertArgument('tabl', tabl, 'table')
     source = _:assertArgument('source', source, 'table')
     --
-    table.foreach(tabl, function(k, v)
-        if _.type(source[k]) == 'function' then
-            if not source[k](v) then
+    for k, v in pairs(tabl) do
+        if _:isFunction(source[k]) then
+            local stat, conform = _:attempt(source[k], v, k)
+
+            if stat and conform == false then
                 return false
             end
         end
-    end)
+    end
 
     return true
 end
@@ -198,6 +202,66 @@ function _:compact(tabl)
     tabl = _:assertArgument('tabl', tabl, 'table')
     --
     return _:filter(tabl, 'isTruthy')
+end
+
+-- _:difference(tabl, other)
+-- Creates copy of `tabl`, excluding any same
+--  values from `other`.
+--
+-- @param  table(tabl)   - table to process
+-- @param  table(other)  - compare table
+-- @return table
+function _:difference(tabl, other)
+    tabl  = _:assertArgument('tabl', tabl, 'table')
+    other = _:assertArgument('other', other, 'table')
+    --
+    -- TODO:
+end
+
+-- _:flatten(tabl)
+-- creates new `tabl` flattened one level deep
+--
+-- @param  table(tabl)   - table to flatten
+-- @return table
+function _:flatten(tabl)
+    tabl = _:assertArgument('tabl', tabl, 'table')
+    --
+    local out = {}
+
+    for k1, v1 in __iterator(tabl) do
+        if _:isTable(v1) then
+            for k2, v2 in __iterator(v1) do
+                __insert(out, k2, v2)
+            end
+        else
+            __insert(out, k1, v1)
+        end
+    end
+
+    return out
+end
+
+-- _:flattenDeep(tabl)
+-- creates new `tabl`, recursively flattening table.
+--
+-- @param  table(tabl)   - table to flatten
+-- @return table
+function _:flattenDeep(tabl)
+    tabl = _:assertArgument('tabl', tabl, 'table')
+    --
+    local function flatten(out, values)
+        for k, v in __iterator(values) do
+            if _:isTable(v) then
+                flatten(out, v)
+            else
+                __insert(out, k, v)
+            end
+        end
+
+        return out
+    end
+
+    return flatten({}, tabl)
 end
 
 -- _:filter(tabl, iteratee)
@@ -217,19 +281,15 @@ end
 -- @param  function(iteratee)
 -- @return table
 function _:filter(tabl, iteratee)
-    tabl = _:assertArgument('tabl', tabl, 'table')
-    if _:isString(iteratee) and _[iteratee] then
-        _:assertArgument('iteratee', _[iteratee], 'function')
-    else
-        iteratee = _:assertArgument('iteratee', iteratee, 'function')
-    end
+    tabl     = _:assertArgument('tabl', tabl, 'table')
+    iteratee = _:assertArgument('tabl', iteratee, 'function')
     --
     local out = {}
 
-    for k, v in pairs(tabl) do
-        if _:isString(iteratee) and _[iteratee](_, v, k) then
-            __insert(out, k, v)
-        elseif _:isFunction(iteratee) and iteratee(v, k) then
+    for k, v in __iterator(tabl) do
+        local stat, passed = _:attempt(iteratee, v, k)
+
+        if stat and passed == true then
             __insert(out, k, v)
         end
     end
@@ -237,300 +297,78 @@ function _:filter(tabl, iteratee)
     return out
 end
 
--- _:difference(tabl, [values])
--- creates new `tabl` with incoming values not included
---
--- @param  table(tabl)   - table to process
--- @param  table(other)  - compare table
--- @return table
-function _:difference(tabl, other)
-    tabl  = _:assertArgument('tabl', tabl, 'table')
-    other = _:assertArgument('other', other, 'table', {})
-
-    -- swap key/values
-    -- other = __swapKeyValues(other)
-
-    table.foreach(tabl, function(k, v)
-
-    end)
-end
-
--- _:drop(tabl, [n=1])
--- creates new `tabl` dropping `num` of elements from beginning
---
---  notes:
---    - negative `num` redirects to `_:dropRight`
---
--- @param  table(tabl)  - table to process
--- @param  number(num)  - number of elements to drop
--- @return table
-function _:drop(tabl, num)
-    tabl = _:assertArgument('tabl', tabl, 'table')
-    num  = _:assertArgument('num', num, 'number', 1)
-    --
-    local out = _:copy(tabl)
-    local cnt = _:abs(num)
-
-    while cnt > 0 do
-        if _:isNegative(num) then
-            table.remove(out, 1)
-        else
-            table.remove(out)
-        end
-
-        cnt = cnt - 1
-    end
-
-    return out
-end
-
--- _:dropWhile(tabl, [predicate])
--- creates new `tabl` excluding items from beginning
--- elements will be dropped until `predicate` is falsey
---
--- @param  table(tabl)         - table to process
--- @param  function(predicate) - predicate ivoked per element
--- @return table
-function _:dropWhile(tabl, predicate)
-    tabl      = _:assertArgument('tabl', tabl, 'table')
-    predicate = _:assertArgument('predicate', predicate, 'function', _.D['function'])
-    --
-
-    -- TODO: ...
-end
-
--- _:flatten(tabl)
--- creates new `tabl` flattened one level deep
---
--- @param  table(tabl)   - table to flatten
--- @return table
-function _:flatten(tabl)
-    tabl = _:assertArgument('tabl', tabl, 'table')
-    --
-    local out = {}
-
-    table.foreach(tabl, function(k1, v1)
-        if _.type(v1) == 'table' then
-            table.foreach({ unpack(v1) }, function(k2, v2)
-                table.insert(out, v2)
-            end)
-        else
-            table.insert(out, v1)
-        end
-    end)
-
-    return out
-end
-
--- _:fill(tabl, value, [start=1], [stop=_:size(tabl)])
--- creates new `tabl` with `value` from
---  `start` position to `stop` position
---
--- @param  table(tabl)    - table to fill
--- @param  mixed(value)   - fill value
--- @param  number(start)  - start position
--- @param  number(stop)   - stop position
--- @return table
-function _:fill(tabl, value, start, stop)
-    tabl  = _:assertArgument('tabl', tabl, 'table')
-    start = _:assertArgument('start', start, 'number', 1)
-    stop  = _:assertArgument('stop', stop, 'number', _:size(tabl))
-    --
-    local out = {}
-
-    table.foreach(tabl, function(k, v)
-        idx = idx + 1
-        if idx >= start and idx < stop then
-            rawset(out, k, v)
-        end
-    end)
-
-    return out
-end
-
--- _:findIndex(tabl, [predicate], [fromIndex=1])
--- returns first index (starting from `formIndex`)
---  of `tabl` where `predicate` returns a truthy value.
+-- _:find(tabl, predicate)
+-- Return first element in `tabl`, which
+--  `predicate` returns a truthy value.
 --
 -- @param  table(tabl)         - table to fill
 -- @param  function(predicate) - function ivoked per element
--- @param  number(fromIndex)   - index to search from
--- @return number
-function _:findIndex(tabl, predicate, fromIndex)
+-- @return mixed(v), mixed(k)
+function _:find(tabl, predicate)
     tabl      = _:assertArgument('tabl', tabl, 'table')
-    predicate = _:assertArgument('predicate', predicate, 'function', _.T['function'])
-    fromIndex = _:assertArgument('fromIndex', fromIndex, 'number', 1)
+    predicate = _:assertArgument('predicate', predicate, 'function')
     --
-    local idx = fromIndex
+    for k, v in __iterator(tabl) do
+        local stat, res = _:attempt(predicate, v, k)
 
-    table.foreach(tabl, function(k, v)
-        idx = idx + 1
-        if _:isTrue(predicate(v)) and idx >= fromIdex then
-            return k
-        end
-    end)
-
-    return -1
-end
-
--- _:findLastIndex(tabl, [predicate], [fromIndex=#tabl])
--- returns first index (starting from `formIndex`)
---  of `tabl` where `predicate` returns a truthy value.
---
--- @param  table(tabl)         - table to fill
--- @param  function(predicate) - function ivoked per element
--- @param  number(fromIndex)   - index to search from
--- @return number
-function _:findLastIndex(tabl, predicate, fromIndex)
-    tabl      = _:assertArgument('tabl', tabl, 'table')
-    predicate = _:assertArgument('predicate', predicate, 'function', _.T['function'])
-    fromIndex = _:assertArgument('fromIndex', fromIndex, 'number', #tabl)
-    --
-    local idx = fromIndex
-
-    while idx > 0 do
-        idx = idx - 1
-        if _:isTrue(predicate(v)) then
-            return k
+        if stat and _:isTruthy(res) then
+            return v, k
         end
     end
-
-    return -1
 end
 
--- _:flattenDeep(tabl)
--- creates new `tabl`, recursively flattening table.
+-- _:keys(tabl)
+-- Creates new table made up of keys from `tabl`.
 --
--- @param  table(tabl)   - table to flatten
+-- @param  table(tabl)
 -- @return table
-function _:flattenDeep(tabl)
+function _:keys(tabl)
     tabl = _:assertArgument('tabl', tabl, 'table')
     --
-    local function flatten(out, values)
-        table.foreach(values, function(k, v)
-            if _.type(v) == 'table' then
-                flatten(out, v)
-            else
-                table.insert(out, v)
-            end
-        end)
-
-        return out
-    end
-
-    return flatten({}, tabl)
+    return __orderedKeys(tabl)
 end
 
--- _:head(tabl)
--- Returns first indexed value of `tabl`.
---
--- Note:
---  Only affects indexed elements of `tabl`.
---
--- @param  table(tabl)
--- @return mixed
-function _:head(tabl)
-    tabl = _:assertArgument('tabl', tabl, 'table')
-    --
-    return _:nth(1)
-end
-
--- _:join(tabl, [separator=','])
--- converts all elements in `table` into string
---  separated by `separator`
---
--- @param  table(tabl)
--- @param  string(separator)
--- @return table
-function _:join(tabl, separator)
-    tabl      = _:assertArgument('tabl', tabl, 'table')
-    separator = _:assertArgument('separator', separator, 'string', ',')
-    --
-    return table.concat(tabl, separator)
-end
-
--- _:indexOf(tabl, value)
--- Returns index of first occurrence* of `value`
---  in `tabl`.
---
--- Note:
---  Only named index elements of `tabl`
---  will be checked.
---
--- Warning:
---  The order of named keys in tables
---  is unreliable.
---
--- @param  table(tabl)
--- @param  mixed(value)
--- @return table
-function _:indexOf(tabl, value)
-    for k, v in pairs(tabl) do
-
-    end
-end
-
--- _:map(tabl, [iteratee])
+-- _:map(tabl, iteratee)
 -- creates new table executing `iteratee`
---  on every element of `tabl`
---
--- note:
---  `iteratee` is invoked with 3 arguments:
---  - mixed(value)
---  - mixed(key)
---  - table(tabl)
+--  on every element of `tabl`.
 --
 -- @param  table(keys)        - keys table
 -- @param  function(iteratee) - values table
 -- @return table
 function _:map(tabl, iteratee)
-    _:assertArgument('tabl', tabl, 'table')
-    _:assertArgument('iteratee', iteratee, 'function', _.D['iteratee'])
+    tabl     = _:assertArgument('tabl', tabl, 'table')
+    iteratee = _:assertArgument('iteratee', iteratee, 'function')
     --
     local out = {}
 
-    table.foreach(tabl, function(k, v)
-        table.insert(out, iteratee(v, k, tabl))
-    end)
+    for k, v in __iterator(tabl) do
+        __insert(out, k, _:force(iteratee, v, k))
+    end
 
     return out
 end
 
--- _:nth(tabl, [n=0])
--- Returns `n`-th indexed value of `tabl`.
--- Negative `n`-values will count from the right.
+-- _:merge(...)
+-- Creates new table merging from left to right.
 --
--- Note:
---  Only affects indexed elements of `tabl`.
+-- Warning:
+--  Overwritting may occur.
 --
--- @param  table(tabl)
--- @param  table(tabl)
--- @return mixed
-function _:nth(tabl, n)
-    tabl = _:assertArgument('tabl', tabl, 'table')
-    n    = _:assertArgument('n', n, 'number', 1)
-    --
-    local pos = _:abs(n)
+-- @param  table(keys)        - keys table
+-- @param  function(iteratee) - values table
+-- @return table
+function _:merge(...)
+    local out = {}
 
-    if n < 0 then
-        pos = #tabl + 1 - pos
+    for _k, tabl in ipairs({...}) do
+        if _:isTable(tabl) then
+            for k, v in __iterator(tabl) do
+                __insert(out, k, v)
+            end
+        end
     end
 
-    return tabl[pos]
-end
-
--- _:tail(tabl)
--- Returns last indexed value of `tabl`.
---
--- Note:
---  Only affects indexed elements of `tabl`.
---
--- @param  table(tabl)
--- @return mixed
-function _:tail(tabl)
-    tabl = _:assertArgument('tabl', tabl, 'table')
-    --
-    return _:nth(tabl, _:size(tabl))
+    return out
 end
 
 -- _:unique(tabl)
@@ -581,3 +419,20 @@ function _:resize(tabl, size)
     return _:drop(tabl, newSize)
 end
 
+-- _:values(tabl)
+-- Creates new table made up of values from `tabl`.
+--
+-- @param  table(tabl)
+-- @return table
+function _:values(tabl)
+    tabl = _:assertArgument('tabl', tabl, 'table')
+    --
+    local out = {}
+    _:i('i', 0)
+
+    for k, v in __iterator(tabl) do
+        __insert(out, _:up('i'), v)
+    end
+
+    return out
+end

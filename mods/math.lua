@@ -116,7 +116,7 @@ function _:maxBy(tabl, iteratee)
     --
     local max
 
-    table.foreach(tabl, function(k, v)
+    for k, v in pairs(tabl) do
         if _:isNumber(v) then
             if not max then
                 max = iteratee(v)
@@ -124,7 +124,7 @@ function _:maxBy(tabl, iteratee)
                 max = _.__max(max, iteratee(v))
             end
         end
-    end)
+    end
 
     return max
 end

@@ -6,17 +6,6 @@ local __type   = type
 local __unpack = unpack
 
 
--- _:attempt(func)
--- Attempts to invoke `func`, with `...` args.
---
--- @param  function(func)
--- @return string, mixed
-function _:attempt(func, ...)
-    func = _:assertArgument('func', func, 'function')
-    ---
-    return pcall(func, ...)
-end
-
 -- _:copy(value)
 -- Create deep copy of `value`.
 --

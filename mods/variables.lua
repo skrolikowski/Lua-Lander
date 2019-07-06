@@ -12,6 +12,8 @@ _.PRECISION = 6
 -- .. preloaded for speed.
 --
 _.__type   = type
+_.__next   = next
+_.__unpack = unpack
 _.__abs    = math.abs
 _.__ceil   = math.ceil
 _.__deg    = math.deg
@@ -26,6 +28,7 @@ _.__lower  = string.lower
 _.__match  = string.match
 _.__upper  = string.upper
 _.__sub    = string.sub
+_.__insert = table.insert
 
 --
 -- Default Color Palette
@@ -114,25 +117,9 @@ _.D['boolean']  = false
 _.D['string']   = ''
 _.D['number']   = 0
 _.D['function'] = (function(v) return v end)
-_.D['iteratee'] = (function(v) return v end)
+_.D['iteratee'] = (function(v, k) return v end)
 
 --
 -- Increment/decrement table
 --
 _.I = {}
-
---
--- Truthy table
---
-_.T = {}
-_.T['boolean']  = true
-_.T['number']   = 1
-_.T['function'] = (function() return true end)
---
--- Falsey table
---
-_.F = {}
-_.F['boolean']  = _.D['boolean']
-_.F['string']   = _.D['string']
-_.F['number']   = _.D['number']
-_.F['function'] = (function() return false end)

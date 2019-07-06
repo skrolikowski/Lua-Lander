@@ -1,11 +1,25 @@
+----------------------
+--------------------
+-- Table Functions
+----------------
+--------------
+------------
+----------
+--------
+------
+----
 --
--- Lang Functions
---
-local __re   = require("re")
-local __type = type
-local __next = next
 
--- local functions
+local __re   = require("re")
+
+
+------------------
+-- Private Functions
+--------
+------
+----
+--
+
 -- ref: https://web.archive.org/web/20131225070434/http://snippets.luacode.org/snippets/Deep_Comparison_of_Two_Values_3
 local function __deepcompare(t1, t2, ignore_mt)
     -- native check
@@ -37,6 +51,23 @@ local function __deepcompare(t1, t2, ignore_mt)
 end
 
 
+------------------
+-- Public Functions
+--------
+------
+----
+--
+
+-- _:is_(var)
+-- Determines if `var` is a native lander `function`.
+--
+-- @param  mixed(var)
+-- @return boolean
+function _:is_(var)
+    return _:isString(var) and
+           _.__type(_[var])
+end
+
 -- _:isArray(var)
 -- Determines if `var` is an `array`
 --  (e.g. contains no named-indexes).
@@ -48,8 +79,7 @@ end
 -- @return boolean
 function _:isArray(var)
     if not _:isTable(var) then return false end
-    if     _:isEmpty(var) then return false end
-    -- note: cannot be determined if "empty"
+    --
     return #var == _:size(var)
 end
 
@@ -60,7 +90,7 @@ end
 -- @param  mixed(var)
 -- @return boolean
 function _:isBoolean(var)
-    return __type(var) == 'boolean'
+    return _.__type(var) == 'boolean'
 end
 
 -- _:isEmpty(var)
@@ -69,7 +99,7 @@ end
 -- @param  mixed(var)
 -- @return boolean
 function _:isEmpty(var)
-    if     _:isTable(var)   then return __next(var) == nil
+    if     _:isTable(var)   then return _.__next(var) == nil
     elseif _:isBoolean(var) then return var == false
     elseif _:isString(var)  then return var == ''
     elseif _:isNumber(var)  then return var == 0
@@ -112,7 +142,8 @@ end
 -- @param  mixed(var)
 -- @return boolean
 function _:isFunction(var)
-    return __type(var) == 'function'
+    return _.__type(var) == 'function' or
+           _:is_(var)
 end
 
 -- _:isNaN(var)
@@ -161,7 +192,7 @@ end
 -- @param  mixed(var)
 -- @return boolean
 function _:isNumber(var)
-    return __type(var) == 'number'
+    return _.__type(var) == 'number'
 end
 
 -- _:isPositive(var)
@@ -203,8 +234,7 @@ end
 -- @return boolean
 function _:isSequence(var)
     if not _:isArray(var) then return false end
-    if     _:isEmpty(var) then return false end
-    -- cannot be determined if "empty"
+    --
     local prev
 
     for _, v in ipairs(var) do
@@ -231,8 +261,7 @@ end
 -- @return boolean
 function _:isSet(var)
     if not _:isArray(var) then return false end
-    if     _:isEmpty(var) then return false end
-    -- cannot be determined if "empty"
+    --
     return _:isEqual(var, _:unique(var))
 end
 
@@ -242,7 +271,7 @@ end
 -- @param  mixed(var)
 -- @return boolean
 function _:isString(var)
-    return __type(var) == 'string'
+    return _.__type(var) == 'string'
 end
 
 -- _:isTable(var)
@@ -251,7 +280,7 @@ end
 -- @param  mixed(var)
 -- @return boolean
 function _:isTable(var)
-    return __type(var) == 'table'
+    return _.__type(var) == 'table'
 end
 
 -- _:isThread(var)
@@ -260,7 +289,7 @@ end
 -- @param  mixed(var)
 -- @return boolean
 function _:isThread(var)
-    return __type(var) == 'thread'
+    return _.__type(var) == 'thread'
 end
 
 -- _:isTruthy(var)
