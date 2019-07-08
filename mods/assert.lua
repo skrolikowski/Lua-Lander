@@ -54,7 +54,7 @@ function _:assertArgument(name, var, expect, default)
 end
 
 -- _:assertEqualSize(name, [...])
--- assert list of `...` are all of equal size
+-- Assert if not all `...` values are the same length.
 --
 -- @param  string(name) - identifier
 -- @param  mixed(...)   - values to assert
@@ -102,6 +102,16 @@ function _:assertIsNumber(name, var)
     return var
 end
 
+-- _:assertIsRegex(name, var)
+-- Alias of [_:assertIsRegexPattern](#assertIsRegexPattern).
+--
+-- @param string(name) - identifier
+-- @param mixed(var)   - variable to assert
+-- @return mixed(var)
+function _:assertIsRegex(name, var)
+    return _:assertIsRegexPattern(name, var)
+end
+
 -- _:assertIsRegexPattern(name, var)
 -- Assert if `var` is not a regular expression pattern.
 --
@@ -144,7 +154,7 @@ function _:assertIsTable(name, var)
 end
 
 -- _:assertMinSize(name, var, expect)
--- Assert if `var` is **<** `expect` size.
+-- Assert if `var` is < `expect` size.
 --
 -- @param  string(name)   - identifier
 -- @param  mixed(var)     - variable to assert
@@ -160,7 +170,7 @@ function _:assertMinSize(name, var, expect)
 end
 
 -- _:assertMaxSize(name, var, expect)
--- Assert if `var` is **>** `expect` size.
+-- Assert if `var` is > `expect` size.
 --
 -- @param  string(name)   - identifier
 -- @param  mixed(var)     - variable to assert
@@ -189,7 +199,7 @@ function _:assertNotNil(name, var)
 end
 
 -- _:assertIsNotZero(name, var)
--- assert `var` is not 0
+-- Assert if `var` is 0.
 --
 -- @param  string(name) - identifier
 -- @param  mixed(var)   - variable to assert

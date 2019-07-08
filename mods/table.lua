@@ -140,7 +140,7 @@ function _:chunk(tabl, size)
     return out
 end
 
--- _:tableCombine(tabl, [size=1])
+-- _:combine(keys, values)
 -- creates new `tabl` with `keys` as the
 --  keys and `values` as the values.
 --
@@ -165,6 +165,18 @@ function _:combine(keys, values)
     end
 
     return out
+end
+
+-- _:compact(tabl)
+-- Creates copy of `tabl` with Lua-falsy
+--  values filtered out.
+--
+-- @param  table(tabl)
+-- @return table
+function _:compact(tabl)
+    tabl = _:assertArgument('tabl', tabl, 'table')
+    --
+    return _:filter(tabl, 'isTruthy')
 end
 
 -- _:conformsTo(value, source)
@@ -192,18 +204,6 @@ function _:conformsTo(tabl, source)
     return true
 end
 
--- _:compact(tabl)
--- Creates copy of `tabl` with Lua-falsy
---  values filtered out.
---
--- @param  table(tabl)
--- @return table
-function _:compact(tabl)
-    tabl = _:assertArgument('tabl', tabl, 'table')
-    --
-    return _:filter(tabl, 'isTruthy')
-end
-
 -- _:difference(tabl, other)
 -- Creates copy of `tabl`, excluding any same
 --  values from `other`.
@@ -219,7 +219,7 @@ function _:difference(tabl, other)
 end
 
 -- _:flatten(tabl)
--- creates new `tabl` flattened one level deep
+-- Creates new `tabl` flattened one level deep.
 --
 -- @param  table(tabl)   - table to flatten
 -- @return table
@@ -242,7 +242,7 @@ function _:flatten(tabl)
 end
 
 -- _:flattenDeep(tabl)
--- creates new `tabl`, recursively flattening table.
+-- Creates new `tabl`, recursively flattening table.
 --
 -- @param  table(tabl)   - table to flatten
 -- @return table
@@ -329,7 +329,7 @@ function _:keys(tabl)
 end
 
 -- _:map(tabl, iteratee)
--- creates new table executing `iteratee`
+-- Creates new table executing `iteratee`
 --  on every element of `tabl`.
 --
 -- @param  table(keys)        - keys table
@@ -371,11 +371,28 @@ function _:merge(...)
     return out
 end
 
+-- _:resize(tabl, size)
+-- Creates copy of `tabl`, resized to `size`.
+--
+-- @param  table(tabl)
+-- @param  number(size)
+-- @return table
+function _:resize(tabl, size)
+    tabl = _:assertArgument('tabl', tabl, 'table')
+    size = _:assertArgument('size', size, 'number')
+    --
+    local currsize = _:size(tabl)
+    local newSize  = currsize - _:abs(size)
+
+    if _:isNegative(size) then
+        newSize = newSize * -1
+    end
+
+    return _:drop(tabl, newSize)
+end
+
 -- _:unique(tabl)
 -- Creates unique set of elements, dropping duplicate indices.
---
--- Warning:
---  order of associative key/value pairs is unpredictable
 --
 -- @param  table(tabl)
 -- @return table
@@ -393,30 +410,6 @@ function _:unique(tabl)
     end
 
     return out
-end
-
--- _:resize(tabl, size)
--- Creates copy of `tabl`, resized to `size`.
---
--- @param  table(tabl)
--- @param  number(size)
--- @return table
-function _:resize(tabl, size)
-    tabl = _:assertArgument('tabl', tabl, 'table')
-    size = _:assertArgument('size', size, 'number')
-    --
-    local currsize = _:size(tabl)
-    local newSize  = currsize - _:abs(size)
-
-    if newSize < 0 then
-        error('Cannot resize a table to a larger size.')
-    end
-
-    if _:isNegative(size) then
-        newSize = newSize * -1
-    end
-
-    return _:drop(tabl, newSize)
 end
 
 -- _:values(tabl)

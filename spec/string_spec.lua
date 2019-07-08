@@ -183,7 +183,7 @@ describe('String Functions', function()
         end)
     end)
 
-    describe('_:truncate(str, [options={}])', function()
+    describe('_:truncate(str, [options])', function()
         it('correctly truncates `str` with `options.length` set to default', function()
             assert.are.equals(_:truncate('hi-diddly-ho there, neighborino'), 'hi-diddly-ho there, neighbo...')
         end)

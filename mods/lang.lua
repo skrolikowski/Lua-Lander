@@ -69,11 +69,11 @@ function _:is_(var)
 end
 
 -- _:isArray(var)
--- Determines if `var` is an `array`
+-- Determines if `var` is an "array"
 --  (e.g. contains no named-indexes).
 --
 -- Note:
--- [Array](https://github.com/skrolikowski/Lua-Lander/blob/master/mods/array.md) functions will always use `ipairs`
+--  "Array" functions will always use `ipairs`
 --
 -- @param  mixed(var)
 -- @return boolean
@@ -84,8 +84,7 @@ function _:isArray(var)
 end
 
 -- _:isBoolean(var)
--- performs check on if `var` is a native
---  Lua `boolean` data type
+-- Determines if `var` is a boolean value
 --
 -- @param  mixed(var)
 -- @return boolean
@@ -94,7 +93,7 @@ function _:isBoolean(var)
 end
 
 -- _:isEmpty(var)
--- Determines if `var` is an "empty value".
+-- Determines if `var` is an "empty" value.
 --
 -- @param  mixed(var)
 -- @return boolean
@@ -108,19 +107,19 @@ function _:isEmpty(var)
     return var == nil
 end
 
--- _:isEqual(var1, var2)
--- Determines if `var1 == var2`, with tables
+-- _:isEqual(left, right)
+-- Determines if `left == right`, with tables
 --  undergoing recursive equality.
 --
 -- Notes:
 -- * Lua's native equality operator tests data types.
 -- * `metatable __eq` functions are respected.
 --
--- @param  mixed(value)
--- @param  mixed(other)
+-- @param  mixed(left)
+-- @param  mixed(right)
 -- @return boolean
-function _:isEqual(var1, var2)
-    return __deepcompare(var1, var2)
+function _:isEqual(left, right)
+    return __deepcompare(left, right)
 end
 
 -- _:isFalsey(var)
@@ -227,7 +226,7 @@ function _:isRegexPattern(var)
 end
 
 -- _:isSequence(var)
--- Determines if `var` is a sequence
+-- Determines if `var` is a "sequence"
 --  (e.g. an ordered, indexed table).
 --
 -- @param  mixed(var)
@@ -283,15 +282,6 @@ function _:isTable(var)
     return _.__type(var) == 'table'
 end
 
--- _:isThread(var)
--- Determines if `var` is a `thread` value.
---
--- @param  mixed(var)
--- @return boolean
-function _:isThread(var)
-    return _.__type(var) == 'thread'
-end
-
 -- _:isTruthy(var)
 -- Determines if `var` is a truthy value (e.g. NOT `nil`, `false`).
 --
@@ -303,6 +293,15 @@ function _:isTruthy(var)
     end
 
     return false
+end
+
+-- _:isThread(var)
+-- Determines if `var` is a `thread` value.
+--
+-- @param  mixed(var)
+-- @return boolean
+function _:isThread(var)
+    return _.__type(var) == 'thread'
 end
 
 -- _:isZero(var)

@@ -1,0 +1,14 @@
+{% if item.examples %}
+    <div class="py-2 ml-5">
+        <h4 class="text-lg uppercase text-gray-700">Examples</h4>
+        <div class="p-5 mx-5 mt-3 bg-gray-800 rounded">
+            {% for example in item.examples %}
+                <div class="w-full text-sm font-thin font-mono text-gray-200">
+                    {{ example.test }}
+                    <br />
+                    <span class="text-yellow-500 italic ml-3">-- {{ example.resp }}</span>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

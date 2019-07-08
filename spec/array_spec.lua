@@ -37,8 +37,8 @@ describe('Table Functions', function()
         end)
     end)
 
-    describe('_:fill(tabl, value, [size=1], [stop=_:size(tabl)])', function()
-        it('should create new table, filled with `value` for `size` values, starting at `fromIndex`', function()
+    describe('_:fill(tabl, value, [n=_:size(tabl)], [fromIndex=1])', function()
+        it('should create new table, filled with `value` `n` times, starting at `fromIndex`', function()
             assert.are.same(_:fill({1, 2, 3, 4}, 8, 2, 4), {1, 2, 3, 8, 8})
             assert.are.same(_:fill({}, 'hello', 3, 2), {'hello', 'hello', 'hello'})
             -- will ignore named-indexes

@@ -30,7 +30,7 @@ function _:abs(num)
 end
 
 -- _:add(...)
--- Adds all numbers and returns sum.
+-- Adds all `...` numbers and returns sum.
 --
 -- @param  number(...)
 -- @return number
@@ -91,7 +91,7 @@ function _:floor(num, precision)
 end
 
 -- _:max(...)
--- Finds max in sequence of numbers.
+-- Finds max value in sequence of numbers.
 --
 -- @param  number(...)
 -- @return number
@@ -326,7 +326,7 @@ function _:sumBy(tabl, iteratee)
 end
 
 -- _:toDeg(rad)
--- converts `rad` to degrees
+-- Converts `rad` to degrees.
 --
 -- @param  number(rad) - radians
 -- @return number
@@ -335,7 +335,7 @@ function _:toDeg(rad)
 end
 
 -- _:toRad(deg)
--- converts `deg` to radians
+-- Converts `deg` to radians.
 --
 -- @param  number(deg) - degrees
 -- @return number

@@ -1,0 +1,331 @@
+link: https://github.com/skrolikowski/Lua-Lander/blob/master/mods/assert.lua
+items:
+##########################
+# assertArgument
+##########################
+- name: assertArgument
+  line: L38-L54
+  sign: _:assertArgument(name, var, expect, [default])
+  tags: ['assert']
+  text:
+    - >
+      Assert `var` is am `expect`ed data type, and assigns `default` if `var` = nil.
+  arguments:
+    - name: name
+      type: string
+      text: Field identifier for error response.
+    - name: var
+      type: mixed
+      text: Variable to check.
+    - name: expect
+      type: string
+      text: Expected data type.
+    - name: default
+      type: mixed
+      text: Default value if `var` is nil, otherwise passed-in `var`.
+  returns:
+    - name:
+      type: mixed
+      text: Throws error if `var` is nil.
+  examples:
+    - test: _:assertArgument('name', 10, 'string')
+      resp: throws error!
+    - test: _:assertArgument('age', '23', 'number')
+      resp: throws error!
+    - test: _:assertArgument('name', 'John Doe', 'string')
+      resp: no error
+    - test: _:assertArgument('age', 23, 'number'
+      resp: no error
+    - test: _:assertArgument('pattern', nil, 'string', '%s+')
+      resp: '%s+'
+    - test: _:assertArgument('age', nil, 'number', 21)
+      resp: 21
+##########################
+# assertEqualSize
+##########################
+- name: assertEqualSize
+  line: L62-L76
+  sign: _:assertEqualSize(name, [...])
+  text:
+    - >
+      Assert if not all `...` values are the same length.
+  arguments:
+    - name: name
+      type: string
+      text: Field identifier for error response.
+    - name: ...
+      type: mixed
+      text: Values to check.
+  returns:
+    - name:
+      type: mixed
+      text: Throws error if values of `...` are of varying size.
+  examples:
+    - test: _:assertEqualSize('name', {1, 2, 3, 4}, {1, 2, 3})
+      resp: throws error!
+    - test: _:assertEqualSize('name', 'long', 'short')
+      resp: throws error!
+    - test: _:assertEqualSize('name', {1, 2}, {1, 2}, {1, 2})
+      resp: no error
+    - test: _:assertEqualSize('name', 'test', 'long')
+      resp: no error
+##########################
+# assertIsBoolean
+##########################
+- name: assertIsBoolean
+  line: L84-L89
+  sign: _:assertIsBoolean(name, var)
+  text:
+    - >
+      Asserts `var` is not a boolean data type.
+  arguments:
+    - name: name
+      type: string
+      text: Field identifier for error response.
+    - name: var
+      type: mixed
+      text: Values to check.
+  returns:
+    - name:
+      type: mixed
+      text: Throws error if `var` is not a boolean.
+  examples:
+    - test: _:assertIsBoolean('test', 'true')
+      resp: throws error!
+    - test: _:assertIsBoolean('test', true)
+      resp: no error
+##########################
+# assertIsNumber
+##########################
+- name: assertIsNumber
+  line: L97-103
+  sign: _:assertIsNumber(name, var)
+  text:
+    - >
+      Asserts `var` is not a number data type.
+  arguments:
+    - name: name
+      type: string
+      text: Field identifier for error response.
+    - name: var
+      type: mixed
+      text: Values to check.
+  returns:
+    - name:
+      type: mixed
+      text: Throws error if `var` is not a number.
+  examples:
+    - test: _:assertIsNumber('age', 'thirty-five')
+      resp: throws error!
+    - test: _:assertIsNumber('age', 35)
+      resp: no error
+##########################
+# assertIsRegex
+##########################
+- name: assertIsRegex
+  line: L111-113
+  sign: _:assertIsRegex(name, var)
+  text:
+    - >
+      Alias of <a class="text-blue-500" href="#assertIsRegexPattern">_:assertIsRegexPattern</a>.
+  arguments:
+    - name: name
+      type: string
+      text: Field identifier for error response.
+    - name: var
+      type: mixed
+      text: Values to check.
+  returns:
+    - name:
+      type: mixed
+      text: Throws error if `var` is not a regex pattern.
+  examples:
+    - test: _:assertIsPattern('pattern', 'abc')
+      resp: throws error!
+    - test: _:assertIsPattern('pattern', '[^,%s+]')
+      resp: no error
+##########################
+# assertIsRegexPattern
+##########################
+- name: assertIsRegexPattern
+  line: L121-126
+  sign: _:assertIsRegexPattern(name, var)
+  text:
+    - >
+      Assert if `var` is not a regular expression pattern.
+  arguments:
+    - name: name
+      type: string
+      text: Field identifier for error response.
+    - name: var
+      type: mixed
+      text: Values to check.
+  returns:
+    - name:
+      type: mixed
+      text: Throws error if `var` is not a regex pattern.
+  examples:
+    - test: _:assertIsRegexPattern('pattern', 'abc')
+      resp: throws error!
+    - test: _:assertIsRegexPattern('pattern', '[^,%s+]')
+      resp: no error
+##########################
+# assertIsString
+##########################
+- name: assertIsString
+  line: L134-L140
+  sign: _:assertIsString(name, var)
+  text:
+    - >
+      Assert if `var` is not a `string` data type.
+  arguments:
+    - name: name
+      type: string
+      text: Field identifier for error response.
+    - name: var
+      type: mixed
+      text: Values to check.
+  returns:
+    - name:
+      type: mixed
+      text: Throws error if `var` is not a string.
+  examples:
+    - test: _:assertIsString('age', 35)
+      resp: throws error!
+    - test: _:assertIsString('age', 'thirty-five')
+      resp: no error
+##########################
+# assertIsTable
+##########################
+- name: assertIsTable
+  line: L148-L154
+  sign: _:assertIsTable(name, var)
+  text:
+    - >
+      Assert if `var` is not a `table` data type.
+  arguments:
+    - name: name
+      type: string
+      text: Field identifier for error response.
+    - name: var
+      type: mixed
+      text: Values to check.
+  returns:
+    - name:
+      type: mixed
+      text: Throws error if `var` is not a table.
+  examples:
+    - test: _:assertIsTable('table', '1-2-3')
+      resp: throws error!
+    - test: _:assertIsTable('table', {'a','b','c'})
+      resp: no error
+##########################
+# assertMinSize
+##########################
+- name: assertMinSize
+  line: L163-170
+  sign: _:assertMinSize(name, var, expect)
+  text:
+    - >
+      Assert if `var` is < `expect` size.
+  arguments:
+    - name: name
+      type: string
+      text: Field identifier for error response.
+    - name: var
+      type: mixed
+      text: Values to check.
+    - name: expect
+      type: number
+      text: Maxiumum size expected.
+  returns:
+    - name:
+      type: mixed
+      text: Throws error if `var` is < `expect` size.
+  examples:
+    - test: _:assertMinSize('age', 20, 21)
+      resp: throws error!
+    - test: _:assertMinSize('age', 21, 21)
+      resp: no error
+    - test: _:assertMinSize('age', 22, 21)
+      resp: no error
+##########################
+# assertMaxSize
+##########################
+- name: assertMaxSize
+  line: L179-186
+  sign: _:assertMaxSize(name, var, expect)
+  text:
+    - >
+      Assert if `var` is > `expect` size.
+  arguments:
+    - name: name
+      type: string
+      text: Field identifier for error response.
+    - name: var
+      type: mixed
+      text: Values to check.
+    - name: expect
+      type: number
+      text: Minimum size expected.
+  returns:
+    - name:
+      type: mixed
+      text: Throws error if `var` is > `expect` size.
+  examples:
+    - test: _:assertMaxSize('age', 22, 21)
+      resp: throws error!
+    - test: _:assertMaxSize('age', 21, 21)
+      resp: no error
+    - test: _:assertMaxSize('age', 20, 21)
+      resp: no error
+##########################
+# assertNotNil
+##########################
+- name: assertNotNil
+  line: L194-199
+  sign: _:assertNotNil(name, var)
+  text:
+    - >
+      Assert if `var` is nil.
+  arguments:
+    - name: name
+      type: string
+      text: Field identifier for error response.
+    - name: var
+      type: mixed
+      text: Values to check.
+  returns:
+    - name:
+      type: mixed
+      text: Throws error if `var` is nil.
+  examples:
+    - test: _:assertNotNil('value', 'not-nil')
+      resp: throws error!
+    - test: _:assertNotNil('value', nil)
+      resp: no error
+##########################
+# assertNotZero
+##########################
+- name: assertNotZero
+  line: L207-212
+  sign: _:assertNotZero(name, var)
+  text:
+    - >
+      Assert if `var` is 0.
+  arguments:
+    - name: name
+      type: string
+      text: Field identifier for error response.
+    - name: var
+      type: mixed
+      text: Values to check.
+  returns:
+    - name:
+      type: mixed
+      text: Throws error if `var` is 0.
+  examples:
+    - test: _:assertNotZero('value', 0)
+      resp: throws error!
+    - test: _:assertNotZero('value', 10)
+      resp: no error

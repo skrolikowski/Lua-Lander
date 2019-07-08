@@ -1,0 +1,489 @@
+link: https://github.com/skrolikowski/Lua-Lander/blob/master/mods/math.lua
+items:
+##########################
+# abs
+##########################
+- name: abs
+  line: L26
+  sign: _:abs(num)
+  tags: ['math', 'number']
+  text:
+    - >
+      Returns absolute value of `num`.
+  arguments:
+    - name: num
+      type: number
+      text: the number to modify
+  returns:
+    - name:
+      type: number
+      text: Returns absolute value.
+  examples:
+    - test: _:abs(4)
+      resp: 4
+    - test: _:abs(-4)
+      resp: 4
+##########################
+# add
+##########################
+- name: add
+  line: L26
+  sign: _:add(...)
+  tags: ['math', 'number']
+  text:
+    - >
+      Adds all `...` numbers and returns sum.
+  arguments:
+    - name: ...
+      type: number
+      text: the numbers to add.
+  returns:
+    - name:
+      type: number
+      text: Returns summed value.
+  examples:
+    - test: _:add(4, 6)
+      resp: 10
+    - test: _:add(4, 5, 3)
+      resp: 12
+##########################
+# ceil
+##########################
+- name: ceil
+  line: L47
+  sign: _:ceil(num, [precision=0])
+  tags: ['math', 'number']
+  text:
+    - >
+      Rounds up `num` to desired `precision`.
+  note:
+     - >
+      Using a negative value for `precision` will round from right to left.
+  arguments:
+    - name: num
+      type: number
+      text: Number to round up.
+    - name: precision
+      type: number=0
+      text: Rounding precision.
+  returns:
+    - name:
+      type: number
+      text: Returns rounded number.
+  examples:
+    - test: _:ceil(4.006)
+      resp: 5
+    - test: _:ceil(6.004, 2)
+      resp: 2
+    - test: _:ceil(6040, -2)
+      resp: 6100
+##########################
+# divide
+##########################
+- name: divide
+  line: L61
+  sign: _:divide(...)
+  tags: ['math', 'number']
+  text:
+    - >
+      Divides series of numbers and returns result.
+  arguments:
+    - name: ...
+      type: number
+      text: the numbers to divide.
+  returns:
+    - name:
+      type: number
+      text: Returns result of division.
+  examples:
+    - test: _:divide(6, 4)
+      resp: 1.5
+    - test: _:divide(6, 3, 2)
+      resp: 1
+    - test: _:divide(2, 0)
+      resp: throws error!
+##########################
+# floor
+##########################
+- name: floor
+  line: L84
+  sign: _:floor(num, [precision=0])
+  tags: ['math', 'number']
+  text:
+    - >
+      Rounds down `num` to desired `precision`.
+  note:
+     - >
+      Using a negative value for `precision` will round from right to left.
+  arguments:
+    - name: num
+      type: number
+      text: Number to round down.
+    - name: precision
+      type: number=0
+      text: Rounding precision.
+  returns:
+    - name:
+      type: number
+      text: Returns rounded number.
+  examples:
+    - test: _:floor(4.006)
+      resp: 4
+    - test: _:floor(0.046, 2)
+      resp: 0.04
+    - test: _:floor(4060, -2)
+      resp: 4000
+##########################
+# max
+##########################
+- name: max
+  line: L97
+  sign: _:max(...)
+  tags: ['math', 'number']
+  text:
+    - >
+      Finds max value in sequence of numbers.
+  arguments:
+    - name: ...
+      type: number
+      text: the numbers to test.
+  returns:
+    - name:
+      type: number
+      text: Returns max value of `...` number values.
+  examples:
+    - test: _:max(4, 2, 8, 6)
+      resp: 8
+    - test: _:max()
+      resp: nil
+##########################
+# maxBy
+##########################
+- name: maxBy
+  line: L113
+  sign: _:maxBy(tabl, [iteratee])
+  tags: ['math', 'number']
+  text:
+    - >
+      Finds max value in sequence of numbers, invoking `iteratee` function on every element.
+  arguments:
+    - name: tabl
+      type: table
+      text: table of numbers to test.
+    - name: iteratee
+      type: function
+      text: function to ivoke per element.
+  returns:
+    - name:
+      type: number
+      text: Returns max value of `tabl` number values.
+  examples:
+    - test: _:maxBy({4, 2, 8, 6}, function(v) return v * 2 end)
+      resp: 16
+##########################
+# mean
+##########################
+- name: mean
+  line: L137
+  sign: _:mean(...)
+  tags: ['math', 'number']
+  text:
+    - >
+      Computes mean of sequence of numbers.
+  arguments:
+    - name: ...
+      type: number
+      text: the numbers to test.
+  returns:
+    - name:
+      type: number
+      text: Returns max value of `...` number values.
+  examples:
+    - test: _:mean(4, 2, 8, 6)
+      resp: 5
+##########################
+# meanBy
+##########################
+- name: meanBy
+  line: L151
+  sign: _:meanBy(tabl, [iteratee])
+  tags: ['math', 'number']
+  text:
+    - >
+      Computes mean of sequence of numbers, invoking `iteratee` function on every element.
+  arguments:
+    - name: tabl
+      type: table
+      text: table of numbers to test.
+    - name: iteratee
+      type: function
+      text: function to ivoke per element.
+  returns:
+    - name:
+      type: number
+      text: Returns mean value of `tabl` number values.
+  examples:
+    - test: _:meanBy({4, 2, 8, 6}, function(v) return v * 2 end)
+      resp: 10
+##########################
+# min
+##########################
+- name: min
+  line: L169
+  sign: _:min(...)
+  tags: ['math', 'number']
+  text:
+    - >
+      Finds min value in sequence of numbers.
+  arguments:
+    - name: ...
+      type: number
+      text: the numbers to test.
+  returns:
+    - name:
+      type: number
+      text: Returns min value of `...` number values.
+  examples:
+    - test: _:min(4, 2, 8, 6)
+      resp: 2
+    - test: _:min()
+      resp: nil
+##########################
+# minBy
+##########################
+- name: minBy
+  line: L184
+  sign: _:minBy(tabl, [iteratee])
+  tags: ['math', 'number']
+  text:
+    - >
+      Finds min value in sequence of numbers, invoking `iteratee` function on every element.
+  arguments:
+    - name: tabl
+      type: table
+      text: table of numbers to test.
+    - name: iteratee
+      type: function
+      text: function to ivoke per element.
+  returns:
+    - name:
+      type: number
+      text: Returns min value of `tabl` number values.
+  examples:
+    - test: _:minBy({4, 2, 8, 6}, function(v) return v * 2 end)
+      resp: 4
+##########################
+# multiply
+##########################
+- name: multiply
+  line: L169
+  sign: _:multiply(...)
+  tags: ['math', 'number']
+  text:
+    - >
+      Multiplies sequence of numbers.
+  arguments:
+    - name: ...
+      type: number
+      text: the numbers to multiply.
+  returns:
+    - name:
+      type: number
+      text: Returns result of multiplication.
+  examples:
+    - test: _:multiply(2, 3)
+      resp: 6
+    - test: _:multiply(10, -2, 3)
+      resp: -60
+##########################
+# multiplyBy
+##########################
+- name: multiplyBy
+  line: L184
+  sign: _:multiplyBy(tabl, [iteratee])
+  tags: ['math', 'number']
+  text:
+    - >
+      Multiplies sequence of numbers, invoking `iteratee` function on every element.
+  arguments:
+    - name: tabl
+      type: table
+      text: table of numbers to multiply.
+    - name: iteratee
+      type: function
+      text: function to ivoke per element.
+  returns:
+    - name:
+      type: number
+      text: Returns result of multiplication.
+  examples:
+    - test: _:multiplyBy({3, -2, 4}, function(v) return v * 2 end)
+      resp: -192
+##########################
+# round
+##########################
+- name: round
+  line: L246
+  sign: _:round(num, [precision=0])
+  tags: ['math', 'number']
+  text:
+    - >
+      Computes `value` rounded to `precision`.
+  arguments:
+    - name: num
+      type: number
+      text: Number to round.
+    - name: precision
+      type: number=0
+      text: Rounding precision.
+  returns:
+    - name:
+      type: number
+      text: Returns result of rounding.
+  examples:
+    - test: _:round(4.006)
+      resp: 4
+    - test: _:round(4.006, 2)
+      resp: 4.01
+    - test: _:round(4060, -2)
+      resp: 4100
+##########################
+# subtract
+##########################
+- name: subtract
+  line: L260
+  sign: _:subtract(...)
+  tags: ['math', 'number']
+  text:
+    - >
+      Subtracts sequence of numbers.
+  arguments:
+    - name: ...
+      type: number
+      text: the numbers to subtract.
+  returns:
+    - name:
+      type: number
+      text: Returns result of multiplication.
+  examples:
+    - test: _:subtract(2, 3)
+      resp: -1
+    - test: _:subtract(10, -2, 3, 0)
+      resp: 9
+##########################
+# subtractBy
+##########################
+- name: subtractBy
+  line: L275
+  sign: _:subtractBy(tabl, [iteratee])
+  tags: ['math', 'number']
+  text:
+    - >
+      Subtracts sequence of numbers, invoking `iteratee` function on every element.
+  arguments:
+    - name: tabl
+      type: table
+      text: table of numbers to subtract.
+    - name: iteratee
+      type: function
+      text: function to ivoke per element.
+  returns:
+    - name:
+      type: number
+      text: Returns result of subtraction.
+  examples:
+    - test: _:subtractBy({3, -2, 4}, function(v) return v * 2 end)
+      resp: 2
+##########################
+# sum
+##########################
+- name: sum
+  line: L299
+  sign: _:sum(...)
+  tags: ['math', 'number']
+  text:
+    - >
+      Sums sequence of numbers.
+  arguments:
+    - name: ...
+      type: number
+      text: the numbers to sum.
+  returns:
+    - name:
+      type: number
+      text: Returns result of sum.
+  examples:
+    - test: _:sum(2, 3)
+      resp: 5
+    - test: _:sum(2, 3, 4, 5)
+      resp: 14
+##########################
+# sumBy
+##########################
+- name: sumBy
+  line: L313
+  sign: _:sumBy(tabl, [iteratee])
+  tags: ['math', 'number']
+  text:
+    - >
+      Sums sequence of numbers, invoking `iteratee` function on every element.
+  arguments:
+    - name: tabl
+      type: table
+      text: table of numbers to sum.
+    - name: iteratee
+      type: function
+      text: function to ivoke per element.
+  returns:
+    - name:
+      type: number
+      text: Returns result of sum.
+  examples:
+    - test: _:sumBy({1, 2, 3}, function(v) return v * 2 end)
+      resp: 12
+##########################
+# toDeg
+##########################
+- name: toDeg
+  line: L333
+  sign: _:toDeg(rad)
+  tags: ['math', 'number']
+  text:
+    - >
+      Converts `rad` to degrees.
+  arguments:
+    - name: rad
+      type: number
+      text: radian value to be converted.
+  returns:
+    - name:
+      type: number
+      text: Returns unit conversion of `rad` to `deg`.
+  examples:
+    - test: _:toDeg(math.pi / 2)
+      resp: 90
+    - test: _:toDeg(math.pi / 3)
+      resp: 60
+##########################
+# toRad
+##########################
+- name: toRad
+  line: L342
+  sign: _:toRad(rad)
+  tags: ['math', 'number']
+  text:
+    - >
+      Converts `deg` to radians.
+  arguments:
+    - name: rad
+      type: number
+      text: degrees value to be converted.
+  returns:
+    - name:
+      type: number
+      text: Returns unit conversion of `deg` to `rad`.
+  examples:
+    - test: _:toRad(30)
+      resp: 0.523599
+    - test: _:toRad(180)
+      resp: 3.141593

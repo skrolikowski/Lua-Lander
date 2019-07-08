@@ -1,0 +1,128 @@
+link: https://github.com/skrolikowski/Lua-Lander/blob/master/mods/number.lua
+items:
+##########################
+# clamp
+##########################
+- name: clamp
+  line: L29
+  sign: _:clamp(num, min, max)
+  tags: ['math', 'number']
+  text:
+    - >
+      Performs clamp on `num` so it fits between `min` and `max` values.
+  arguments:
+    - name: num
+      type: number
+      text: the number to clamp.
+    - name: min
+      type: number
+      text: maximum value to clamp to.
+    - name: max
+      type: number
+      text: minimum value to clamp to.
+  returns:
+    - name:
+      type: number
+      text: Returns clamped value.
+  examples:
+    - test: _:clamp(-5, -1, 2)
+      resp: -1
+    - test: _:clamp(0, -1, 2)
+      resp: 0
+    - test: _:clamp(3, -1, 2)
+      resp: 2
+##########################
+# lerp
+##########################
+- name: lerp
+  line: L87
+  sign: _:lerp(num, min, max)
+  tags: ['math', 'number']
+  text:
+    - >
+      Performs linear interpolation on a `number` between `min` and `max` values.
+  arguments:
+    - name: num
+      type: number
+      text: the number to linear interpolate.
+    - name: min
+      type: number
+      text: maximum value in range.
+    - name: max
+      type: number
+      text: minimum value in range.
+  returns:
+    - name:
+      type: number
+      text: Returns linear interpolated value.
+  examples:
+    - test: _:lerp(0.3, 10, 20)
+      resp: 13
+    - test: _:lerp(0.75, 0, 100)
+      resp: 75
+##########################
+# mapTo
+##########################
+- name: mapTo
+  line: L108
+  sign: _:mapTo(num, minSource, maxSource, minDest, maxDest)
+  tags: ['math', 'number']
+  text:
+    - >
+      Maps `num` from source range (`minSource/maxSource`) to destination range (`minDest/maxDest`).
+  arguments:
+    - name: num
+      type: number
+      text: the number to map.
+    - name: minSource
+      type: number
+      text: Minimum value in source range.
+    - name: maxSource
+      type: number
+      text: Maximum value in source range.
+    - name: minDest
+      type: number
+      text: Minimum value in destination range.
+    - name: maxDest
+      type: number
+      text: Maximum value in destination range.
+  returns:
+    - name:
+      type: number
+      text: Returns mapped value.
+  examples:
+    - test: _:mapTo(0.5, 1, 2, 10, 20)
+      resp: 5
+    - test: _:mapTo(9, 0, 1, 0, 25)
+      resp: 225
+##########################
+# norm
+##########################
+- name: norm
+  line: L131
+  sign: _:norm(num, [min=0], [max=1])
+  tags: ['math', 'number']
+  text:
+    - >
+      Computes normalized `num` between `min/max` range.
+  arguments:
+    - name: num
+      type: number
+      text: the number to map.
+    - name: min
+      type: number=0
+      text: Minimum value to normalize with.
+    - name: max
+      type: number=1
+      text: Maximum alue to normalize with.
+  returns:
+    - name:
+      type: number
+      text: Returns mapped value.
+  examples:
+    - test: _:norm(5, 0, 10)
+      resp: 0.5
+    - test: _:norm(5, 4, 8)
+      resp: 1.25
+    - test: _:norm(9, 4, 8)
+      resp: 0.25

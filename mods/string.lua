@@ -1,16 +1,30 @@
---
+----------------------
+--------------------
 -- String Functions
+----------------
+--------------
+------------
+----------
+--------
+------
+----
 --
 
--- Native lua API pre-loaded for speed..
-local __find    = string.find     -- returns position of first pattern in string
-local __gsub    = string.gsub
-local __len     = string.len
-local __lower   = string.lower    -- returns string with all chars lowercase
-local __rep     = string.rep      -- returns string of repeating chars
-local __reverse = string.reverse  -- returns string in reverse
-local __sub     = string.sub      -- returns substring in specified range
-local __upper   = string.upper    -- returns string with all chars uppercase
+
+------------------
+-- Private Functions
+--------
+------
+----
+--
+
+
+------------------
+-- Public Functions
+--------
+------
+----
+--
 
 -- _:camelCase(str)
 -- Converts `str` to [Camel Case](https://en.wikipedia.org/wiki/Camel_case).
@@ -20,7 +34,7 @@ local __upper   = string.upper    -- returns string with all chars uppercase
 function _:camelCase(str)
     str = _:assertArgument('str', str, 'string')
     --
-    local words = _:words(__lower(str))
+    local words = _:words(_.__lower(str))
     local out   = ''
 
     table.foreach(words, function(idx, word)
@@ -39,8 +53,8 @@ end
 function _:capitalize(str)
     str = _:assertArgument('str', str, 'string')
     --
-    str = __lower(str)                      -- lower case entire string
-    str = __gsub(str, '%f[%a]%a', __upper)  -- perform capitalize
+    str = _.__lower(str)                      -- lower case entire string
+    str = _.__gsub(str, '%f[%a]%a', _.__upper)  -- perform capitalize
 
     return str
 end
@@ -56,9 +70,9 @@ function _:endsWith(str, target, position)
     target   = _:assertArgument('target', target, 'string')
     position = _:assertArgument('position', position, 'number', _:size(str))
     --
-    local substr = __sub(str, 0, position)
+    local substr = _.__sub(str, 0, position)
 
-    return __find(substr, target) == _:size(substr)
+    return _.__find(substr, target) == _:size(substr)
 end
 
 -- _:kebabCase(str)
@@ -69,8 +83,8 @@ end
 function _:kebabCase(str)
     str = _:assertArgument('str', str, 'string')
     --
-    str = __gsub(str, '%f[%u]', ' ')  -- separate uppercase transitions
-    str = __lower(str)                -- lower case entire string
+    str = _.__gsub(str, '%f[%u]', ' ')  -- separate uppercase transitions
+    str = _.__lower(str)                -- lower case entire string
 
     return _:join(_:words(str), '-')  -- join `words` with `-`
 end
@@ -83,8 +97,8 @@ end
 function _:lowerCase(str)
     str = _:assertArgument('str', str, 'string')
     --
-    str = __gsub(str, '%f[%u]', ' ')  -- separate uppercase transitions
-    str = __lower(str)                -- lower case entire string
+    str = _.__gsub(str, '%f[%u]', ' ')  -- separate uppercase transitions
+    str = _.__lower(str)                -- lower case entire string
 
     return _:join(_:words(str), ' ')  -- join `words` with `-`
 end
@@ -97,7 +111,7 @@ end
 function _:lowerFirst(str)
     str = _:assertArgument('str', str, 'string')
     --
-    return __gsub(str, '^%a', __lower)
+    return _.__gsub(str, '^%a', _.__lower)
 end
 
 -- _:pad(str, [length=0], [chars=" "])
@@ -113,16 +127,16 @@ function _:pad(str, length, chars)
     length = _:assertArgument('length', length, 'number', 0)
     chars  = _:assertArgument('chars', chars, 'string', ' ')
     --
-    local padSize  = length - __len(str)
+    local padSize  = length - _.__len(str)
     local halfSize = padSize / 2
     local left     = ""
     local right    = ""
 
     -- if we need to pad, split pad size 1/2
     if padSize > 0 then
-        chars = __rep(chars, padSize)
-        left  = __sub(chars, 1, math.floor(halfSize))
-        right = __sub(chars, 1, math.ceil(halfSize))
+        chars = _.__rep(chars, padSize)
+        left  = _.__sub(chars, 1, _.__floor(halfSize))
+        right = _.__sub(chars, 1, _.__ceil(halfSize))
     end
 
     return left .. str .. right
@@ -141,8 +155,8 @@ function _:padEnd(str, length, chars)
     length = _:assertArgument('length', length, 'number', 0)
     chars  = _:assertArgument('chars', chars, 'string', ' ')
     --
-    chars = __rep(chars, length)
-    chars = __sub(chars, 1, length - __len(str))
+    chars = _.__rep(chars, length)
+    chars = _.__sub(chars, 1, length - _.__len(str))
 
     return str .. chars
 end
@@ -160,8 +174,8 @@ function _:padStart(str, length, chars)
     length = _:assertArgument('length', length, 'number', 0)
     chars  = _:assertArgument('chars', chars, 'string', ' ')
     --
-    chars = __rep(chars, length)
-    chars = __sub(chars, 1, length - __len(str))
+    chars = _.__rep(chars, length)
+    chars = _.__sub(chars, 1, length - _.__len(str))
 
     return chars .. str
 end
@@ -175,7 +189,7 @@ function _:rep(str, n)
     str = _:assertArgument('str', str, 'string')
     n   = _:assertArgument('n', n, 'number', 1)
     --
-    return __rep(str, n)
+    return _.__rep(str, n)
 end
 
 -- _:replace(str, pattern, [repl=""], [n])
@@ -192,7 +206,7 @@ function _:replace(str, pattern, repl, n)
     pattern = _:assertArgument('pattern', pattern, 'string')
     repl    = _:assertArgument('repl', repl, 'string', '')
     --
-    return __gsub(str, pattern, repl, n)
+    return _.__gsub(str, pattern, repl, n)
 end
 
 -- _:snakeCase(str)
@@ -204,18 +218,18 @@ function _:snakeCase(str)
     str = _:assertArgument('str', str, 'string')
     --
     -- maybe inefficient, but easy to follow..
-    str = __gsub(str, '(.%f[%u])', '%0_')  -- convert uppercase transitions to `_`
-    str = __gsub(str, '[%p%s]+', '_')      -- convert punctuations to `_`
-    str = _:trim(str, '_')                 -- trim leading/trailing `_` chars
+    str = _.__gsub(str, '(.%f[%u])', '%0_')  -- convert uppercase transitions to `_`
+    str = _.__gsub(str, '[%p%s]+', '_')      -- convert punctuations to `_`
+    str = _:trim(str, '_')                   -- trim leading/trailing `_` chars
 
-    return __lower(str)                    -- lower-case string
+    return _.__lower(str)                    -- lower-case string
 end
 
 -- _:split(str, separator, [limit=_:size(str)])
 -- Splits `str` by `separator`, truncated by `limit`.
 --
 -- @param  string(str)
--- @return string
+-- @return table
 function _:split(str, separator, limit)
     str       = _:assertArgument('str', str, 'string')
     separator = _:assertArgument('separator', separator, 'string')
@@ -225,7 +239,7 @@ function _:split(str, separator, limit)
     --
     limit = _:assertArgument('limit', limit, 'number', length)
     --
-    return _:dropRight(elements, length - limit)
+    return _:drop(elements, length - limit)
 end
 
 -- _:startCase(str)
@@ -236,7 +250,7 @@ end
 function _:startCase(str, target, position)
     str = _:assertArgument('str', str, 'string')
     --
-    str = __gsub(str, '%f[%u]', ' ')  -- separate uppercase transitions
+    str = _.__gsub(str, '%f[%u]', ' ')  -- separate uppercase transitions
 
     local words = _:words(str)
     local out   = ''
@@ -265,7 +279,7 @@ function _:startsWith(str, target, position)
     target   = _:assertArgument('target', target, 'string')
     position = _:assertArgument('position', position, 'number', 1)
     --
-    return __find(__sub(str, position), target) == 1
+    return _.__find(_.__sub(str, position), target) == 1
 end
 
 -- _:toLower(str)
@@ -276,7 +290,7 @@ end
 function _:toLower(str)
     str = _:assertArgument('str', str, 'string')
     --
-    return __lower(str)
+    return _.__lower(str)
 end
 
 -- _:toUpper(str)
@@ -287,7 +301,7 @@ end
 function _:toUpper(str)
     str = _:assertArgument('str', str, 'string')
     --
-    return __upper(str)
+    return _.__upper(str)
 end
 
 -- _:trim(str, [pattern='%s+'])
@@ -337,7 +351,7 @@ function _:trimStart(str, pattern)
     end
 end
 
--- _:truncate(str, [options={}])
+-- _:truncate(str, [options])
 -- Truncates `str` with `options`.
 --
 -- options:
@@ -358,18 +372,18 @@ function _:truncate(str, options)
     --
     local separator = options.separator
     local omission  = options.omission
-    local length    = options.length - __len(omission)
+    local length    = options.length - _.__len(omission)
 
     if not _:isEmpty(separator) then
         local len
 
-        len    = __find(str, separator)  -- find first occurrence of `separator`
+        len    = _.__find(str, separator)  -- find first occurrence of `separator`
         len    = len - 1                 -- offset length to exclude match
-        str    = __sub(str, 1, len)      -- drop end of string after and including pattern
-        length = math.min(length, len)
+        str    = _.__sub(str, 1, len)      -- drop end of string after and including pattern
+        length = _.__min(length, len)
     end
 
-    str = __sub(str, 1, length)
+    str = _.__sub(str, 1, length)
     str = str .. omission
 
     return str
@@ -383,7 +397,7 @@ end
 function _:upperCase(str)
     str = _:assertArgument('str', str, 'string')
     --
-    str = __gsub(str, '%f[%u]', ' ')  -- separate uppercase transitions
+    str = _.__gsub(str, '%f[%u]', ' ')  -- separate uppercase transitions
 
     local words = _:words(str)
 
@@ -399,7 +413,7 @@ end
 function _:upperFirst(str)
     str = _:assertArgument('str', str, 'string')
     --
-    return __gsub(str, '^%a', __upper)
+    return _.__gsub(str, '^%a', __upper)
 end
 
 -- _:words(str, [pattern='%a+'])
@@ -416,8 +430,8 @@ function _:words(str, pattern)
     --
     local words = {}
 
-    for match in string.gmatch(str, pattern) do
-        table.insert(words, match)
+    for match in _.__gmatch(str, pattern) do
+        _.__insert(words, match)
     end
 
     return words

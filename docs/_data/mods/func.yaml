@@ -1,0 +1,91 @@
+link: https://github.com/skrolikowski/Lua-Lander/blob/master/mods/func.lua
+items:
+##########################
+# attempt
+##########################
+- name: attempt
+  line: L34
+  sign: _:attempt(func, ...)
+  tags: ['function', 'number']
+  text:
+    - >
+      Attempts to invoke `func` with `...` args.
+  arguments:
+    - name: func
+      type: function
+      text: the function to invoke.
+    - name: ...
+      type: mixed
+      text: arguments of function.
+  returns:
+    - name:
+      type: boolean
+      text: Status of return response.
+    - name:
+      type: mixed
+      text: Result of function call, or error response.
+##########################
+# force
+##########################
+- name: force
+  line: L50
+  sign: _:force(func, ...)
+  tags: ['function', 'number']
+  text:
+    - >
+      Same as <a href="#attempt" class="text-blue-500">_:attempt</a>, but doesn't use `pcall`.
+  arguments:
+    - name: func
+      type: function
+      text: the function to invoke.
+    - name: ...
+      type: mixed
+      text: arguments of function.
+  returns:
+    - name:
+      type: mixed
+      text: Result of function call, or error response.
+##########################
+# ifFalsey
+##########################
+- name: ifFalsey
+  line: L68
+  sign: _:ifFalsey(func, ...)
+  tags: ['function', 'boolean']
+  text:
+    - >
+      Intercept <a href="#attempt" class="text-blue-500">_:attempt</a> by invoking `func` with `...` args,
+      then sending the results to a user-specified callback only if falsey.
+  arguments:
+    - name: func
+      type: function
+      text: the function to invoke.
+    - name: ...
+      type: mixed
+      text: arguments of function.
+  returns:
+    - name:
+      type: mixed
+      text: Invokes callback; receiving results as arguments and returns it's result.
+##########################
+# ifTruthy
+##########################
+- name: ifTruthy
+  line: L68
+  sign: _:ifTruthy(func, ...)
+  tags: ['function', 'boolean']
+  text:
+    - >
+      Intercept <a href="#attempt" class="text-blue-500">_:attempt</a> by invoking `func` with `...` args,
+      then sending the results to a user-specified callback only if truthy.
+  arguments:
+    - name: func
+      type: function
+      text: the function to invoke.
+    - name: ...
+      type: mixed
+      text: arguments of function.
+  returns:
+    - name:
+      type: mixed
+      text: Invokes callback; receiving results as arguments and returns it's result.

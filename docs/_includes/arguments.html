@@ -1,0 +1,16 @@
+<div class="py-2 ml-5">
+    <h4 class="text-lg uppercase text-gray-700">Arguments</h4>
+    <div class="flex flex-col justify-start">
+        {% for argument in item.arguments %}
+            <div class="flex pl-5">
+                <div class="w-1/5 text-right">
+                    <span class="text-blue-600">{{ argument.name }}</span>
+                    <span class="text-blue-600 font-light italic mr-2">({{ argument.type }})</span>
+                </div>
+                <div class="text-gray-600">
+                    - {{ argument.text | downcase  }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

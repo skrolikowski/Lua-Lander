@@ -26,7 +26,7 @@
 ----
 --
 
--- _:attempt(func)
+-- _:attempt(func, ...)
 -- Attempts to invoke `func` with `...` args.
 --
 -- @param  function(func)

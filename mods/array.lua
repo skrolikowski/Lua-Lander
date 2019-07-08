@@ -97,15 +97,16 @@ function _:drop(tabl, n)
     n    = _:assertArgument('n', n, 'number', 0)
     --
     local out = _:copy(tabl)
-    _:i('i', _:abs(n))
+    local cnt = _:abs(n)
 
-    repeat
+    while cnt > 0 do
         if _:isNegative(n) then
             table.remove(out, 1)
         else
             table.remove(out)
         end
-    until _:down('i') <= 0
+        cnt = cnt - 1
+    end
 
     return out
 end
@@ -312,11 +313,10 @@ function _:nth(tabl, n)
 end
 
 -- _:nth(tabl, [n=0])
--- Returns `n`-th indexed value of `tabl`.
--- Negative `n`-values will count from the right.
+-- Returns copy of `tabl` reversing order of numeric indexes.
 --
--- Warning:
---  Will not return any named-indexed elements!
+-- Note:
+--  Only affects indexed elements of `tabl`.
 --
 -- @param  table(tabl)
 -- @param  table(tabl)
@@ -338,7 +338,7 @@ end
 --  using [Fisher-Yates shuffle](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle).
 --
 -- Note:
---  Only queries indexed elements of `tabl`.
+--  Only affects indexed elements of `tabl`.
 --
 -- @param  table(tabl)
 -- @return mixed
@@ -376,7 +376,7 @@ end
 --  value.
 --
 -- @param  table(tabl)
--- @return mixed
+-- @return table
 function _:without(tabl, ...)
     tabl = _:assertArgument('tabl', tabl, 'table')
     --

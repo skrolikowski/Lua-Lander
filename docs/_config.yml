@@ -1,0 +1,44 @@
+# Appearance
+title: Lua-Lander Documentation
+description:
+  - >
+    Hello. Welcome to the documentation.
+author: skrolikowski
+location: Seattle, WA - 98119
+
+# GitHub
+github_username: skrolikowski
+github_repo: https://github.com/skrolikowski/Lua-Lander
+
+# Outputting
+url: lua-lander.github.io
+base_url: /
+permalink: pretty
+paginate_path: /page:num
+markdown: kramdown
+kramdown:
+  input: GFM
+  parse_block_html: false
+  highlighter: rouge
+  syntax_highlighter_opts:
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+
+# Exclude from processing...
+exclude:
+  - Gemfile
+  - Gemfile.lock
+
+# Performance
+incremental: false         # Enable the experimental incremental build feature.
+profile: true              # Generate a Liquid rendering profile to help you identify performance bottlenecks.
+strict_front_matter: true  # Cause a build to fail if there is a YAML syntax error in a page's front matter.
+
+# Plugins
+plugins:
+  - rouge
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap

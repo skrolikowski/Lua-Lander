@@ -1,0 +1,588 @@
+link: https://github.com/skrolikowski/Lua-Lander/blob/master/mods/lang.lua
+items:
+##########################
+# is_
+##########################
+- name: is_
+  line: L66-L69
+  sign: _:is_(var)
+  tags: ['lang', 'function']
+  text:
+    - >
+      Determines if `var` is a native lander function.
+  arguments:
+    - name: var
+      type: mixed
+      text: variable to check.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if value is a native lander function, else `false`.
+  examples:
+    - test: _:is_(123)
+      resp: false
+    - test: _:is_('fakeFunction')
+      resp: false
+    - test: _:is_(function(v) return _:isTruthy(v) end))
+      resp: false
+    - test: _:is_('isTruthy')
+      resp: true
+##########################
+# isArray
+##########################
+- name: isArray
+  line: L80-L84
+  sign: _:isArray(var)
+  tags: ['lang', 'array']
+  text:
+    - >
+      Determines if `var` is an "array" (e.g. contains no named-indexes).
+  text:
+    - >
+      "Array" functions will always use `ipairs`
+  arguments:
+    - name: var
+      type: mixed
+      text: variable to check.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if value is an "array", else `false`.
+  examples:
+    - test: _:isArray({a = 1, 2, 'c'})
+      resp: false
+    - test: _:isArray({a = 1, b = 2})
+      resp: false
+    - test: _:isArray({})
+      resp: true
+    - test: _:isArray({false, true})
+      resp: true
+    - test: _:isArray({1, 'b', 'c', 4})
+      resp: true
+##########################
+# isBoolean
+##########################
+- name: isBoolean
+  line: L92-L94
+  sign: _:isBoolean(var)
+  tags: ['lang', 'boolean']
+  text:
+    - >
+      Determines if `var` is a boolean value.
+  arguments:
+    - name: var
+      type: mixed
+      text: variable to check.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if value is a boolean value, else `false`.
+  examples:
+    - test: _:isBoolean('true')
+      resp: false
+    - test: _:isBoolean(true)
+      resp: true
+##########################
+# isEmpty
+##########################
+- name: isEmpty
+  line: L100-L108
+  sign: _:isEmpty(var)
+  tags: ['lang']
+  text:
+    - >
+      Determines if `var` is an "empty" value.
+  arguments:
+    - name: var
+      type: mixed
+      text: variable to check.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if value is an "empty" value, else `false`.
+  examples:
+    - test: _:isEmpty('abc')
+      resp: false
+    - test: _:isEmpty(true)
+      resp: false
+    - test: _:isEmpty(1)
+      resp: false
+    - test: _:isEmpty({1, 2, 3})
+      resp: false
+    - test: _:isEmpty('')
+      resp: true
+    - test: _:isEmpty(false)
+      resp: true
+    - test: _:isEmpty(0)
+      resp: true
+    - test: _:isEmpty({})
+      resp: true
+    - test: _:isEmpty(nil)
+      resp: true
+##########################
+# isEqual
+##########################
+- name: isEqual
+  line: L121-L123
+  sign: _:isEqual(left, right)
+  tags: ['lang']
+  text:
+    - >
+      Determines if `left == right`, with tables undergoing recursive equality.
+  arguments:
+    - name: left
+      type: mixed
+      text: left side argument.
+    - name: right
+      type: mixed
+      text: left side argument.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if `left == right`, else `false`.
+  examples:
+    - test: _:isEqual(true, true)
+      resp: true
+    - test: _:isEqual(true, false)
+      resp: false
+    - test: _:isEqual(1, 1)
+      resp: true
+    - test: _:isEqual(1, 2)
+      resp: false
+    - test: _:isEqual('foo', 'foo')
+      resp: true
+    - test: _:isEqual('foo', 'bar')
+      resp: false
+    - test: _:isEqual({'a', 'b', 'c'}, {'a', 'b', 'c'})
+      resp: true
+    - test: _:isEqual({'a', 'b', 'c'}, {'a', 'c', 'b'})
+      resp: false
+    - test: _:isEqual({a = 1, b = 5, c = 3}, {c = 3, b = 5, a = 1})
+      resp: true
+    - test: _:isEqual({a = 1, b = 5, c = 3}, {c = 6, b = 10, a = 2})
+      resp: false
+##########################
+# isFalsey
+##########################
+- name: isFalsey
+  line: L130-L136
+  sign: _:isFalsey(var)
+  tags: ['lang', 'boolean']
+  text:
+    - >
+      Determines if `var` is a falsey value (e.g. `nil`, `false`).
+  arguments:
+    - name: var
+      type: mixed
+      text: variable to check.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if value is a falsey value, else `false`.
+  examples:
+    - test: _:isFalsey('abc')
+      resp: false
+    - test: _:isFalsey(42)
+      resp: false
+    - test: _:isFalsey(function() end))
+      resp: false
+    - test: _:isFalsey(nil)
+      resp: true
+    - test: _:isFalsey(false)
+      resp: true
+##########################
+# isFunction
+##########################
+- name: isFunction
+  line: L130-L136
+  sign: _:isFunction(var)
+  tags: ['lang', 'function']
+  text:
+    - >
+      Determines if `var` is a function.
+  arguments:
+    - name: var
+      type: mixed
+      text: variable to check.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if value is a function, else `false`.
+  examples:
+    - test: _:isFunction('Hello World!')
+      resp: false
+    - test: _:isFunction(function() return 'Hello World!' end))
+      resp: true
+    - test: _:isFunction('isEqual')
+      resp: true
+##########################
+# isNaN
+##########################
+- name: isNaN
+  line: L153-L155
+  sign: _:isNaN(var)
+  tags: ['lang', 'number']
+  text:
+    - >
+      Determines if `var` is not a `number`.
+  arguments:
+    - name: var
+      type: mixed
+      text: variable to check.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if value is not a number, else `false`.
+  examples:
+    - test: _:isNaN('thirty-five')
+      resp: false
+    - test: _:isNaN(35)
+      resp: true
+##########################
+# isNegative
+##########################
+- name: isNegative
+  line: L162-L168
+  sign: _:isNegative(var)
+  tags: ['lang', 'number']
+  text:
+    - >
+      Determines if `var` is a negative number.
+  arguments:
+    - name: var
+      type: mixed
+      text: variable to check.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if value is a negative number, else `false`.
+  examples:
+    - test: _:isNegative('abc')
+      resp: false
+    - test: _:isNegative(3)
+      resp: false
+    - test: _:isNegative(-2)
+      resp: true
+##########################
+# isNil
+##########################
+- name: isNil
+  line: L175-L177
+  sign: _:isNil(var)
+  tags: ['lang']
+  text:
+    - >
+      Determines if `var` is nil.
+  arguments:
+    - name: var
+      type: mixed
+      text: variable to check.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if value is nil, else `false`.
+  examples:
+    - test: _:isNil('abc')
+      resp: false
+    - test: _:isNil(nil)
+      resp: true
+##########################
+# isNotNil
+##########################
+- name: isNotNil
+  line: L184-L186
+  sign: _:isNotNil(var)
+  tags: ['lang']
+  text:
+    - >
+      Determines if `var` is not nil.
+  arguments:
+    - name: var
+      type: mixed
+      text: variable to check.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if value is not nil, else `false`.
+  examples:
+    - test: _:isNotNil(nil)
+      resp: false
+    - test: _:isNotNil('abc')
+      resp: true
+##########################
+# isNumber
+##########################
+- name: isNumber
+  line: L193-L195
+  sign: _:isNumber(var)
+  tags: ['lang', 'number']
+  text:
+    - >
+      Determines if `var` is a number.
+  arguments:
+    - name: var
+      type: mixed
+      text: variable to check.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if value is a number, else `false`.
+  examples:
+    - test: _:isNumber('abc')
+      resp: false
+    - test: _:isNumber(42)
+      resp: true
+##########################
+# isPositive
+##########################
+- name: isPositive
+  line: L202-L208
+  sign: _:isPositive(var)
+  tags: ['lang', 'number']
+  text:
+    - >
+      Determines if `var` is a positive number.
+  arguments:
+    - name: var
+      type: mixed
+      text: variable to check.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if value is a positive number, else `false`.
+  examples:
+    - test: _:isPositive('abc')
+      resp: false
+    - test: _:isPositive(-23)
+      resp: false
+    - test: _:isPositive(67)
+      resp: true
+##########################
+# isRegex
+##########################
+- name: isRegex
+  line: L202-L208
+  sign: _:isPositive(var)
+  tags: ['lang', 'regex']
+  text:
+    - >
+      Alias for <a class="text-blue-600" href="#isRegexPattern">_:isRegexPattern</a>.
+  arguments:
+    - name: var
+      type: mixed
+      text: variable to check.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if value is a regex pattern, else `false`.
+  examples:
+    - test: _:isRegex('abc')
+      resp: false
+    - test: _:isRegex('^abc')
+      resp: false
+    - test: _:isRegex('[abc]')
+      resp: true
+    - test: _:isRegex('%a+')
+      resp: true
+##########################
+# isRegexPattern
+##########################
+- name: isRegexPattern
+  line: L224-L226
+  sign: _:isRegexPattern(var)
+  tags: ['lang', 'regex']
+  text:
+    - >
+      Determines if `var` is a regex pattern.
+  arguments:
+    - name: var
+      type: mixed
+      text: variable to check.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if value is a regex pattern, else `false`.
+  examples:
+    - test: _:isRegexPattern('abc')
+      resp: false
+    - test: _:isRegexPattern('^abc')
+      resp: false
+    - test: _:isRegexPattern('[abc]')
+      resp: true
+    - test: _:isRegexPattern('%a+')
+      resp: true
+##########################
+# isSequence
+##########################
+- name: isSequence
+  line: L234-L249
+  sign: _:isSequence(var)
+  tags: ['lang']
+  text:
+    - >
+      Determines if `var` is a "sequence" (e.g. an ordered, indexed table).
+  arguments:
+    - name: var
+      type: mixed
+      text: variable to check.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if value is a "sequence", else `false`.
+  examples:
+    - test: _:isSequence({a = 1, b = 3, 4, 8})
+      resp: false
+    - test: _:isSequence({1, 4, 2, 10, 6})
+      resp: false
+    - test: _:isSequence({})
+      resp: true
+    - test: _:isSequence({1, 3, 5, 6, 7})
+      resp: true
+##########################
+# isSet
+##########################
+- name: isSet
+  line: L261-L265
+  sign: _:isSet(var)
+  tags: ['lang']
+  text:
+    - >
+      Determines if `var` is a "set" (e.g. a table with named indexes for uniqueness; order is not important).
+  arguments:
+    - name: var
+      type: mixed
+      text: variable to check.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if value is a "set", else `false`.
+  examples:
+    - test: _:isSet({a = 1, b = 3, c = 4, 5, 8})
+      resp: false
+    - test: _:isSet({3, 3, 5, 6, 6})
+      resp: false
+    - test: _:isSet({})
+      resp: true
+    - test: _:isSet({1, 4, 2, 10, 6})
+      resp: true
+##########################
+# isString
+##########################
+- name: isString
+  line: L272-L274
+  sign: _:isString(var)
+  tags: ['lang', 'string']
+  text:
+    - >
+      Determines if `var` is a string value.
+  arguments:
+    - name: var
+      type: mixed
+      text: variable to check.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if value is a string value, else `false`.
+  examples:
+    - test: _:isString(42)
+      resp: false
+    - test: _:isString('abc')
+      resp: true
+##########################
+# isTable
+##########################
+- name: isTable
+  line: L281-L283
+  sign: _:isTable(var)
+  tags: ['lang', 'table']
+  text:
+    - >
+      Determines if `var` is a table value.
+  arguments:
+    - name: var
+      type: mixed
+      text: variable to check.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if value is a table value, else `false`.
+  examples:
+    - test: _:isTable('abc')
+      resp: false
+    - test: _:isTable({3, 3, 5, 6, 6})
+      resp: true
+##########################
+# isTruthy
+##########################
+- name: isTruthy
+  line: L290-L296
+  sign: _:isTruthy(var)
+  tags: ['lang', 'boolean']
+  text:
+    - >
+      Determines if `var` is a truthy value (e.g. anything but false and nil).
+  arguments:
+    - name: var
+      type: mixed
+      text: variable to check.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if value is a truthy value, else `false`.
+  examples:
+    - test: _:isTruthy(nil)
+      resp: false
+    - test: _:isTruthy(false)
+      resp: false
+    - test: _:isTruthy('abc')
+      resp: true
+    - test: _:isTruthy(42)
+      resp: true
+    - test: _:isTruthy(function() end)
+      resp: true
+##########################
+# isThread
+##########################
+- name: isThread
+  line: L303-L305
+  sign: _:isThread(var)
+  tags: ['lang', 'thread']
+  text:
+    - >
+      Determines if `var` is a thread.
+  arguments:
+    - name: var
+      type: mixed
+      text: variable to check.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if value is a thread, else `false`.
+  examples:
+    - test: _:isThread('I am a thread!')
+      resp: false
+    - test: _:isThread(coroutine.create(function() end))
+      resp: true
+##########################
+# isZero
+##########################
+- name: isZero
+  line: L312-L314
+  sign: _:isZero(var)
+  tags: ['lang']
+  text:
+    - >
+      Determines if `var` is zero.
+  arguments:
+    - name: var
+      type: mixed
+      text: variable to check.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if value is zero, else `false`.
+  examples:
+    - test: _:isZero('abc')
+      resp: false
+    - test: _:isZero(0)
+      resp: true

@@ -11,24 +11,29 @@ _.PRECISION = 6
 -- Native Lua functions
 -- .. preloaded for speed.
 --
-_.__type   = type
-_.__next   = next
-_.__unpack = unpack
-_.__abs    = math.abs
-_.__ceil   = math.ceil
-_.__deg    = math.deg
-_.__floor  = math.floor
-_.__huge   = math.huge
-_.__max    = math.max
-_.__min    = math.min
-_.__rad    = math.rad
-_.__random = math.random
-_.__gsub   = string.gsub
-_.__lower  = string.lower
-_.__match  = string.match
-_.__upper  = string.upper
-_.__sub    = string.sub
-_.__insert = table.insert
+_.__type    = type
+_.__next    = next
+_.__unpack  = unpack
+_.__abs     = math.abs
+_.__ceil    = math.ceil
+_.__deg     = math.deg
+_.__floor   = math.floor
+_.__huge    = math.huge
+_.__max     = math.max
+_.__min     = math.min
+_.__rad     = math.rad
+_.__random  = math.random
+_.__find    = string.find      -- returns position of first pattern in string
+_.__gsub    = string.gsub
+_.__len     = string.len       -- returns string length
+_.__lower   = string.lower     -- returns string with all chars lowercase
+_.__match   = string.match
+_.__upper   = string.upper     -- returns string with all chars uppercase
+_.__rep     = string.rep       -- returns string of repeating chars
+_.__reverse = string.reverse   -- returns string in reverse
+_.__sub     = string.sub
+_.__gmatch  = string.gmatch
+_.__insert  = table.insert
 
 --
 -- Default Color Palette

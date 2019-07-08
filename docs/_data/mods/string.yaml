@@ -1,0 +1,673 @@
+link: https://github.com/skrolikowski/Lua-Lander/blob/master/mods/string.lua
+items:
+##########################
+# camelCase
+##########################
+- name: camelCase
+  line: L34
+  sign: _:camelCase(str)
+  tags: ['string']
+  text:
+    - >
+      Converts `str` to <a href="https://en.wikipedia.org/wiki/Camel_case" class="text-blue-500">Camel Case</a>.
+  arguments:
+    - name: str
+      type: string
+      text: the string to modify.
+  returns:
+    - name:
+      type: string
+      text: A new camel cased string.
+  examples:
+    - test: _:camelCase('Foo Bar')
+      resp: 'fooBar'
+    - test: _:camelCase('--foo-bar--')
+      resp: 'fooBar'
+    - test: _:camelCase('__FOO_BAR__')
+      resp: 'fooBar'
+##########################
+# capitalize
+##########################
+- name: capitalize
+  line: L53
+  sign: _:capitalize(str)
+  tags: ['string']
+  text:
+    - >
+      Capitalizes first character of `str` and lower cases the rest.
+  arguments:
+    - name: str
+      type: string
+      text: the string to modify.
+  returns:
+    - name:
+      type: string
+      text: A new capitalized string.
+  examples:
+    - test: _:capitalize('FOO')
+      resp: 'Foo'
+    - test: _:capitalize('foo bar')
+      resp: 'Foo Bar'
+##########################
+# endsWith
+##########################
+- name: endsWith
+  line: L68
+  sign: _:endsWith(str, target, [position=_:size(str)])
+  tags: ['string']
+  text:
+    - >
+      Determines if `str` ends with `target` up until the end `position`.
+  arguments:
+    - name: str
+      type: string
+      text: The string to inspect.
+    - name: target
+      type: string
+      text: The string to search for.
+    - name: position
+      type: string=_:size(str)
+      text: Hard stop search position.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if string ends in target, else `false`.
+  examples:
+    - test: _:endsWith('abc', 'b')
+      resp: false
+    - test: _:endsWith('abc', 'c')
+      resp: true
+    - test: _:endsWith('abc', 'b', 2)
+      resp: true
+##########################
+# kebabCase
+##########################
+- name: kebabCase
+  line: L83
+  sign: _:kebabCase(str)
+  tags: ['string']
+  text:
+    - >
+      Converts `str` to <a href="https://en.wikipedia.org/wiki/Letter_case#Special_case_styles" class="text-blue-500">Kebab Case</a>.
+  arguments:
+    - name: str
+      type: string
+      text: the string to modify.
+  returns:
+    - name:
+      type: string
+      text: A new kebab cased string.
+  examples:
+    - test: _:kebabCase('Foo Bar')
+      resp: 'foo-bar'
+    - test: _:kebabCase('--foo-bar--')
+      resp: 'fooBar'
+    - test: _:kebabCase('__FOO_BAR__')
+      resp: 'fooBar'
+##########################
+# lowerCase
+##########################
+- name: lowerCase
+  line: L97
+  sign: _:lowerCase(str)
+  tags: ['string']
+  text:
+    - >
+      Converts `str` to lower-case, space-separated words.
+  arguments:
+    - name: str
+      type: string
+      text: the string to modify.
+  returns:
+    - name:
+      type: string
+      text: A new lowercase string.
+  examples:
+    - test: _:lowerCase('---Foo-Bar--')
+      resp: 'foo bar'
+    - test: _:lowerCase('fooBar')
+      resp: 'foo bar'
+    - test: _:lowerCase('__FOO_BAR__')
+      resp: 'foo bar'
+##########################
+# lowerFirst
+##########################
+- name: lowerFirst
+  line: L111
+  sign: _:lowerFirst(str)
+  tags: ['string']
+  text:
+    - >
+      Lower-cases first character in `str`.
+  arguments:
+    - name: str
+      type: string
+      text: the string to modify.
+  returns:
+    - name:
+      type: string
+      text: A new string with first character lower cased.
+  examples:
+    - test: _:lowerFirst('Foo')
+      resp: 'foo'
+    - test: _:lowerFirst('FOO')
+      resp: 'fOO'
+##########################
+# pad
+##########################
+- name: pad
+  line: L125
+  sign: _:pad(str, [length=0], [chars=' '])
+  tags: ['string']
+  text:
+    - >
+      Pads both sides of `str` with `chars`, only if `str` is smaller than `length`.
+  arguments:
+    - name: str
+      type: string
+      text: the string to pad.
+    - name: length
+      type: number=0
+      text: Desired string length.
+    - name: chars
+      type: string=' '
+      text: Characters to use as padding.
+  returns:
+    - name:
+      type: string
+      text: A new padded string.
+  examples:
+    - test: _:pad('abc', 8)
+      resp: '  abc   '
+    - test: _:pad('abc', 8, '_-')
+      resp: '_-abc_-_'
+    - test: _:pad('abc', 3)
+      resp: 'abc'
+##########################
+# padEnd
+##########################
+- name: padEnd
+  line: L153
+  sign: _:padEnd(str, [length=0], [chars=' '])
+  tags: ['string']
+  text:
+    - >
+      Pads end of `str` with `chars`, only if `str` is smaller than `length`.
+  arguments:
+    - name: str
+      type: string
+      text: the string to pad.
+    - name: length
+      type: number=0
+      text: Desired string length.
+    - name: chars
+      type: string=' '
+      text: Characters to use as padding.
+  returns:
+    - name:
+      type: string
+      text: A new padded string.
+  examples:
+    - test: _:padEnd('abc', 6)
+      resp: 'abc   '
+    - test: _:padEnd('abc', 6)
+      resp: 'abc_-_'
+    - test: _:padEnd('abc', 3)
+      resp: 'abc'
+##########################
+# padStart
+##########################
+- name: padStart
+  line: L172
+  sign: _:padStart(str, [length=0], [chars=' '])
+  tags: ['string']
+  text:
+    - >
+      Pads beginning of `str` with `chars`, only if `str` is smaller than `length`.
+  arguments:
+    - name: str
+      type: string
+      text: the string to pad.
+    - name: length
+      type: number=0
+      text: Desired string length.
+    - name: chars
+      type: string=' '
+      text: Characters to use as padding.
+  returns:
+    - name:
+      type: string
+      text: A new padded string.
+  examples:
+    - test: _:padStart('abc', 6)
+      resp: '   abc'
+    - test: _:padStart('abc', 6)
+      resp: '_-_abc'
+    - test: _:padStart('abc', 3)
+      resp: 'abc'
+##########################
+# rep
+##########################
+- name: rep
+  line: L189
+  sign: _:rep(str, [n=1])
+  tags: ['string']
+  text:
+    - >
+      Repeats given `str` `n` number of times.
+  arguments:
+    - name: str
+      type: string
+      text: The string to use for repetition.
+    - name: n
+      type: number=1
+      text: Number of times to repeat.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if string begins in target, else `false`.
+  examples:
+    - test: _:rep('*', 6)
+      resp: '******'
+    - test: _:rep('abc', 2, '_-')
+      resp: 'abcabc'
+    - test: _:rep('abc', 0)
+      resp: ''
+##########################
+# replace
+##########################
+- name: replace
+  line: L204
+  sign: _:replace(str, pattern, [repl=''], [n])
+  tags: ['string']
+  text:
+    - >
+      Replaces matches from `pattern` in `str` with `repl` string.
+  note:
+    - >
+      Defers to Lua's native <a href="https://www.lua.org/manual/5.1/manual.html#pdf-string.gsub" class="text-blue-500">`string.gsub`</a> function.
+  arguments:
+    - name: str
+      type: string
+      text: The string to modify.
+    - name: pattern
+      type: string
+      text: Regular string or regex pattern
+    - name: str
+      type: string=''
+      text: Replacement string.
+    - name: n
+      type: number
+      text: n-th match.
+  returns:
+    - name:
+      type: boolean
+      text: A new string with modifications.
+  examples:
+    - test: _:replace('Hi Fred', 'Fred', 'Barney')
+      resp: 'Hi Barney'
+    - test: _:replace('Hello World', '(%w+)', '%1 %1')
+      resp: 'Hello Hello World World'
+    - test: _:replace('Hello, World! Hello, Everyone!', 'Hello', 'Goodbye', 1)
+      resp: 'Goodbye, World! Hello, Everyone!'
+##########################
+# snakeCase
+##########################
+- name: snakeCase
+  line: L217
+  sign: _:snakeCase(str)
+  tags: ['string']
+  text:
+    - >
+      Converts `str` to <a href="https://en.wikipedia.org/wiki/Snake_case" class="text-blue-500">Snake Case</a>.
+  arguments:
+    - name: str
+      type: string
+      text: the string to modify.
+  returns:
+    - name:
+      type: string
+      text: A new snake cased string.
+  examples:
+    - test: _:snakeCase('Foo Bar')
+      resp: 'foo_bar'
+    - test: _:snakeCase('fooBar')
+      resp: 'foo_bar'
+    - test: _:snakeCase('--FOO-BAR--')
+      resp: 'foo_bar'
+##########################
+# split
+##########################
+- name: split
+  line: L233
+  sign: _:split(str, separator, [limit=_:size(str)])
+  tags: ['string']
+  text:
+    - >
+      Creates new table by spliting `str` by `separator`.
+      Result will be no larger than `limit`.
+  arguments:
+    - name: str
+      type: string
+      text: The string to split.
+    - name: separator
+      type: string
+      text: Regex pattern to split on.
+    - name: limit
+      type: number
+      text: Length to truncate final string to.
+  returns:
+    - name:
+      type: table
+      text: Returns string segments.
+  examples:
+    - test: _:split('a-b-c-', '-')
+      resp: {'a', 'b', 'c'}
+    - test: _:split('a-b-c', '-', 2)
+      resp: {'a', 'b'}
+##########################
+# startCase
+##########################
+- name: startCase
+  line: L250
+  sign: _:startCase(str)
+  tags: ['string']
+  text:
+    - >
+      Converts `str` to <a href="https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage" class="text-blue-500">Start Case</a>.
+  arguments:
+    - name: str
+      type: string
+      text: The string to convert.
+  returns:
+    - name:
+      type: string
+      text: A new start cased string.
+  examples:
+    - test: _:startCase('--foo-bar--')
+      resp: '--foo-bar--'
+    - test: _:startCase('fooBar')
+      resp: 'fooBar'
+    - test: _:startCase('__FOO_BAR__')
+      resp: 'FOO BAR'
+##########################
+# startsWith
+##########################
+- name: startsWith
+  line: L277
+  sign: _:startsWith(str, target, [position=1])
+  tags: ['string']
+  text:
+    - >
+      Determine if `str` starts with `target`, starting at `position`.
+  arguments:
+    - name: str
+      type: string
+      text: The string to inspect.
+    - name: target
+      type: string
+      text: The string to search for.
+    - name: position
+      type: string=1
+      text: Position to start search.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if string begins in target, else `false`.
+  examples:
+    - test: _:startsWith('abc', 'b')
+      resp: false
+    - test: _:startsWith('abc', 'a')
+      resp: true
+    - test: _:startsWith('abc', 'b', 2)
+      resp: true
+##########################
+# toLower
+##########################
+- name: toLower
+  line: L290
+  sign: _:toLower(str)
+  tags: ['string']
+  text:
+    - >
+      Converts entire `str` to lower case..
+  note:
+    - >
+      Defers to Lua's native <a href="https://www.lua.org/manual/5.1/manual.html#pdf-string.lower" class="text-blue-500">`string.lower`</a> function.
+  arguments:
+    - name: str
+      type: string
+      text: The string to modify.
+  returns:
+    - name:
+      type: string
+      text: A new string lower cased.
+  examples:
+    - test: _:toLower('--Foo-Bar--')
+      resp: '--foo-bar--'
+    - test: _:toLower('fooBar')
+      resp: 'foobar'
+    - test: _:toLower('__FOO_BAR__')
+      resp: '__foo_bar__'
+##########################
+# toUpper
+##########################
+- name: toUpper
+  line: L301
+  sign: _:toUpper(str)
+  tags: ['string']
+  text:
+    - >
+      Converts entire `str` to upper case..
+  note:
+    - >
+      Defers to Lua's native <a href="https://www.lua.org/manual/5.1/manual.html#pdf-string.upper" class="text-blue-500">`string.upper`</a> function.
+  arguments:
+    - name: str
+      type: string
+      text: The string to modify.
+  returns:
+    - name:
+      type: string
+      text: A new string upper cased.
+  examples:
+    - test: _:toUpper('--foo-bar--')
+      resp: '--FOO-BAR--'
+    - test: _:toUpper('fooBar')
+      resp: 'FOOBAR'
+    - test: _:toUpper('__foo_bar__')
+      resp: '__FOO_BAR__'
+##########################
+# trim
+##########################
+- name: trim
+  line: L301
+  sign: _:trim(str, [pattern="%s+"])
+  tags: ['string']
+  text:
+    - >
+      Removes leading and trailing `pattern` of `str`.
+  arguments:
+    - name: str
+      type: string
+      text: The string to trim.
+    - name: pattern
+      type: string
+      text: The string or regex pattern to trim.
+  returns:
+    - name:
+      type: string
+      text: Returns new trimmed string.
+  examples:
+    - test: _:trim('  abc  ')
+      resp: 'abc'
+    - test: _:trim('-_-abc-_-', '_-')
+      resp: 'abc'
+    - test: _:trim('-_-abc-_-', '%p+')
+      resp: 'abc'
+##########################
+# trimEnd
+##########################
+- name: trimEnd
+  line: L301
+  sign: _:trimEnd(str, [pattern="%s+"])
+  tags: ['string']
+  text:
+    - >
+      Removes trailing `pattern` of `str`.
+  arguments:
+    - name: str
+      type: string
+      text: The string to trim.
+    - name: pattern
+      type: string
+      text: The string or regex pattern to trim.
+  returns:
+    - name:
+      type: string
+      text: Returns new trimmed string.
+  examples:
+    - test: _:trim('  abc  ')
+      resp: '  abc'
+    - test: _:trim('-_-abc-_-', '_-')
+      resp: '-_-abc'
+    - test: _:trim('-_-abc-_-', '%p+')
+      resp: '-_-abc'
+##########################
+# trimStart
+##########################
+- name: trimStart
+  line: L343
+  sign: _:trimStart(str, [pattern="%s+"])
+  tags: ['string']
+  text:
+    - >
+      Removes leading `pattern` or `str`.
+  arguments:
+    - name: str
+      type: string
+      text: The string to trim.
+    - name: pattern
+      type: string
+      text: The string or regex pattern to trim.
+  returns:
+    - name:
+      type: string
+      text: Returns new trimmed string.
+  examples:
+    - test: _:trim('  abc  ')
+      resp: 'abc  '
+    - test: _:trim('-_-abc-_-', '_-')
+      resp: 'abc-_-'
+    - test: _:trim('-_-abc-_-', '%p+')
+      resp: 'abc-_-'
+##########################
+# truncate
+##########################
+- name: truncate
+  line: L364
+  sign: _:truncate(str, [options])
+  tags: ['string']
+  text:
+    - >
+      Truncates `str` with `options`.
+  arguments:
+    - name: str
+      type: string
+      text: The string to trim.
+    - name: options.length
+      type: number=30
+      text: Maximum string length (including `omission`).
+    - name: options.separator
+      type: string=''
+      text: The string or regex pattern to truncate to.
+    - name: options.omission
+      type: string='...
+      text: Omitted text indicator.
+  returns:
+    - name:
+      type: string
+      text: Returns new truncated string.
+  examples:
+    - test: _:truncate('hi-diddly-ho there, neighborino')
+      resp: 'hi-diddly-ho there, neighbo...'
+    - test: _:truncate('hi-diddly-ho there, neighborino', {length = 24, separator = ' '})
+      resp: 'hi-diddly-ho...'
+    - test: _:truncate('hi-diddly-ho there, neighborino', {length = 24, separator = '[,?]%s+'})
+      resp: 'hi-diddly-ho there...'
+    - test: _:truncate('hi-diddly-ho there, neighborino', {omission = ' [...]'})
+      resp: 'hi-diddly-ho there, neig [...]'
+##########################
+# upperCase
+##########################
+- name: upperCase
+  line: L397
+  sign: _:upperCase(str)
+  tags: ['string']
+  text:
+    - >
+      Converts `str` to space-separated, upper case string.
+  arguments:
+    - name: str
+      type: string
+      text: The string to modify.
+  returns:
+    - name:
+      type: string
+      text: A new space-separated, upper case string.
+  examples:
+    - test: _:upperCase('--foo-bar')
+      resp: 'FOO BAR'
+    - test: _:upperCase('fooBar')
+      resp: 'FOO BAR'
+    - test: _:upperCase('__foo_bar__')
+      resp: 'FOO BAR'
+##########################
+# upperFirst
+##########################
+- name: upperFirst
+  line: L413
+  sign: _:upperFirst(str)
+  tags: ['string']
+  text:
+    - >
+      Converts first character in  `str` to  upper case, leaving the rest untouched.
+  arguments:
+    - name: str
+      type: string
+      text: The string to modify.
+  returns:
+    - name:
+      type: string
+      text: A new string with first character upper cased.
+  examples:
+    - test: _:upperFirst('foo')
+      resp: 'Foo'
+    - test: _:upperFirst('fooBar')
+      resp: 'FOO'
+##########################
+# words
+##########################
+- name: words
+  line: L426
+  sign: _:words(str, [pattern='%a+'])
+  tags: ['string', 'table']
+  text:
+    - >
+      Converts `str` into table of words, using `pattern` as separator.
+  arguments:
+    - name: str
+      type: string
+      text: The string to modify.
+    - name: pattern
+      type: string='%a+'
+      text: String or regex pattern to split on.
+  returns:
+    - name:
+      type: table
+      text: Returns table of string segments.
+  examples:
+    - test: _:words('lister, cat, & kryton')
+      resp: {'lister', 'cat', 'kryton'}
+    - test: _:words('lister, cat, & kryton', "[^,%s]+")
+      resp: {'lister', 'cat', '&', 'kryton'}
