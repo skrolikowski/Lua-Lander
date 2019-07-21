@@ -1,4 +1,3 @@
-pprint = require 'libs.pprint.pprint'
 --
 math.randomseed(os.time())
 --
@@ -7,16 +6,17 @@ _ = {}
 _.__index = index
 
 -- variables
-require 'mods.variables'
+require 'lua-lander.mods.variables'
 
 --- modules
-require 'mods.array'
-require 'mods.assert'
-require 'mods.color'
-require 'mods.func'
-require 'mods.lang'
-require 'mods.math'
-require 'mods.number'
-require 'mods.string'
-require 'mods.table'
-require 'mods.util'
+require 'lua-lander.mods.array'
+require 'lua-lander.mods.assert'
+require 'lua-lander.mods.color'
+require 'lua-lander.mods.event'
+require 'lua-lander.mods.func'
+require 'lua-lander.mods.lang'
+require 'lua-lander.mods.math'
+require 'lua-lander.mods.number'
+require 'lua-lander.mods.string'
+require 'lua-lander.mods.table'
+require 'lua-lander.mods.util'

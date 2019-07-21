@@ -225,16 +225,16 @@ function _:snakeCase(str)
     return _.__lower(str)                    -- lower-case string
 end
 
--- _:split(str, separator, [limit=_:size(str)])
+-- _:split(str, [separator='[^-]'], [limit=_:size(str)])
 -- Splits `str` by `separator`, truncated by `limit`.
 --
 -- @param  string(str)
 -- @return table
 function _:split(str, separator, limit)
     str       = _:assertArgument('str', str, 'string')
-    separator = _:assertArgument('separator', separator, 'string')
+    separator = _:assertArgument('separator', separator, 'string', '[^-]')
     --
-    local elements = _:words(str, '[^-]')
+    local elements = _:words(str, separator)
     local length   = _:size(elements)
     --
     limit = _:assertArgument('limit', limit, 'number', length)

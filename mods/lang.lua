@@ -10,7 +10,9 @@
 ----
 --
 
-local __re   = require("re")
+-- TODO: not Love2d friendly..?
+-- Need native lua alternative
+-- local __re   = require("re")
 
 
 ------------------
@@ -64,8 +66,7 @@ end
 -- @param  mixed(var)
 -- @return boolean
 function _:is_(var)
-    return _:isString(var) and
-           _.__type(_[var])
+    return _:isString(var) and _:isFunction(_[var])
 end
 
 -- _:isArray(var)
@@ -120,6 +121,19 @@ end
 -- @return boolean
 function _:isEqual(left, right)
     return __deepcompare(left, right)
+end
+
+-- _:isEven(var)
+-- Determines if `var` is an even number.
+--
+-- @param  mixed(var)
+-- @return boolean
+function _:isEven(var)
+    if not _:isNumber(var) then
+        return false
+    end
+
+    return var % 2 == 0
 end
 
 -- _:isFalsey(var)
@@ -194,6 +208,19 @@ function _:isNumber(var)
     return _.__type(var) == 'number'
 end
 
+-- _:isOdd(var)
+-- Determines if `var` is an odd number.
+--
+-- @param  mixed(var)
+-- @return boolean
+function _:isOdd(var)
+    if not _:isNumber(var) then
+        return false
+    end
+
+    return var % 2 ~= 0
+end
+
 -- _:isPositive(var)
 -- Determines if `var` is a positive number (including 0).
 --
@@ -222,7 +249,9 @@ end
 -- @param  mixed(var)
 -- @return boolean
 function _:isRegexPattern(var)
-    return pcall(function() __re.compile(var) end)
+    -- TODO: need lua native alternative
+    -- return pcall(function() __re.compile(var) end)
+    return true
 end
 
 -- _:isSequence(var)

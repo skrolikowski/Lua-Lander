@@ -38,6 +38,139 @@ function _:add(...)
     return _:sum(...)
 end
 
+-- _:bin2Dec(bin)
+-- Converts `bin` representation into
+--  it's base-10 numeric counterpart.
+--
+-- @param  string(bin)
+-- @return number
+function _:bin2Dec(bin)
+    bin = _:assertArgument('bin', bin, 'string')
+    --
+    local dec = 0
+    local exp = _.__len(bin) - 1
+
+    for v in _.__gmatch(bin, '.') do
+        if v == '1' then
+            dec = dec + 2^exp
+        end
+
+        exp = exp - 1
+    end
+
+    return dec
+end
+
+-- _:bin2Hex(bin)
+-- Converts `bin` representation into
+--  it's hexadecimal string counterpart.
+--
+-- @param  string(bin)
+-- @return string
+function _:bin2Hex(bin)
+    bin = _:assertArgument('bin', bin, 'string')
+    --
+    -- TODO:
+end
+
+-- _:bitwiseAND(x, y)
+-- Perform bitwise AND operation on `x` and
+--  returns the result.
+--
+-- @param  number(x)
+-- @param  number(y)
+-- @return number
+function _:bitwiseAND(x, y)
+    x = _:assertArgument('x', x, 'number')
+    y = _:assertArgument('y', y, 'number')
+    --
+    local bx  = _:padStart(_:dec2Bin(x), 32, '0')
+    local by  = _:padStart(_:dec2Bin(y), 32, '0')
+    local cx  = _:words(bx, '.')
+    local cy  = _:words(by, '.')
+    local out = ''
+
+    for i = 1, #cx do
+        if cx[i] == cy[i] then
+            out = out .. cx[i]
+        else
+            out = out .. '0'
+        end
+    end
+
+    return _:bin2Dec(out)
+end
+
+-- _:bitwiseNOT(x)
+-- Perform bitwise NOT operation on `x` and
+--  returns the result.
+--
+-- @param  number(x)
+-- @return number
+function _:bitwiseNOT(x)
+    x = _:assertArgument('x', x, 'number')
+    --
+    return -x - 1
+end
+
+-- _:bitwiseOR(x, y)
+-- Perform bitwise OR operation on `x` and
+--  returns the result.
+--
+-- @param  number(x)
+-- @param  number(y)
+-- @return number
+function _:bitwiseOR(x, y)
+    x = _:assertArgument('x', x, 'number')
+    y = _:assertArgument('y', y, 'number')
+    --
+    local bx  = _:padStart(_:dec2Bin(x), 32, '0')
+    local by  = _:padStart(_:dec2Bin(y), 32, '0')
+    local cx  = _:words(bx, '.')
+    local cy  = _:words(by, '.')
+    local out = ''
+
+    for i = 1, #cx do
+        if cx[i] == '1' or cy[i] == '1' then
+            out = out .. '1'
+        else
+            out = out .. '0'
+        end
+    end
+
+    return _:bin2Dec(out)
+end
+
+-- _:bitwiseXOR(x, y)
+-- Perform bitwise XOR operation on `x` and
+--  returns the result.
+--
+-- @param  number(x)
+-- @param  number(y)
+-- @return number
+function _:bitwiseXOR(x, y)
+    x = _:assertArgument('x', x, 'number')
+    y = _:assertArgument('y', y, 'number')
+    --
+    local bx  = _:padStart(_:dec2Bin(x), 32, '0')
+    local by  = _:padStart(_:dec2Bin(y), 32, '0')
+    local cx  = _:words(bx, '.')
+    local cy  = _:words(by, '.')
+    local out = ''
+
+    for i = 1, #cx do
+        if cx[i] == '1' then
+            out = out .. (cy[i] == '0' and '1' or '0')
+        elseif cy[i] == '1' then
+            out = out .. (cx[i] == '0' and '1' or '0')
+        else
+            out = out .. '0'
+        end
+    end
+
+    return _:bin2Dec(out)
+end
+
 -- _:ceil(num, [precision=0])
 -- Rounds up `num` to desired `precision`.
 --
@@ -51,6 +184,33 @@ function _:ceil(num, precision)
     local factor = 10 ^ precision
 
     return _.__ceil(num * factor) / factor
+end
+
+-- _:dec2Bin(dec)
+-- Converts `dec` representation into it's
+--  binary string counterpart.
+--
+-- @param  number(dec)
+-- @return string
+function _:dec2Bin(dec)
+    dec = _:assertArgument('dec', dec, 'number')
+    --
+    local hex = _.__format('%x', dec)
+    local bin = _:hex2Bin(hex)
+
+    return bin
+end
+
+-- _:dec2Hex(dec)
+-- Converts `dec` representation into it's
+--  hexadecimal string counterpart.
+--
+-- @param  number(dec)
+-- @return string
+function _:dec2Hex(dec)
+    dec = _:assertArgument('dec', dec, 'number')
+    --
+    return _.__upper(_.__format('%x', dec))
 end
 
 -- _:divide(...)
@@ -88,6 +248,36 @@ function _:floor(num, precision)
     local factor = 10 ^ precision
 
     return _.__floor(num * factor) / factor
+end
+
+-- _:hex2Bin(hex)
+-- Converts `hex` representation into it's
+--  binary string counterpart.
+--
+-- @param  string(bin)
+-- @return string
+function _:hex2Bin(hex)
+    hex = _:assertArgument('hex', hex, 'string')
+    --
+    local bin = ''
+
+    for v in _.__gmatch(hex, '.') do
+        bin = bin .. _.HB[_.__lower(v)]
+    end
+
+    return bin
+end
+
+-- _:hex2Dec(hex)
+-- Converts `hex` representation into it's
+--  base-10 numeric counterpart.
+--
+-- @param  string(bin)
+-- @return number
+function _:hex2Dec(hex)
+    hex = _:assertArgument('hex', hex, 'string')
+    --
+    return _:bin2Dec(_:hex2Bin(hex))
 end
 
 -- _:max(...)
@@ -331,7 +521,7 @@ end
 -- @param  number(rad) - radians
 -- @return number
 function _:toDeg(rad)
-    return _:round(_.__deg(rad), _.PRECISION)
+    return _.__deg(rad)
 end
 
 -- _:toRad(deg)
@@ -340,5 +530,5 @@ end
 -- @param  number(deg) - degrees
 -- @return number
 function _:toRad(deg)
-    return _:round(_.__rad(deg), _.PRECISION)
+    return _.__rad(deg)
 end
