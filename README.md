@@ -34,7 +34,7 @@ Step 2: Start using!
 > _:color('gray-100')                  # => 0.97, 0.98, 0.99
 ```
 
-> Find more in the ([Documentation](lua-lander.github.io)).
+> Find more in the ([Documentation](http://shanekrolikowski.com/Lua-Lander/)).
 
 ## Acknowledgements
 
