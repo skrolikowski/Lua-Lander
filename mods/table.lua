@@ -381,8 +381,10 @@ function _:resize(tabl, size)
     tabl = _:assertArgument('tabl', tabl, 'table')
     size = _:assertArgument('size', size, 'number')
     --
-    local currsize = _:size(tabl)
-    local newSize  = currsize - _:abs(size)
+    local currSize = _:size(tabl)
+    local newSize  = currSize - _:abs(size)
+
+    newSize = _.__max(0, newSize)
 
     if _:isNegative(size) then
         newSize = newSize * -1

@@ -307,11 +307,13 @@ function _:maxBy(tabl, iteratee)
     local max
 
     for k, v in pairs(tabl) do
-        if _:isNumber(v) then
+        local value = iteratee(v)
+
+        if _:isNumber(value) then
             if not max then
-                max = iteratee(v)
+                max = value
             else
-                max = _.__max(max, iteratee(v))
+                max = _.__max(max, value)
             end
         end
     end
@@ -377,15 +379,17 @@ function _:minBy(tabl, iteratee)
     --
     local min
 
-    table.foreach(tabl, function(k, v)
-        if _:isNumber(v) then
+    for k, v in pairs(tabl) do
+        local value = iteratee(v)
+
+        if _:isNumber(value) then
             if not min then
-                min = iteratee(v)
+                min = value
             else
-                min = _.__min(min, iteratee(v))
+                min = _.__min(min, value)
             end
         end
-    end)
+    end
 
     return min
 end
@@ -415,11 +419,13 @@ function _:multiplyBy(tabl, iteratee)
     local mul
 
     table.foreach(tabl, function(k, v)
-        if _:isNumber(v) then
+        local value = iteratee(v)
+
+        if _:isNumber(value) then
             if not mul then
-                mul = iteratee(v)
+                mul = value
             else
-                mul = mul * iteratee(v)
+                mul = mul * value
             end
         end
     end)
@@ -469,11 +475,13 @@ function _:subtractBy(tabl, iteratee)
     local sub
 
     table.foreach(tabl, function(k, v)
-        if _:isNumber(v) then
+        local value = iteratee(v)
+
+        if _:isNumber(value) then
             if not sub then
-                sub = iteratee(v)
+                sub = value
             else
-                sub = sub - iteratee(v)
+                sub = sub - value
             end
         end
     end)
@@ -507,8 +515,10 @@ function _:sumBy(tabl, iteratee)
     local sum = 0
 
     table.foreach(tabl, function(k, v)
-        if _:isNumber(v) then
-            sum = sum + iteratee(v)
+        local value = iteratee(v)
+
+        if _:isNumber(value) then
+            sum = sum + value
         end
     end)
 
