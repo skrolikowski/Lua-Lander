@@ -19,7 +19,7 @@ markdown: kramdown
 kramdown:
   input: GFM
   parse_block_html: false
-  highlighter: rouge
+  highlighter: pygments
   syntax_highlighter_opts:
     span:
       line_numbers: false
@@ -38,7 +38,7 @@ strict_front_matter: true  # Cause a build to fail if there is a YAML syntax err
 
 # Plugins
 plugins:
-  - rouge
+  - pygments
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap

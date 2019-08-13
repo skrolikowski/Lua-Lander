@@ -5,7 +5,7 @@ items:
 ##########################
 - name: chunki
   line: L38
-  sign: _:chunk(tabl, [size=1])
+  sign: _:chunki(tabl, [size=1])
   tags: ['table']
   text:
     - >

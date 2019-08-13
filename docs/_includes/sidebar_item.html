@@ -1,0 +1,10 @@
+<div class="">
+    <h4 class="text-lg uppercase text-gray-70">{{ include.module }} Functions</h4>
+    <ul class="list-none">
+        {% for item in include.items | sort "name" %}
+            <li class="pl-3 pb-2">
+                <a class="text-blue-600" href="#{{ item.name }}" title="{{ item.name }}">{{ item.name}}</a>
+            <li>
+        {% endfor%}
+    </ul>
+</div>

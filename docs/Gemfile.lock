@@ -44,9 +44,12 @@ GEM
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
     mercenary (0.3.6)
+    multi_json (1.13.1)
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
     public_suffix (3.1.1)
+    pygments.rb (1.2.1)
+      multi_json (>= 1.0.0)
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
@@ -68,11 +71,11 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
-  jekyll (~> 3.8.5)
+  jekyll (~> 3.8.6)
   jekyll-feed (~> 0.6)
   jekyll-seo-tag
   jekyll-sitemap
-  rouge
+  pygments.rb
   tzinfo-data
   wdm (~> 0.1.0)
 
