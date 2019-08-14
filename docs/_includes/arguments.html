@@ -1,14 +1,14 @@
 <div class="py-2 ml-5">
     <h4 class="text-base md:text-lg uppercase text-gray-700">Arguments</h4>
-    <div class="flex flex-col justify-start">
+    <div>
         {% for argument in item.arguments %}
-            <div class="flex pl-5">
-                <div class="w-1/5 text-right">
+            <div class="flex items-center justify-start pl-5">
+                <div>
                     <span class="text-blue-600">{{ argument.name }}</span>
                     <span class="text-blue-600 font-light italic mr-2">({{ argument.type }})</span>
                 </div>
                 <div class="text-gray-600">
-                    - {{ argument.text | downcase  }}
+                    {{ argument.text | downcase  }}
                 </div>
             </div>
         {% endfor %}

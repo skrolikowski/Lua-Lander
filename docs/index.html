@@ -3,18 +3,18 @@ layout: default
 ---
 
     <!-- Header -->
-    <nav class="flex fixed top-0 inset-x-0 z-10 items-center shadow">
+    <nav class="flex fixed top-0 inset-x-0 z-10 items-center">
         <div class="w-full max-w-screen-xl relative mx-auto px-5">
-            <div class="flex items-center justify-between -mx-3 mb-3">
+            <div class="flex items-center justify-between -mx-3 md:mb-2 py-3">
 
                 <!-- Brand -->
                 <div class="md:w-full">
                     <a href="/" class="block flex items-start">
-                        <div class="hidden md:block md:p-3">
+                        <div class="block px-2 py-3">
                             <i class="fas fa-2x fa-rocket text-blue-800"></i>
                         </div>
                         <div>
-                            <h1 class="text-2xl font-light uppercase md:text-3xl">
+                            <h1 class="text-xl font-light uppercase md:text-3xl">
                                 {{ site.title }}
                             </h1>
                             <p class="text-base font-thin text-gray-500 md:text-lg -mt-2">
@@ -39,7 +39,7 @@ layout: default
         </div>
     </nav>
 
-    <div class="flex flex-row h-screen overflow-hidden pt-16 md:pt-20">
+    <div class="flex flex-row h-screen overflow-hidden pt-20 md:pt-24">
         <!-- Sidebar -->
         <div class="hidden lg:w-1/4 lg:block lg:overflow-y-auto lg:p-5 xl:w-1/5">
             {% include sidebar.html %}
