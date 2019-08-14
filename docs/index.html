@@ -3,26 +3,50 @@ layout: default
 ---
 
     <!-- Header -->
-    <nav class="fixed w-full mt-0 shadow-md">
-        <div class="flex flex-row h-full">
-            <div class="p-4">
-                <i class="fas fa-4x fa-rocket text-gray-800"></i>
-            </div>
-            <div>
-                <h1 class="text-3xl font-light uppercase">{{ site.title }}</h1>
-                <p class="text-lg font-light text-gray-600">{{ site.description }}</p>
+    <nav class="flex fixed top-0 inset-x-0 z-10 items-center shadow">
+        <div class="w-full max-w-screen-xl relative mx-auto px-5">
+            <div class="flex items-center justify-between -mx-3 mb-3">
+
+                <!-- Brand -->
+                <div class="md:w-full">
+                    <a href="/" class="block flex items-start">
+                        <div class="hidden md:block md:p-3">
+                            <i class="fas fa-2x fa-rocket text-blue-800"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-light uppercase md:text-3xl">
+                                {{ site.title }}
+                            </h1>
+                            <p class="text-base font-thin text-gray-500 md:text-lg -mt-2">
+                                {{ site.description }}
+                            </p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Hamburger -- WIP -->
+                <div class="hidden">
+                    <!-- Open -->
+                    <button type="button" class="focus:outline-none">
+                        <i class="fas fa-lg fa-bars text-gray-800"></i>
+                    </button>
+                    <!-- Close -->
+                    <button type="button" class="focus:outline-none hidden">
+                        <i class="fas fa-lg fa-times text-gray-800"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
 
-    <div class="flex flex-row h-screen overflow-hidden pt-24">
+    <div class="flex flex-row h-screen overflow-hidden pt-16 md:pt-20">
         <!-- Sidebar -->
         <div class="hidden lg:w-1/4 lg:block lg:overflow-y-auto lg:p-5 xl:w-1/5">
             {% include sidebar.html %}
         </div>
 
         <!-- Content -->
-        <div class="w-full lg:overflow-y-auto lg:w-3/4 xl:w-4/5">
+        <div class="w-full overflow-y-auto lg:w-3/4 xl:w-4/5">
             <div class="h-full">
                 {% for mod_hash in site.data.mods %}
                     {% assign module = mod_hash[1] %}

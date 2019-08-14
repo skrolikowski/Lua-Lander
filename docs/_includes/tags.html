@@ -1,12 +1,14 @@
-<div class="flex justify-start px-5 py-2 text-gray-500 text-xs uppercase">
+<div class="flex justify-start bg-gray-200 px-5 py-2 text-gray-500 text-sm uppercase">
     <a href="{{ module.link }}#{{ item.line }}"
        target="_blank"
-       class="block text-blue-600 mr-2"
+       class="block font-medium text-blue-600 mr-2"
     >source</a>
 
     <span class="block mr-2">|</span>
 
     {% for tag in item.tags %}
-        <span class="mr-2">{{ tag }}</span>
+		<div class="flex items-center mr-2">
+			<span class="rounded-full bg-blue-500 px-2 py-0 font-light text-xs text-white">{{ tag }}</span>
+    	</div>
     {% endfor %}
 </div>

@@ -1,0 +1,46 @@
+---
+layout: default
+---
+
+    <!-- Header -->
+    <nav class="fixed w-full mt-0 shadow-md">
+        <div class="flex flex-row h-full">
+            <div class="p-4">
+                <i class="fas fa-4x fa-rocket text-gray-800"></i>
+            </div>
+            <div>
+                <h1 class="text-3xl font-light uppercase">{{ site.title }}</h1>
+                <p class="text-lg font-light text-gray-600">{{ site.description }}</p>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex flex-row h-screen overflow-hidden pt-24">
+        <!-- Sidebar -->
+        <div class="hidden lg:w-1/4 lg:block lg:overflow-y-auto lg:p-5 xl:w-1/5">
+            {% include sidebar.html %}
+        </div>
+
+        <!-- Content -->
+        <div class="w-full lg:overflow-y-auto lg:w-3/4 xl:w-4/5">
+            <div class="h-full">
+                {% for mod_hash in site.data.mods %}
+                    {% assign module = mod_hash[1] %}
+                    {% assign items  = module.items | sort: "name" %}
+
+                    {% for item in items %}
+                        <section class="w-full">
+                            {% include signature.html %}
+                            {% include tags.html %}
+                            {% include comments.html %}
+                            {% include arguments.html %}
+                            {% include returns.html %}
+                            {% include examples.html %}
+                        </section>
+                    {% endfor %}
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
