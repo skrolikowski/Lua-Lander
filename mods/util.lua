@@ -53,9 +53,9 @@ end
 --
 -- @param  function(...)
 -- @return mixed
-function _:flow(...)
-    -- TODO:
-end
+-- function _:flow(...)
+--     -- TODO:
+-- end
 
 -- _:flowRight(...)
 -- Similar to _:flow(...), except invocations
@@ -63,9 +63,9 @@ end
 --
 -- @param  function(...)
 -- @return mixed
-function _:flowRight(...)
-    -- TODO:
-end
+-- function _:flowRight(...)
+--     -- TODO:
+-- end
 
 
 

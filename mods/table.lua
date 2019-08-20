@@ -215,7 +215,23 @@ function _:difference(tabl, other)
     tabl  = _:assertArgument('tabl', tabl, 'table')
     other = _:assertArgument('other', other, 'table')
     --
-    -- TODO:
+    --
+    local out    = _:copy(tabl)
+    local keys   = {}
+    local values = {}
+    -- create reference table...
+    for k, v in pairs(other) do
+        keys[k]   = true
+        values[v] = true
+    end
+    -- ...now exclude
+    for k, v in pairs(out) do
+        if keys[k] and values[v] then
+            out[k] = nil
+        end
+    end
+    --
+    return out
 end
 
 -- _:flatten(tabl)

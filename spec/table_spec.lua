@@ -37,14 +37,15 @@ describe('Table Functions', function()
         end)
     end)
 
-    -- describe('_:difference(tabl, other)', function()
-    --     it('should create new table with filtered values not included', function()
-    --         assert.are.same(_:difference({x=2, y=1}, {x=3, y=4}), {y=1})
-    --         assert.are.same(_:difference({x=2, y=1}, {w=2, z=1}), {})
-    --         -- will ignore named-indexes
-    --         --assert.are.same(_:differencei({1, 2, 8, a=3, b=4}, {2, 4}), {1, 8, a=3, b=4})
-    --     end)
-    -- end)
+    describe('_:difference(tabl, other)', function()
+        it('should create new table with filtered values not included', function()
+            assert.are.same(_:difference({x=2, y=1}, {x=3, y=4}), {x=2, y=1})
+            assert.are.same(_:difference({x=3, y=1}, {x=3, y=4}), {y=1})
+            assert.are.same(_:difference({x=2, y=1}, {w=2, z=1}), {x=2, y=1})
+            -- will ignore named-indexes
+            --assert.are.same(_:differencei({1, 2, 8, a=3, b=4}, {2, 4}), {1, 8, a=3, b=4})
+        end)
+    end)
 
     describe('_:flatten(tabl)', function()
         it('should create new table flattened one level deep', function()
