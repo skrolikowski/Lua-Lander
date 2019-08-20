@@ -10,10 +10,6 @@
 ----
 --
 
--- TODO: not Love2d friendly..?
--- Need native lua alternative
--- local __re   = require("re")
-
 
 ------------------
 -- Private Functions
@@ -249,9 +245,7 @@ end
 -- @param  mixed(var)
 -- @return boolean
 function _:isRegexPattern(var)
-    -- TODO: need lua native alternative
-    -- return pcall(function() __re.compile(var) end)
-    return true
+    return pcall(function() _.__re.compile(var) end)
 end
 
 -- _:isSequence(var)

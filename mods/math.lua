@@ -51,10 +51,7 @@ function _:bin2Dec(bin)
     local exp = _.__len(bin) - 1
 
     for v in _.__gmatch(bin, '.') do
-        if v == '1' then
-            dec = dec + 2^exp
-        end
-
+        dec = dec + tonumber(v) * 2 ^ exp
         exp = exp - 1
     end
 
@@ -70,7 +67,7 @@ end
 function _:bin2Hex(bin)
     bin = _:assertArgument('bin', bin, 'string')
     --
-    -- TODO:
+    return _:dec2Hex(_:bin2Dec(bin))
 end
 
 -- _:bitwiseAND(x, y)

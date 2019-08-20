@@ -11,6 +11,7 @@ _.PRECISION = 6
 -- Native Lua functions
 -- .. preloaded for speed.
 --
+_.__re      = require 're'     -- Regex module
 _.__type    = type
 _.__next    = next
 _.__unpack  = unpack
@@ -140,6 +141,9 @@ _.E = {}
 _.I = {}
 
 
+--
+-- Hex/Bin conversion table
+--
 _.HB = {
     ['0'] = '0000',
     ['1'] = '0001',

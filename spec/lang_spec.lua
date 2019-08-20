@@ -177,7 +177,7 @@ describe('Lang Functions', function()
         end)
     end)
 
-    pending('_:isRegexPattern(var)', function()
+    describe('_:isRegexPattern(var)', function()
         it('should return true if `var` is a regex pattern, otherwise false', function()
             assert.are.equals(_:isRegexPattern('abc'), false)
             assert.are.equals(_:isRegexPattern('^abc'), false)

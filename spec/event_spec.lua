@@ -1,4 +1,3 @@
-pprint = require 'libs.pprint.pprint'
 --
 package.path = "../?.lua;" .. package.path
 require 'busted.runner'()

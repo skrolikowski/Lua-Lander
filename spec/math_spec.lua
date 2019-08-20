@@ -23,17 +23,18 @@ describe('Math Functions', function()
         it('should convert `bin` to it\'s base-10 numeric counterpart', function()
             assert.are.equals(_:bin2Dec('0011'), 3)
             assert.are.equals(_:bin2Dec('01010101'), 85)
+            assert.are.equals(_:bin2Dec('101010111100'), 2748)
             -- validation check
             assert.has_error(function() _:bin2Dec(1000) end,
                 'Argument `bin` is a `number` but should be a `string`.')
         end)
     end)
 
-    pending('_:bin2Hex(bin)', function()
+    describe('_:bin2Hex(bin)', function()
         it('should convert `bin` to it\'s hexadecimal counterpart', function()
             assert.are.equals(_:bin2Hex('0011'), '3')
             assert.are.equals(_:bin2Hex('01010101'), '55')
-            assert.are.equals(_:bin2Hex('‭101010111100‬'), 'ABC')
+            assert.are.equals(_:bin2Hex('101010111100'), 'ABC')
             -- validation check
             assert.has_error(function() _:bin2Hex(1000) end,
                 'Argument `bin` is a `number` but should be a `string`.')

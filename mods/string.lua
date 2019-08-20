@@ -232,9 +232,9 @@ end
 -- @return table
 function _:split(str, separator, limit)
     str       = _:assertArgument('str', str, 'string')
-    separator = _:assertArgument('separator', separator, 'string', '[^-]')
+    separator = _:assertArgument('separator', separator, 'string', '%s+')
     --
-    local elements = _:words(str, separator)
+    local elements = _:words(str, '[^' .. separator .. ']')
     local length   = _:size(elements)
     --
     limit = _:assertArgument('limit', limit, 'number', length)
@@ -401,7 +401,7 @@ function _:upperCase(str)
 
     local words = _:words(str)
 
-    return _:join(_:map(words, __upper), ' ')
+    return _:join(_:map(words, _.__upper), ' ')
 end
 
 -- _:upperFirst(str)
@@ -413,7 +413,7 @@ end
 function _:upperFirst(str)
     str = _:assertArgument('str', str, 'string')
     --
-    return _.__gsub(str, '^%a', __upper)
+    return _.__gsub(str, '^%a', _.__upper)
 end
 
 -- _:words(str, [pattern='%a+'])
