@@ -67,9 +67,9 @@ function _:assertEqualSize(name, ...)
     if #values > 0 then
         local expectedSize = _:size(values[1])
 
-        table.foreach(values, function(k, v)
+        for k, v in pairs(values) do
             assert(expectedSize == _:size(v), 'Argument(s) `' .. name .. '` must all be of equal size.')
-        end)
+        end
     end
 
     return ...

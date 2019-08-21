@@ -9,12 +9,12 @@ _.PRECISION = 6
 
 --
 -- Native Lua functions
--- .. preloaded for speed.
+-- .. preloaded for speed and version compatibility
 --
 _.__re      = require 're'     -- Regex module
 _.__type    = type
 _.__next    = next
-_.__unpack  = unpack
+--
 _.__abs     = math.abs
 _.__ceil    = math.ceil
 _.__cos     = math.cos
@@ -28,6 +28,7 @@ _.__rad     = math.rad
 _.__sin     = math.sin
 _.__sqrt    = math.sqrt
 _.__random  = math.random
+--
 _.__find    = string.find      -- returns position of first pattern in string
 _.__format  = string.format
 _.__gsub    = string.gsub
@@ -37,9 +38,18 @@ _.__match   = string.match
 _.__upper   = string.upper     -- returns string with all chars uppercase
 _.__rep     = string.rep       -- returns string of repeating chars
 _.__reverse = string.reverse   -- returns string in reverse
-_.__sub     = string.sub
+_.__sub     = string.sub       -- Returns the substring of s that starts at i and continues until j; i and j can be negative.
 _.__gmatch  = string.gmatch
+--
 _.__insert  = table.insert
+_.__remove  = table.remove
+_.__sort    = table.sort
+--
+if _VERSION == 'Lua 5.1' then
+    _.__unpack = unpack
+else
+    _.__unpack = table.unpack
+end
 
 --
 -- Default Color Palette

@@ -21,13 +21,13 @@ function _:copy(value)
 
     local out = {}
 
-    table.foreach(value, function(k, v)
+    for k, v in pairs(value) do
         if v == 'table' then
             rawset(out, k, _:copy(v))
         else
             rawset(out, k, v)
         end
-    end)
+    end
 
     return out
 end
@@ -82,7 +82,7 @@ function _:size(value)
     if dt == 'number' then return value        end
     if dt == 'table'  then
         local size = 0
-        table.foreach(value, function(k, v) size = size + 1 end)
+        for k, v in pairs(value) do size = size + 1 end
         return size
     end
     --TODO: what about the others??

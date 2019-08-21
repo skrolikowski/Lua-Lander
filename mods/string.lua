@@ -37,9 +37,9 @@ function _:camelCase(str)
     local words = _:words(_.__lower(str))
     local out   = ''
 
-    table.foreach(words, function(idx, word)
+    for idx, word in pairs(words) do
         out = out .. (idx == 1 and word or _:capitalize(word))
-    end)
+    end
 
     return out
 end
@@ -255,13 +255,13 @@ function _:startCase(str, target, position)
     local words = _:words(str)
     local out   = ''
 
-    table.foreach(words, function(idx, word)
+    for idx, word in pairs(words) do
         if idx == 1 then
             out = out .. _:upperFirst(word)
         else
             out = out .. ' ' .. _:upperFirst(word)
         end
-    end)
+    end
 
     return out
 end

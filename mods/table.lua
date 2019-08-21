@@ -25,7 +25,7 @@
 -- Note: assumes `t` is a table.
 local __insert = function(t, k, v)
     if _:isNumber(k) then
-        table.insert(t, v)
+        _.__insert(t, v)
     else
         t[k] = v
     end
@@ -35,7 +35,7 @@ end
 
 local __remove = function(t, k, v)
     if _:isNumber(k) then
-        table.remove(t, k, v)
+        _.__remove(t, k, v)
     else
         t[k] = nil
     end
@@ -56,7 +56,7 @@ local __orderedKeys = function(t)
     end
 
     -- sort, multi-type
-    table.sort(keys, function(a, b)
+    _.__sort(keys, function(a, b)
         local at = _.__type(a)
         local bt = _.__type(b)
         if      at ~= bt       then return at < bt
@@ -132,7 +132,7 @@ function _:chunk(tabl, size)
         cnt = cnt + 1
 
         if cnt % size == 0 or cnt == max then
-            table.insert(out, sub)
+            _.__insert(out, sub)
             sub = {}  -- reset
         end
     end
@@ -159,7 +159,7 @@ function _:combine(keys, values)
     local k2, v2
 
     for k1, v1 in __iterator(keys) do
-        k2, v2 = next(values, k2)
+        k2, v2 = __next(values, k2)
 
         __insert(out, v1, v2)
     end
@@ -420,7 +420,7 @@ function _:unique(tabl)
     local out    = {}
     local values = {}
 
-    for k, v in pairs(tabl) do
+    for k, v in __iterator(tabl) do
         if not values[v] then
             out[k] = v
             values[v] = true

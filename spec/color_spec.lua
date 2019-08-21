@@ -24,4 +24,22 @@ describe('Color Functions', function()
             assert.are.same({ _:color('black', 'white') }, { 0.5, 0.5, 0.5 })
         end)
     end)
+
+    describe('_:colorByName(value)', function()
+        it('should generate r, g, b-values if color by `name` found, other wise error', function()
+            assert.are.same({ _:colorByName('gray-100') }, { 0.968627, 0.980392, 0.988235 })
+            assert.are.same({ _:colorByName('red-800') },  { 0.607843, 0.172549, 0.172549 })
+            -- Validation test
+            assert.has.errors(function() _:colorByName('gray-111') end, 'Color `gray-111` does not exist.')
+        end)
+    end)
+
+    describe('_:colorByHex(value)', function()
+        it('should generate r, g, b-values if color by `hex` found, other wise error', function()
+            assert.are.same({ _:colorByHex('#FED7D7') }, { 0.996078, 0.843137, 0.843137 })
+            assert.are.same({ _:colorByHex('#38A169') }, { 0.219608, 0.631373, 0.411765 })
+            -- Validation test
+            assert.has.errors(function() _:colorByHex('#38') end, 'Invalid hex format; acceptable formats: (i.e. #FFEEEE, #AAA)')
+        end)
+    end)
 end)

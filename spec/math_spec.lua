@@ -41,21 +41,20 @@ describe('Math Functions', function()
         end)
     end)
 
-
-    describe('_:bitwiseNOT(x)', function()
-        it('should return the correct results for the NOT `x` bitwise operation', function()
-            assert.are.equals(_:bitwiseNOT(546), -547)
-            assert.are.equals(_:bitwiseNOT(6589534), -6589535)
-            assert.are.equals(_:bitwiseNOT(0x2BC), -0x2bd)
-        end)
-    end)
-
     describe('_:bitwiseAND(x, y)', function()
         it('should return the correct results for the `x` AND `y` bitwise operation', function()
             assert.are.equals(_:bitwiseAND(50, 25), 16)
             assert.are.equals(_:bitwiseAND(3, 569), 1)
             assert.are.equals(_:bitwiseAND(128456, 6201938), 41024)
             assert.are.equals(_:bitwiseAND(0x2BC, 0xAEF), 684)
+        end)
+    end)
+
+    describe('_:bitwiseNOT(x)', function()
+        it('should return the correct results for the NOT `x` bitwise operation', function()
+            assert.are.equals(_:bitwiseNOT(546), -547)
+            assert.are.equals(_:bitwiseNOT(6589534), -6589535)
+            assert.are.equals(_:bitwiseNOT(0x2BC), -0x2bd)
         end)
     end)
 
@@ -82,6 +81,26 @@ describe('Math Functions', function()
             assert.are.equals(_:ceil(4.006), 5)
             assert.are.equals(_:ceil(6.004, 2), 6.01)
             assert.are.equals(_:ceil(6040, -2), 6100)
+        end)
+    end)
+
+    describe('_:dec2Bin(dec)', function()
+        it('should convert `dec` to it\'s binary string counterpart', function()
+            assert.are.equals(_:dec2Bin(55), '00110111')
+            assert.are.equals(_:dec2Bin(578), '001001000010')
+            -- validation check
+            assert.has_error(function() _:dec2Bin('123') end,
+                'Argument `dec` is a `string` but should be a `number`.')
+        end)
+    end)
+
+    describe('_:dec2Hex(dec)', function()
+        it('should convert `dec` to it\'s hexadecimal string counterpart', function()
+            assert.are.equals(_:dec2Hex(7845), '1EA5')
+            assert.are.equals(_:dec2Hex(268), '10C')
+            -- validation check
+            assert.has_error(function() _:dec2Hex('123') end,
+                'Argument `dec` is a `string` but should be a `number`.')
         end)
     end)
 
@@ -219,26 +238,6 @@ describe('Math Functions', function()
         it('should convert radians to degrees', function()
             assert.are.equals(_:round(_:toRad(30), 6), 0.523599)
             assert.are.equals(_:round(_:toRad(180), 6), 3.141593)
-        end)
-    end)
-
-    describe('_:dec2Bin(dec)', function()
-        it('should convert `dec` to it\'s binary string counterpart', function()
-            assert.are.equals(_:dec2Bin(55), '00110111')
-            assert.are.equals(_:dec2Bin(578), '001001000010')
-            -- validation check
-            assert.has_error(function() _:dec2Bin('123') end,
-                'Argument `dec` is a `string` but should be a `number`.')
-        end)
-    end)
-
-    describe('_:dec2Hex(dec)', function()
-        it('should convert `dec` to it\'s hexadecimal string counterpart', function()
-            assert.are.equals(_:dec2Hex(7845), '1EA5')
-            assert.are.equals(_:dec2Hex(268), '10C')
-            -- validation check
-            assert.has_error(function() _:dec2Hex('123') end,
-                'Argument `dec` is a `string` but should be a `number`.')
         end)
     end)
 end)

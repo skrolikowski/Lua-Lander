@@ -77,6 +77,26 @@ function _:ifFalsey(func, ...)
     end
 end
 
+-- _:ifTruthy(func, ...)
+-- Intercept [_:attempt](#attempt) by invoking `func`
+--  with `...` args, then sending the results to a
+--  user-specified callback only if truthy.
+--
+-- @param  function(func)
+-- @param  mixed(...)
+-- @return callback
+function _:ifTruthy(func, ...)
+    func     = _:assertArgument('func', func, 'function')
+    callback =  _:assertArgument('callback', _:tail({...}), 'function')
+    ---
+    local args      = _:initial({...})
+    local stat, res = _:attempt(func, _.__unpack(args))
+
+    if stat and res then
+        return callback(res)
+    end
+end
+
 -- _:pipe(funcs, ...)
 -- Attempts to run a series of `funcs`, starting with
 --  args `...`, and passing return values to
@@ -101,23 +121,3 @@ end
 
 --     return result
 -- end
-
--- _:ifTruthy(func, ...)
--- Intercept [_:attempt](#attempt) by invoking `func`
---  with `...` args, then sending the results to a
---  user-specified callback only if truthy.
---
--- @param  function(func)
--- @param  mixed(...)
--- @return callback
-function _:ifTruthy(func, ...)
-    func     = _:assertArgument('func', func, 'function')
-    callback =  _:assertArgument('callback', _:tail({...}), 'function')
-    ---
-    local args      = _:initial({...})
-    local stat, res = _:attempt(func, _.__unpack(args))
-
-    if stat and res then
-        return callback(res)
-    end
-end

@@ -110,7 +110,7 @@ describe('Table Functions', function()
     describe('_:unique(tabl)', function()
         it('should create copy of `table`, without any duplicate values', function()
             assert.are.same(_:unique({'a', 'd', 'b', 'c', 'c', 'd'}), {'a', 'd', 'b', 'c'})
-            assert.are.same(_:unique({a = 1, b = 2, c = 2, d = 3}), {a = 1, c = 2, d = 3})
+            assert.are.same(_:unique({a = 1, b = 2, c = 2, d = 3}), {a = 1, b = 2, d = 3})
         end)
     end)
 

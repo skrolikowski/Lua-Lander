@@ -72,13 +72,13 @@ local __colorMixer = function(...)
     local cnt    = 0
     local ra, ga, ba
 
-    table.foreach({...}, function(_, color)
+    for __, color in pairs({...}) do
         r, g, b = __resolveColor(color)
         ra = (ra or 0) + r
         ga = (ga or 0) + g
         ba = (ba or 0) + b
         cnt = cnt + 1
-    end)
+    end
 
     return ra / cnt, ga / cnt, ba / cnt
 end
@@ -118,36 +118,52 @@ function _:color(...)
     return __colorByName('black')
 end
 
--- returns color by `hint`
-function _:colorByName(hint)
-    _:assertArgument('hint', hint, 'string')
+-- _:colorByName(name)
+-- Returns r,g,b color values by name `value`.
+--
+-- @param  string(value)
+-- @return number(r,g,b)
+function _:colorByName(value)
+    _:assertArgument('value', value, 'string')
     --
-    assert(_.C[hint], 'Color `' .. hint .. '` does not exist.')
+    assert(_.C[value], 'Color `' .. value .. '` does not exist.')
 
-    return unpack(_.C[hint])
+    return _.__unpack(_.C[value])
 end
 
--- returns color by hex
-function _:colorByHex(hint)
-    _:assertArgument('hint', hint, 'string')
+-- _:colorByHex(value)
+-- Returns r,g,b color values by hex `value`.
+--
+-- @param  string(value)
+-- @return number(r,g,b)
+function _:colorByHex(value)
+    _:assertArgument('value', value, 'string')
     --
-    hint = _.__match(hint, "^#([%w]+)")
+    value = _.__match(value, "^#([%w]+)")
 
-    if hint == nil then
-        error("Invalid hex format; acceptable formats: (i.e. #FFEEEE, #AAA)")
-    end
+    -- if value == nil or not (value:len() == 3 or value:len() == 6) then
+    --     error('Invalid hex format; acceptable formats: (i.e. #FFEEEE, #AAA)')
+    -- end
 
-    if hint:len() == 3 then
-        r = _.__sub(hint, 1, 1)
-        g = _.__sub(hint, 2, 2)
-        b = _.__sub(hint, 3, 3)
+    local status, r, g, b = pcall(function()
+        if value:len() == 3 then
+            r = _.__sub(value, 1, 1)
+            g = _.__sub(value, 2, 2)
+            b = _.__sub(value, 3, 3)
+        else
+            r = _.__sub(value, 1, 2)
+            g = _.__sub(value, 3, 4)
+            b = _.__sub(value, 5, 6)
+        end
+
+        return _:round(tonumber(r, 16) / 255, _.PRECISION),
+               _:round(tonumber(g, 16) / 255, _.PRECISION),
+               _:round(tonumber(b, 16) / 255, _.PRECISION)
+    end)
+
+    if status then
+        return r, g, b
     else
-        r = _.__sub(hint, 1, 2)
-        g = _.__sub(hint, 3, 4)
-        b = _.__sub(hint, 5, 6)
+        error('Invalid hex format; acceptable formats: (i.e. #FFEEEE, #AAA)')
     end
-
-    return _:round(tonumber(r, 16) / 255, _.PRECISION),
-           _:round(tonumber(g, 16) / 255, _.PRECISION),
-           _:round(tonumber(b, 16) / 255, _.PRECISION)
 end

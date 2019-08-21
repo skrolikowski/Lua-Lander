@@ -218,7 +218,7 @@ end
 function _:divide(...)
     local out
 
-    table.foreach({...}, function(k, v)
+    for k, v in pairs({...}) do
         if _:isNumber(v) then
             if not out then
                 out = v
@@ -227,7 +227,7 @@ function _:divide(...)
                 out = out / v
             end
         end
-    end)
+    end
 
     return out
 end
@@ -415,7 +415,7 @@ function _:multiplyBy(tabl, iteratee)
     --
     local mul
 
-    table.foreach(tabl, function(k, v)
+    for k, v in pairs(tabl) do
         local value = iteratee(v)
 
         if _:isNumber(value) then
@@ -425,7 +425,7 @@ function _:multiplyBy(tabl, iteratee)
                 mul = mul * value
             end
         end
-    end)
+    end
 
     return mul
 end
@@ -471,7 +471,7 @@ function _:subtractBy(tabl, iteratee)
     --
     local sub
 
-    table.foreach(tabl, function(k, v)
+    for k, v in pairs(tabl) do
         local value = iteratee(v)
 
         if _:isNumber(value) then
@@ -481,7 +481,7 @@ function _:subtractBy(tabl, iteratee)
                 sub = sub - value
             end
         end
-    end)
+    end
 
     return sub
 end
@@ -511,13 +511,13 @@ function _:sumBy(tabl, iteratee)
     --
     local sum = 0
 
-    table.foreach(tabl, function(k, v)
+    for k, v in pairs(tabl) do
         local value = iteratee(v)
 
         if _:isNumber(value) then
             sum = sum + value
         end
-    end)
+    end
 
     return sum
 end
