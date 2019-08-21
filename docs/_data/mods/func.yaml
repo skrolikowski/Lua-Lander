@@ -71,7 +71,7 @@ items:
 # ifTruthy
 ##########################
 - name: ifTruthy
-  line: L68
+  line: L88
   sign: _:ifTruthy(func, ...)
   tags: ['function', 'boolean']
   text:

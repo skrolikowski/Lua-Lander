@@ -4,9 +4,9 @@ items:
 # color
 ##########################
 - name: color
-  line: L72-L87
+  line: L104
   sign: _:color(...)
-  tags: ['color', 'string']
+  tags: ['color']
   text:
     - >
       Returns r, g, b color component values between [0, 1].
@@ -32,3 +32,49 @@ items:
       resp: 0.96 0.67 0.33
     - test: _:color('green-500')
       resp: 0.28 0.73 0.47
+- name: colorByName
+  line: L126
+  sign: _:colorByName(value)
+  tags: ['color']
+  text:
+    - >
+      Returns r,g,b color values by name `value`.
+  info:
+    - >
+      Default color palettes inspired by <a class="text-blue-600" href="https://tailwindcss.com/docs/customizing-colors/#default-color-palette">tailwindcss</a>.
+  arguments:
+    - name: value
+      type: string
+      text: Name hint that represents color value.
+  returns:
+    - name:
+      type: number
+      text: Returns r, g, b color values.
+  examples:
+    - test: _:colorByName('gray-100')
+      resp: 0.968627 0.980392 0.988235
+    - test: _:colorByName('red-800')
+      resp: 0.607843 0.172549 0.172549
+- name: colorByHex
+  line: L139
+  sign: _:colorByHex(value)
+  tags: ['color']
+  text:
+    - >
+      Returns r,g,b color values by hext `value`.
+  info:
+    - >
+      Default color palettes inspired by <a class="text-blue-600" href="https://tailwindcss.com/docs/customizing-colors/#default-color-palette">tailwindcss</a>.
+  arguments:
+    - name: value
+      type: string
+      text: Hex value that represents color value.
+  returns:
+    - name:
+      type: number
+      text: Returns r, g, b color values.
+  examples:
+    - test: _:colorByHex('#FED7D7')
+      resp: 0.996078 0.843137 0.843137
+    - test: _:colorByHex('#38A169')
+      resp: 0.219608 0.631373 0.411765

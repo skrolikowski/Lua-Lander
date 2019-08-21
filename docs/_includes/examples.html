@@ -1,15 +1,14 @@
 {% if item.examples %}
     <div class="py-2 mb-5 ml-5">
         <h4 class="text-base md:text-lg uppercase text-gray-700">Examples</h4>
-        <div class="p-5 ml-6 mt-3 bg-blue-900 rounded-l overflow-x-scroll">
+        <div class="px-10 ml-6 mt-3 bg-blue-900 rounded-l overflow-x-scroll">
 
-{% highlight lua %}
-{% for example in item.examples %}
-    {{ example.test }}
-    -- {{ example.resp }}
-{% endfor %}
-{% endhighlight %}
-
+			{% highlight lua %}
+			{% for example in item.examples %}
+{{ example.test }}
+-- {{ example.resp }}
+			{% endfor %}
+			{% endhighlight %}
         </div>
     </div>
 {% endif %}

@@ -18,7 +18,6 @@ paginate_path: /page:num
 markdown: kramdown
 kramdown:
   input: GFM
-  parse_block_html: false
   highlighter: pygments
   syntax_highlighter_opts:
     span:

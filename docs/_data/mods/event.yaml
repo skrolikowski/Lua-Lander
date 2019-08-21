@@ -1,0 +1,84 @@
+link: https://github.com/skrolikowski/Lua-Lander/blob/master/mods/event.lua
+items:
+##########################
+# on
+##########################
+- name: 'on'
+  line: L26
+  sign: _:on(name, ...)
+  tags: ['event']
+  text:
+    - >
+      Register one or more event listener.
+  arguments:
+    - name: name
+      type: string
+      text: Event name identifier.
+    - name: ...
+      type: function
+      text: List of event handlers to invoke on event.
+  returns:
+    - name:
+      type: void
+      text: Registers event handlers to be invoked upon event dispatch.
+  examples:
+    - test: _:on('up', add, mul)
+      resp: adds multiple events when `up` event is dispatched.
+    - test: _:on('down', sub)
+      resp: adds single events when `down` event is dispatched.
+##########################
+# off
+##########################
+- name: 'off'
+  line: L49
+  sign: _:off(...)
+  tags: ['event']
+  text:
+    - >
+      Unregisters existing event listener(s) by name.
+  warn:
+    - >
+       All listeners registered with this name will be unregistered.
+  arguments:
+    - name: ...
+      type: string
+      text: List of event name identifiers.
+  returns:
+    - name:
+      type: void
+      text: Unregisters event handlers.
+  examples:
+    - test: _:off('up')
+      resp: removes multple event handlers registered at `up`.
+    - test: _:off('down')
+      resp: removes single event handler registred at `down`.
+##########################
+# dispatch
+##########################
+- name: dispatch
+  line: L63
+  sign: _:dispatch(name, ...)
+  tags: ['event']
+  text:
+    - >
+      Dispatches all events with matching `name`.
+  arguments:
+    - name: name
+      type: string
+      text: Event name identifier.
+    - name: ...
+      type: mixed
+      text: List of arguments to pass to event handler.
+  returns:
+    - name:
+      type: void
+      text: Invokes all event handlers with registered with matching `name`.
+  examples:
+    - test: |
+        -- local add = function(n) value = value + n end
+        -- local mul = function(n) value = value * n end
+        -- local sub = function(n) value = value - n end
+    - test: _:dispatch('add', 4)
+      resp: 16
+    - test: _:dispatch('down', 2)
+      resp: 7

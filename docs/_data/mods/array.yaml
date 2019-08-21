@@ -26,13 +26,13 @@ items:
       text: Returns new table of table chunks.
   examples:
     - test: _:chunki({'a', 'b', 'c', 'd'}, 2)
-      resp: {{'a', 'b'}, {'c', 'd'}}
+      resp: '{{"a", "b"}, {"c", "d"}}'
     - test: _:chunki({'a', 'b', 'c', 'd'}, 3)
-      resp: {{'a','b','c'}, {'d'}}
+      resp: '{{"a","b","c"}, {"d"}}'
     - test: _:chunki({'a', 'b', c=1, d=2})
-      resp: {{'a'}, {'b'}}
+      resp: '{{"a"}, {"b"}}'
     - test: _:chunki({'a', 'b', c=1, d=2}, 4)
-      resp: {{'a','b'}}
+      resp: '{{"a","b"}}'
 ##########################
 # differencei
 ##########################
@@ -59,13 +59,13 @@ items:
       text: Returns new table without intersecting values.
   examples:
     - test: _:differencei({2, 1}, {2, 3})
-      resp: {1}
+      resp: '{1}'
     - test: _:differencei({2, 1}, {2, 1})
-      resp: {}
+      resp: '{}'
     - test: _:differencei({2, 1}, {4, 6})
-      resp: {2, 1}
+      resp: '{2, 1}'
     - test: _:differencei({1, 2, 8, a=3, b=4}, {2, 4})
-      resp: {1, 8, a=3, b=4}
+      resp: '{1, 8, a=3, b=4}'
 ##########################
 # drop
 ##########################
@@ -92,13 +92,13 @@ items:
       text: Returns new table minus `num` of elements.
   examples:
     - test: _:drop({2, 1, 2, 3}, 1)
-      resp: {2, 1, 2}
+      resp: '{2, 1, 2}'
     - test: _:drop({2, 1, 2, 3}, 3)
-      resp: {2}
+      resp: '{2}'
     - test: _:drop({2, 1, 2, 3}, -1)
-      resp: {1, 2, 3}
+      resp: '{1, 2, 3}'
     - test: _:drop({2, 1, 2, 3}, -3)
-      resp: {3}
+      resp: '{3}'
 ##########################
 # fill
 ##########################
@@ -131,11 +131,11 @@ items:
       text: Returns new table with filled values.
   examples:
     - test: _:fill({1, 2, 3, 4}, 8, 2, 4)
-      resp: {1, 2, 3, 8, 8}
+      resp: '{1, 2, 3, 8, 8}'
     - test: _:fill({}, 'hello', 3, 2)
-      resp: {'hello', 'hello', 'hello'}
+      resp: '{"hello", "hello", "hello"}'
     - test: _:fill({2, 1, 3, a=4, b=6}, 9, 4)
-      resp: {9, 9, 9, 9, a=4, b=6}
+      resp: '{9, 9, 9, 9, a=4, b=6}'
 ##########################
 # findIndex
 ##########################
@@ -279,11 +279,11 @@ items:
       text: Returns new table without last index.
   examples:
     - test: _:initial({1, 5, 'r', 3})
-      resp: {1, 5, 'r'}
+      resp: '{1, 5, "r"}'
     - test: _:initial({4})
-      resp: {}
+      resp: '{}'
     - test: _:initial({c=10, 'a', 'b', 1})
-      resp: {'a', 'b', c=10}
+      resp: '{"a", "b", c=10}'
 ##########################
 # lastIndexOf
 ##########################
@@ -370,9 +370,9 @@ items:
       text: Returns new table modified.
   examples:
     - test: _:mapi({'a', 'b', 'c'}, string.upper)
-      resp: {'A', 'B', 'C'}
+      resp: '{"A", "B", "C"}'
     - test: _:mapi({a='x', b='y', 'c', 2, 1}, 'isNumber')
-      resp: {a='x', b='y', false, true, true}
+      resp: '{a="x", b="y", false, true, true}'
 ##########################
 # nth
 ##########################
@@ -428,7 +428,7 @@ items:
       text: Returns new table in reverse order.
   examples:
     - test: _:reverse({'a', 'b', 1, c=10})
-      resp: {1, 'b', 'a', c=10}
+      resp: '{1, "b", "a", c=10}'
 ##########################
 # shuffle
 ##########################
@@ -452,7 +452,7 @@ items:
       text: Returns new table in shuffled order.
   examples:
     - test: _:shuffle({'a', 'b', 1, c=10})
-      resp: {'b', 'a', 1, c=10}
+      resp: '{"b", "a", 1, c=10}'
 ##########################
 # tail
 ##########################
@@ -506,12 +506,12 @@ items:
       text: Returns new table without `...` values.
   examples:
     - test: _:without({1,2,3,3,5,6,6}, 3, 6)
-      resp: {1, 2, 5}
+      resp: '{1, 2, 5}'
     - test: _:without({1,2,3,3,5,6,6})
-      resp: {1, 2, 3, 3, 5, 6, 6}
+      resp: '{1, 2, 3, 3, 5, 6, 6}'
     - test: _:without({1,2,3,3,5,6,6}, 1, 2, 3, 5, 6)
-      resp: {}
+      resp: '{}'
     - test: _:without({'a','b','c',d=10}, 'b', 10)
-      resp: {'a', 'c', d=10}
+      resp: '{"a", "c", d=10}'
     - test: _:without({'a','b','c',d=10}, 'a', 'b', 'c')
-      resp: {d=10}
+      resp: '{d=10}'

@@ -4,7 +4,7 @@ items:
 # is_
 ##########################
 - name: is_
-  line: L66-L69
+  line: L64
   sign: _:is_(var)
   tags: ['lang', 'function']
   text:
@@ -31,7 +31,7 @@ items:
 # isArray
 ##########################
 - name: isArray
-  line: L80-L84
+  line: L77
   sign: _:isArray(var)
   tags: ['lang', 'array']
   text:
@@ -63,7 +63,7 @@ items:
 # isBoolean
 ##########################
 - name: isBoolean
-  line: L92-L94
+  line: L88
   sign: _:isBoolean(var)
   tags: ['lang', 'boolean']
   text:
@@ -86,7 +86,7 @@ items:
 # isEmpty
 ##########################
 - name: isEmpty
-  line: L100-L108
+  line: L97
   sign: _:isEmpty(var)
   tags: ['lang']
   text:
@@ -123,7 +123,7 @@ items:
 # isEqual
 ##########################
 - name: isEqual
-  line: L121-L123
+  line: L118
   sign: _:isEqual(left, right)
   tags: ['lang']
   text:
@@ -162,10 +162,33 @@ items:
     - test: _:isEqual({a = 1, b = 5, c = 3}, {c = 6, b = 10, a = 2})
       resp: false
 ##########################
+# isEven
+##########################
+- name: isEven
+  line: L127
+  sign: _:isEven(var)
+  tags: ['lang', 'boolean', 'number']
+  text:
+    - >
+      Determines if `var` is an even number.
+  arguments:
+    - name: var
+      type: mixed
+      text: variable to check.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if value is a even number, else `false`.
+  examples:
+    - test: _:isEven(147)
+      resp: false
+    - test: _:isEven(168)
+      resp: true
+##########################
 # isFalsey
 ##########################
 - name: isFalsey
-  line: L130-L136
+  line: L140
   sign: _:isFalsey(var)
   tags: ['lang', 'boolean']
   text:
@@ -194,7 +217,7 @@ items:
 # isFunction
 ##########################
 - name: isFunction
-  line: L130-L136
+  line: L153
   sign: _:isFunction(var)
   tags: ['lang', 'function']
   text:
@@ -219,7 +242,7 @@ items:
 # isNaN
 ##########################
 - name: isNaN
-  line: L153-L155
+  line: L163
   sign: _:isNaN(var)
   tags: ['lang', 'number']
   text:
@@ -242,7 +265,7 @@ items:
 # isNegative
 ##########################
 - name: isNegative
-  line: L162-L168
+  line: L172
   sign: _:isNegative(var)
   tags: ['lang', 'number']
   text:
@@ -267,7 +290,7 @@ items:
 # isNil
 ##########################
 - name: isNil
-  line: L175-L177
+  line: L185
   sign: _:isNil(var)
   tags: ['lang']
   text:
@@ -290,7 +313,7 @@ items:
 # isNotNil
 ##########################
 - name: isNotNil
-  line: L184-L186
+  line: L194
   sign: _:isNotNil(var)
   tags: ['lang']
   text:
@@ -313,7 +336,7 @@ items:
 # isNumber
 ##########################
 - name: isNumber
-  line: L193-L195
+  line: L203
   sign: _:isNumber(var)
   tags: ['lang', 'number']
   text:
@@ -333,10 +356,33 @@ items:
     - test: _:isNumber(42)
       resp: true
 ##########################
+# isOdd
+##########################
+- name: isOdd
+  line: L212
+  sign: _:isOdd(var)
+  tags: ['lang', 'boolean', 'number']
+  text:
+    - >
+      Determines if `var` is an odd number.
+  arguments:
+    - name: var
+      type: mixed
+      text: variable to check.
+  returns:
+    - name:
+      type: boolean
+      text: Returns `true` if value is an odd number, else `false`.
+  examples:
+    - test: _:isOdd(168)
+      resp: false
+    - test: _:isOdd(147)
+      resp: true
+##########################
 # isPositive
 ##########################
 - name: isPositive
-  line: L202-L208
+  line: L225
   sign: _:isPositive(var)
   tags: ['lang', 'number']
   text:
@@ -361,7 +407,7 @@ items:
 # isRegex
 ##########################
 - name: isRegex
-  line: L202-L208
+  line: L238
   sign: _:isPositive(var)
   tags: ['lang', 'regex']
   text:
@@ -388,7 +434,7 @@ items:
 # isRegexPattern
 ##########################
 - name: isRegexPattern
-  line: L224-L226
+  line: L247
   sign: _:isRegexPattern(var)
   tags: ['lang', 'regex']
   text:
@@ -415,7 +461,7 @@ items:
 # isSequence
 ##########################
 - name: isSequence
-  line: L234-L249
+  line: L257
   sign: _:isSequence(var)
   tags: ['lang']
   text:
@@ -442,7 +488,7 @@ items:
 # isSet
 ##########################
 - name: isSet
-  line: L261-L265
+  line: L284
   sign: _:isSet(var)
   tags: ['lang']
   text:
@@ -469,7 +515,7 @@ items:
 # isString
 ##########################
 - name: isString
-  line: L272-L274
+  line: L295
   sign: _:isString(var)
   tags: ['lang', 'string']
   text:
@@ -492,7 +538,7 @@ items:
 # isTable
 ##########################
 - name: isTable
-  line: L281-L283
+  line: L304
   sign: _:isTable(var)
   tags: ['lang', 'table']
   text:
@@ -515,7 +561,7 @@ items:
 # isTruthy
 ##########################
 - name: isTruthy
-  line: L290-L296
+  line: L313
   sign: _:isTruthy(var)
   tags: ['lang', 'boolean']
   text:
@@ -544,7 +590,7 @@ items:
 # isThread
 ##########################
 - name: isThread
-  line: L303-L305
+  line: L326
   sign: _:isThread(var)
   tags: ['lang', 'thread']
   text:
@@ -567,7 +613,7 @@ items:
 # isZero
 ##########################
 - name: isZero
-  line: L312-L314
+  line: L335
   sign: _:isZero(var)
   tags: ['lang']
   text:

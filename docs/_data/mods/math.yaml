@@ -27,7 +27,7 @@ items:
 # add
 ##########################
 - name: add
-  line: L26
+  line: L36
   sign: _:add(...)
   tags: ['math', 'number']
   text:
@@ -47,10 +47,169 @@ items:
     - test: _:add(4, 5, 3)
       resp: 12
 ##########################
+# bin2Dec
+##########################
+- name: bin2Dec
+  line: L47
+  sign: _:bin2Dec(bin)
+  tags: ['math', 'number', 'binary']
+  text:
+    - >
+      Converts `bin` representation into it's base-10 numeric counterpart.
+  arguments:
+    - name: bin
+      type: number
+      text: Binary number to convert.
+  returns:
+    - name:
+      type: number
+      text: Returns base-10 numeric value.
+  examples:
+    - test: _:bin2Dec('0011')
+      resp: 3
+    - test: _:bin2Dec('01010101')
+      resp: 85
+    - test: _:bin2Dec('101010111100')
+      resp: 2748
+##########################
+# bin2Hex
+##########################
+- name: bin2Hex
+  line: L67
+  sign: _:bin2Hex(bin)
+  tags: ['math', 'number', 'binary']
+  text:
+    - >
+      Converts `bin` representation into it's hexadecimal string counterpart.
+  arguments:
+    - name: bin
+      type: number
+      text: Binary number to convert.
+  returns:
+    - name:
+      type: string
+      text: Returns hexadecimal value.
+  examples:
+    - test: _:bin2Hex('0011')
+      resp: '3'
+    - test: _:bin2Hex('01010101')
+      resp: '55'
+    - test: _:bin2Hex('101010111100')
+      resp: 'ABC'
+##########################
+# bitwiseAND
+##########################
+- name: bitwiseAND
+  line: L80
+  sign: _:bitwiseAND(x, y)
+  tags: ['math', 'number', 'binary']
+  text:
+    - >
+      Perform bitwise AND operation on `x` and returns the result.
+  arguments:
+    - name: x
+      type: number
+      text: Number to compare.
+    - name: y
+      type: number
+      text: Number to compare.
+  returns:
+    - name:
+      type: number
+      text: Returns result of computation value.
+  examples:
+    - test: _:bitwiseAND(50, 25)
+      resp: 16
+    - test: _:bitwiseAND(128456, 6201938)
+      resp: 41024
+    - test: _:bitwiseAND(0x2BC, 0xAEF)
+      resp: 684
+##########################
+# bitwiseNOT
+##########################
+- name: bitwiseNOT
+  line: L107
+  sign: _:bitwiseNOT(x)
+  tags: ['math', 'number', 'binary']
+  text:
+    - >
+      Perform bitwise NOT operation on `x` and returns the result.
+  arguments:
+    - name: x
+      type: number
+      text: Number to compare.
+  returns:
+    - name:
+      type: number
+      text: Returns result of computation value.
+  examples:
+    - test: _:bitwiseNOT(546)
+      resp: -547
+    - test: _:bitwiseNOT(6589534)
+      resp: -6589535
+    - test: _:bitwiseNOT(0x2BC)
+      resp: -0x2bd
+##########################
+# bitwiseOR
+##########################
+- name: bitwiseOR
+  line: L120
+  sign: _:bitwiseOR(x, y)
+  tags: ['math', 'number', 'binary']
+  text:
+    - >
+      Perform bitwise OR operation on `x` and returns the result.
+  arguments:
+    - name: x
+      type: number
+      text: Number to compare.
+    - name: y
+      type: number
+      text: Number to compare.
+  returns:
+    - name:
+      type: number
+      text: Returns result of computation value.
+  examples:
+    - test: _:bitwiseOR(50, 25)
+      resp: 59
+    - test: _:bitwiseOR(128456, 6201938)
+      resp: 6289370
+    - test: _:bitwiseOR(0x2BC, 0xAEF)
+      resp: 2815
+##########################
+# bitwiseXOR
+##########################
+- name: bitwiseXOR
+  line: L148
+  sign: _:bitwiseXOR(x, y)
+  tags: ['math', 'number', 'binary']
+  text:
+    - >
+      Perform bitwise OR operation on `x` and returns the result.
+  arguments:
+    - name: x
+      type: number
+      text: Number to compare.
+    - name: y
+      type: number
+      text: Number to compare.
+  returns:
+    - name:
+      type: number
+      text: Returns result of computation value.
+  examples:
+    - test: _:bitwiseXOR(50, 25)
+      resp: 43
+    - test: _:bitwiseXOR(128456, 6201938)
+      resp: 6248346
+    - test: _:bitwiseXOR(0x2BC, 0xAEF)
+      resp: 2131
+##########################
 # ceil
 ##########################
 - name: ceil
-  line: L47
+  line: L177
   sign: _:ceil(num, [precision=0])
   tags: ['math', 'number']
   text:
@@ -78,10 +237,56 @@ items:
     - test: _:ceil(6040, -2)
       resp: 6100
 ##########################
+# dec2Bin
+##########################
+- name: dec2Bin
+  line: L192
+  sign: _:dec2Bin(dec)
+  tags: ['math', 'number', 'binary']
+  text:
+    - >
+      Converts `dec` representation into it's binary string counterpart.
+  arguments:
+    - name: dec
+      type: number
+      text: Base-10 number to convert.
+  returns:
+    - name:
+      type: string
+      text: Returns binary value.
+  examples:
+    - test: _:dec2Bin(55)
+      resp: '00110111'
+    - test: _:dec2Bin(578)
+      resp: '001001000010'
+##########################
+# dec2Hex
+##########################
+- name: dec2Hex
+  line: L207
+  sign: _:dec2Hex(dec)
+  tags: ['math', 'number', 'binary']
+  text:
+    - >
+      Converts `dec` representation into it's hexadecimal string counterpart.
+  arguments:
+    - name: dec
+      type: number
+      text: Base-10 number to convert.
+  returns:
+    - name:
+      type: string
+      text: Returns hexadecimal value.
+  examples:
+    - test: _:dec2Hex(7845)
+      resp: '1EA5'
+    - test: _:dec2Hex(268)
+      resp: '10C'
+##########################
 # divide
 ##########################
 - name: divide
-  line: L61
+  line: L218
   sign: _:divide(...)
   tags: ['math', 'number']
   text:
@@ -106,7 +311,7 @@ items:
 # floor
 ##########################
 - name: floor
-  line: L84
+  line: L241
   sign: _:floor(num, [precision=0])
   tags: ['math', 'number']
   text:
@@ -134,10 +339,56 @@ items:
     - test: _:floor(4060, -2)
       resp: 4000
 ##########################
+# hex2Bin
+##########################
+- name: hex2Bin
+  line: L256
+  sign: _:hex2Bin(hex)
+  tags: ['math', 'number', 'binary']
+  text:
+    - >
+      Converts `hex` representation into it's binary string counterpart.
+  arguments:
+    - name: hex
+      type: string
+      text: Hexadecimal value to convert.
+  returns:
+    - name:
+      type: string
+      text: Returns binary value.
+  examples:
+    - test: _:hex2Bin('55')
+      resp: '01010101'
+    - test: _:hex2Bin('AB14')
+      resp: '1010101100010100'
+##########################
+# hex2Dec
+##########################
+- name: hex2Dec
+  line: L274
+  sign: _:hex2Dec(hex)
+  tags: ['math', 'number', 'binary']
+  text:
+    - >
+      Converts `hex` representation into it's base-10 numeric counterpart.
+  arguments:
+    - name: hex
+      type: string
+      text: Hexadecimal value to convert.
+  returns:
+    - name:
+      type: number
+      text: Returns base-10 numeric value.
+  examples:
+    - test: _:hex2Dec('55')
+      resp: 85
+    - test: _:hex2Dec('AB14')
+      resp: 43796
+##########################
 # max
 ##########################
 - name: max
-  line: L97
+  line: L285
   sign: _:max(...)
   tags: ['math', 'number']
   text:
@@ -160,7 +411,7 @@ items:
 # maxBy
 ##########################
 - name: maxBy
-  line: L113
+  line: L300
   sign: _:maxBy(tabl, [iteratee])
   tags: ['math', 'number']
   text:
@@ -184,7 +435,7 @@ items:
 # mean
 ##########################
 - name: mean
-  line: L137
+  line: L326
   sign: _:mean(...)
   tags: ['math', 'number']
   text:
@@ -205,7 +456,7 @@ items:
 # meanBy
 ##########################
 - name: meanBy
-  line: L151
+  line: L340
   sign: _:meanBy(tabl, [iteratee])
   tags: ['math', 'number']
   text:
@@ -229,7 +480,7 @@ items:
 # min
 ##########################
 - name: min
-  line: L169
+  line: L358
   sign: _:min(...)
   tags: ['math', 'number']
   text:
@@ -252,7 +503,7 @@ items:
 # minBy
 ##########################
 - name: minBy
-  line: L184
+  line: L373
   sign: _:minBy(tabl, [iteratee])
   tags: ['math', 'number']
   text:
@@ -276,7 +527,7 @@ items:
 # multiply
 ##########################
 - name: multiply
-  line: L169
+  line: L399
   sign: _:multiply(...)
   tags: ['math', 'number']
   text:
@@ -299,7 +550,7 @@ items:
 # multiplyBy
 ##########################
 - name: multiplyBy
-  line: L184
+  line: L412
   sign: _:multiplyBy(tabl, [iteratee])
   tags: ['math', 'number']
   text:
@@ -323,7 +574,7 @@ items:
 # round
 ##########################
 - name: round
-  line: L246
+  line: L439
   sign: _:round(num, [precision=0])
   tags: ['math', 'number']
   text:
@@ -351,7 +602,7 @@ items:
 # subtract
 ##########################
 - name: subtract
-  line: L260
+  line: L453
   sign: _:subtract(...)
   tags: ['math', 'number']
   text:
@@ -374,7 +625,7 @@ items:
 # subtractBy
 ##########################
 - name: subtractBy
-  line: L275
+  line: L468
   sign: _:subtractBy(tabl, [iteratee])
   tags: ['math', 'number']
   text:
@@ -398,7 +649,7 @@ items:
 # sum
 ##########################
 - name: sum
-  line: L299
+  line: L494
   sign: _:sum(...)
   tags: ['math', 'number']
   text:
@@ -421,7 +672,7 @@ items:
 # sumBy
 ##########################
 - name: sumBy
-  line: L313
+  line: L508
   sign: _:sumBy(tabl, [iteratee])
   tags: ['math', 'number']
   text:
@@ -445,7 +696,7 @@ items:
 # toDeg
 ##########################
 - name: toDeg
-  line: L333
+  line: L530
   sign: _:toDeg(rad)
   tags: ['math', 'number']
   text:
@@ -468,7 +719,7 @@ items:
 # toRad
 ##########################
 - name: toRad
-  line: L342
+  line: L539
   sign: _:toRad(rad)
   tags: ['math', 'number']
   text:

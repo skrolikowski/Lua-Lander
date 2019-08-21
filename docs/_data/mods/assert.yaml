@@ -4,7 +4,7 @@ items:
 # assertArgument
 ##########################
 - name: assertArgument
-  line: L38-L54
+  line: L38
   sign: _:assertArgument(name, var, expect, [default])
   tags: ['assert']
   text:
@@ -44,7 +44,7 @@ items:
 # assertEqualSize
 ##########################
 - name: assertEqualSize
-  line: L62-L76
+  line: L62
   sign: _:assertEqualSize(name, [...])
   text:
     - >
@@ -73,7 +73,7 @@ items:
 # assertIsBoolean
 ##########################
 - name: assertIsBoolean
-  line: L84-L89
+  line: L84
   sign: _:assertIsBoolean(name, var)
   text:
     - >
@@ -98,7 +98,7 @@ items:
 # assertIsNumber
 ##########################
 - name: assertIsNumber
-  line: L97-103
+  line: L97
   sign: _:assertIsNumber(name, var)
   text:
     - >
@@ -123,7 +123,7 @@ items:
 # assertIsRegex
 ##########################
 - name: assertIsRegex
-  line: L111-113
+  line: L111
   sign: _:assertIsRegex(name, var)
   text:
     - >
@@ -148,7 +148,7 @@ items:
 # assertIsRegexPattern
 ##########################
 - name: assertIsRegexPattern
-  line: L121-126
+  line: L121
   sign: _:assertIsRegexPattern(name, var)
   text:
     - >
@@ -173,7 +173,7 @@ items:
 # assertIsString
 ##########################
 - name: assertIsString
-  line: L134-L140
+  line: L134
   sign: _:assertIsString(name, var)
   text:
     - >
@@ -198,7 +198,7 @@ items:
 # assertIsTable
 ##########################
 - name: assertIsTable
-  line: L148-L154
+  line: L148
   sign: _:assertIsTable(name, var)
   text:
     - >
@@ -223,7 +223,7 @@ items:
 # assertMinSize
 ##########################
 - name: assertMinSize
-  line: L163-170
+  line: L163
   sign: _:assertMinSize(name, var, expect)
   text:
     - >
@@ -253,7 +253,7 @@ items:
 # assertMaxSize
 ##########################
 - name: assertMaxSize
-  line: L179-186
+  line: L179
   sign: _:assertMaxSize(name, var, expect)
   text:
     - >
@@ -283,7 +283,7 @@ items:
 # assertNotNil
 ##########################
 - name: assertNotNil
-  line: L194-199
+  line: L194
   sign: _:assertNotNil(name, var)
   text:
     - >
@@ -308,7 +308,7 @@ items:
 # assertNotZero
 ##########################
 - name: assertNotZero
-  line: L207-212
+  line: L207
   sign: _:assertNotZero(name, var)
   text:
     - >

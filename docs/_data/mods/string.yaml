@@ -249,7 +249,7 @@ items:
 # rep
 ##########################
 - name: rep
-  line: L189
+  line: L188
   sign: _:rep(str, [n=1])
   tags: ['string']
   text:
@@ -362,9 +362,9 @@ items:
       text: Returns string segments.
   examples:
     - test: _:split('a-b-c-', '-')
-      resp: {'a', 'b', 'c'}
+      resp: '{"a", "b", "c"}'
     - test: _:split('a-b-c', '-', 2)
-      resp: {'a', 'b'}
+      resp: '{"a", "b"}'
 ##########################
 # startCase
 ##########################
@@ -481,7 +481,7 @@ items:
 # trim
 ##########################
 - name: trim
-  line: L301
+  line: L313
   sign: _:trim(str, [pattern="%s+"])
   tags: ['string']
   text:
@@ -509,7 +509,7 @@ items:
 # trimEnd
 ##########################
 - name: trimEnd
-  line: L301
+  line: L326
   sign: _:trimEnd(str, [pattern="%s+"])
   tags: ['string']
   text:
@@ -668,6 +668,6 @@ items:
       text: Returns table of string segments.
   examples:
     - test: _:words('lister, cat, & kryton')
-      resp: {'lister', 'cat', 'kryton'}
+      resp: '{"lister", "cat", "kryton"}'
     - test: _:words('lister, cat, & kryton', "[^,%s]+")
-      resp: {'lister', 'cat', '&', 'kryton'}
+      resp: '{"lister", "cat", "&", "kryton"}'
